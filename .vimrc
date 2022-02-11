@@ -1,4 +1,3 @@
-
 """""""""""""""""""""""
 " 環境設定
 """""""""""""""""""""""
@@ -74,6 +73,9 @@ set hidden
 " 日本語の行の連結時に空白を入力しない。
 set formatoptions+=mM
 
+" バックスペースで削除されるように矯正
+set backspace=indent,eol,start
+
 
 """""""""""""""""""""""
 " 検索系
@@ -103,6 +105,7 @@ set hlsearch
 inoremap { {}<LEFT>
 inoremap [ []<LEFT>
 inoremap ( ()<LEFT>
+inoremap ' ''<LEFT>
 
 """"""""""""""""""""""""""""""""""""""""""""
 " dein script
@@ -160,7 +163,6 @@ endif
 
 " Required:
 filetype plugin indent on
-syntax enable
 
 
 " If you want to install not installed plugins on startup.
