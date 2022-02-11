@@ -1,11 +1,8 @@
 
-
-
-
 """""""""""""""""""""""
 " 環境設定
 """""""""""""""""""""""
-scriptencoding cut-8
+scriptencoding cutf-8
 
 "文字コードをUFT-8に設定
 set fenc=utf-8
@@ -58,6 +55,10 @@ set tabstop=2
 
 " 行頭でのTab文字の表示幅
 set shiftwidth=2
+
+" 使用配色追加
+set t_CO=256
+
 """""""""""""""""""""""
 " 編集系
 """""""""""""""""""""""
@@ -96,7 +97,9 @@ set incsearch
 set hlsearch
 
 
-
+""""""""""""""""""""""""""""""""""""""""""""
+" dein script
+""""""""""""""""""""""""""""""""""""""""""""
 
 "dein Scripts-----------------------------
 if &compatible
@@ -116,15 +119,42 @@ call dein#add('/Users/takaokeita/.cache/dein/repos/github.com/Shougo/dein.vim')
 " Add or remove your plugins here like this:
 "call dein#add('Shougo/neosnippet.vim')
 "call dein#add('Shougo/neosnippet-snippets')
-call dein#add('preservim/nerdtree')
 
+" カラースキーム変更
+call dein#add('morhetz/gruvbox')
+
+" エクスプローラーの追加
+call dein#add('preservim/nerdtree')
+" コマンドマッピング
+nnoremap <silent><C-e> :NERDTreeToggle<CR>
+
+
+
+
+" クォーテーションの切り替え
+call dein#add('tpope/vim-surround')
+" ダブルコーテーション→シングルコーテーション
+nmap ff <Plug>Csurround"'
+" シングルコーテーション→ダブルコーテーション
+nmap tt <Plug>Csurround'"
+
+" インデントの視覚化
+call dein#add('nathanaelkane/vim-indent-guides')
 
 " Required:
 call dein#end()
 
+
+
+" 未インストールのプラグインをインストール
+if dein#check_install()
+    call dein#install()
+endif
+
+
 " Required:
 filetype plugin indent on
-
+syntax enable
 
 
 " If you want to install not installed plugins on startup.
