@@ -97,6 +97,13 @@ set incsearch
 set hlsearch
 
 
+"""""""""""""""""""""""""""
+" 入力補完"
+"""""""""""""""""""""""""""
+inoremap { {}<LEFT>
+inoremap [ []<LEFT>
+inoremap ( ()<LEFT>
+
 """"""""""""""""""""""""""""""""""""""""""""
 " dein script
 """"""""""""""""""""""""""""""""""""""""""""
@@ -125,11 +132,10 @@ call dein#add('morhetz/gruvbox')
 
 " エクスプローラーの追加
 call dein#add('preservim/nerdtree')
-" コマンドマッピング
-nnoremap <silent><C-e> :NERDTreeToggle<CR>
-
-
-
+autocmd vimenter * NERDTree
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+map <C-e> :NERDTreeToggle<CR>
 
 " クォーテーションの切り替え
 call dein#add('tpope/vim-surround')
