@@ -1,16 +1,19 @@
 if status is-interactive
     # Commands to run in interactive sessions can go here
 end
-fish_add_path /usr/local/opt/mysql/bi :n
 
-fish_add_path $HOME/.composer/vendor/bin
-# fish_add_path /usr/local/opt/php@7.4/bin
-# fish_add_path /usr/local/opt/php@7.4/sbin
-fish_add_path $HOME/.nodebrew/current/bin
-status --is-interactive; and source (rbenv init -|psub)
- 
-fish_add_path /usr/local/opt/php@8.0/bin
-fish_add_path /usr/local/opt/php@8.0/sbin
+# Mysqlパス
+set -x PATH /usr/local/opt/mysql/bin $PATH
+
+# Laravel composer パス
+set -x PATH $HOME/.composer/vendor/bin $PATH
+
+# nodebrew パス
+set -x PATH $HOME/.nodebrew/current/bin $PATH
+
+# PHP パス
+set -x PATH /usr/local/opt/php@8.0/bin $PATH
+set -x PATH /usr/local/opt/php@8.0/sbin $PATH
 
 
 # rmコマンドのalias登録
@@ -23,3 +26,5 @@ alias vim='nvim'
 # python3をデフォルトにする
 alias python='python3'
 
+# lsコマンドのオプション指定
+alias ls='ls -FA'
