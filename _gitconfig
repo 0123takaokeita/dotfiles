@@ -1,0 +1,24 @@
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[user]
+	name = Keita Takao:
+	email = keita.takao.1112@gmail.com
+[color]
+	ui = auto
+[alias]
+	br = branch
+	co = checkout
+	cm = commit
+	st = status
+	cp = cherry-pick
+	graph = log --graph --date=short --decorate=short --pretty=format:'%Cgreen%h %Creset%cd %Cblue%cn %Cred%d %Creset%s'
+	gr = log --graph --date=short --decorate=short --pretty=format:'%Cgreen%h %Creset%cd %Cblue%cn %Cred%d %Creset%s'
+[core]
+	pager = LESSCHARSET=utf-8 less
+	quotepath = false
+	editor = vim
+[rebase]
+	autostash = true
