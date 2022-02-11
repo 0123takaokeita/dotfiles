@@ -7,12 +7,12 @@
 	name = Keita Takao:
 	email = keita.takao.1112@gmail.com
 [color]
-	ui = auto
+	ui = true
 [alias]
 	br = branch
 	co = checkout
 	cm = commit
-	st = status
+	st = status -s
 	cp = cherry-pick
 	graph = log --graph --date=short --decorate=short --pretty=format:'%Cgreen%h %Creset%cd %Cblue%cn %Cred%d %Creset%s'
 	gr = log --graph --date=short --decorate=short --pretty=format:'%Cgreen%h %Creset%cd %Cblue%cn %Cred%d %Creset%s'
