@@ -18,6 +18,9 @@ set hidden
 " ヒストリの保存数指定
 set history=50
 
+" ヘルプ日本語化
+set helplang=ja,en
+
 
 """""""""""""""""""""""
 " 表示関係
@@ -147,8 +150,19 @@ nmap ff <Plug>Csurround"'
 " シングルコーテーション→ダブルコーテーション
 nmap tt <Plug>Csurround'"
 
-" インデントの視覚化
+" インデントの視覚化 gcc
 call dein#add('nathanaelkane/vim-indent-guides')
+
+" コメントアウト コマンド有効化
+call dein#add('tomtom/tcomment_vim')
+" ヘルプ日本語化"
+call dein#add('vim-jp/vimdoc-ja')
+
+" ライトラインのビジュアル変更
+call dein#add('itchyny/lightline.vim')
+let g:lightline = {
+      \ 'colorscheme': 'wombat'
+      \ }
 
 " Required:
 call dein#end()
