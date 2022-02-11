@@ -21,7 +21,7 @@ alias rm='trash'
 
 # nvimのエイリアス
 alias vi='nvim'
-alias vim='nvim'
+alias vim='vim'
 
 # python3をデフォルトにする
 alias python='python3'
