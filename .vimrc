@@ -1,106 +1,48 @@
-"""""""""""""""""""""""
+"""""""""""""""""""""
 " 環境設定
 """""""""""""""""""""""
-scriptencoding cutf-8
-
-"文字コードをUFT-8に設定
-set fenc=utf-8
-
-" スワップファイルを作らない
-set noswapfile
-
-" クリップボードを共有
-set clipboard+=unnamed
-
-" 編集結果非保存のバッファから、新しいバッファを開くときに警告を出さない
-set hidden
-
-" ヒストリの保存数指定
-set history=50
-
-" ヘルプ日本語化
-set helplang=ja,en
+scriptencoding cutf-8          "文字コードをUFT-8に設定
+set fenc=utf-8                 "文字コードをUTF-８で保存
+set noswapfile                 " スワップファイルを作らない
+set clipboard+=unnamed         " クリップボードを共有
+set hidden                     " 編集結果非保存のバッファから、新しいバッファを開くときに警告を出さない
+set history=50                 " ヒストリの保存数指定
+set helplang=ja,en             " ヘルプ日本語化
 
 
 """""""""""""""""""""""
 " 表示関係
 """""""""""""""""""""""
-"  数字の表示
-set number
+set number                     " 数字の表示
+syntax enable                  " シンタックスハイライトの有効化
+set laststatus=2               " ステータスラインを常に表示
+set showcmd                    " 入力中のコマンドをステータスに表示する
+set cursorline                 " 現在の行を強調表示
+set smartindent                " インデントはスマートインデント
+set list listchars=tab:\▸\-    " 不可視文字を可視化(タブが「▸-」と表示される)
+set expandtab                  " Tab文字を半角スペースにする
+set tabstop=2                  " 行頭以外のTab文字の表示幅（スペースいくつ分）
+set shiftwidth=2               " 行頭でのTab文字の表示幅
+set t_CO=256                   " 使用配色追加
 
-" シンタックスハイライトの有効化
-syntax enable
-
-" ステータスラインを常に表示
-set laststatus=2
-
-" 括弧入力時の対応する括弧を表示
-set showmatch
-
-" 入力中のコマンドをステータスに表示する
-set showcmd
-
-" 現在の行を強調表示
-set cursorline
-
-" インデントはスマートインデント
-set smartindent
-
-" 不可視文字を可視化(タブが「▸-」と表示される)
-set list listchars=tab:\▸\-
-
-" Tab文字を半角スペースにする
-set expandtab
-
-" 行頭以外のTab文字の表示幅（スペースいくつ分）
-set tabstop=2
-
-" 行頭でのTab文字の表示幅
-set shiftwidth=2
-
-" 使用配色追加
-set t_CO=256
-
+"""""""""""""""""""""""
 """""""""""""""""""""""
 " 編集系
-"""""""""""""""""""""""
-" コマンドラインの補完
-set wildmode=list:longest
-
-" 行末の1文字先までカーソルを移動できるように
-set virtualedit=onemore
-
-" バッファが編集中でもその他のファイルを開けるように
-set hidden
-
-" 日本語の行の連結時に空白を入力しない。
-set formatoptions+=mM
-
-" バックスペースで削除されるように矯正
-set backspace=indent,eol,start
-
+set wildmode=list:longest      " コマンドラインの補完
+set virtualedit=onemore        " 行末の1文字先までカーソルを移動できるように
+set hidden                     " バッファが編集中でもその他のファイルを開けるように
+set formatoptions+=mM          " 日本語の行の連結時に空白を入力しない。
+set backspace=indent,eol,start " バックスペースで削除されるように矯正
 
 """""""""""""""""""""""
 " 検索系
 """""""""""""""""""""""
-" 検索時にファイルの最後まで行ったら最初に戻る
-set wrapscan
-
-" インクリメンタルサーチ
-set incsearch
-
-" 検索文字の強調表示
-set hlsearch
-
-" 検索文字列が小文字の場合は大文字小文字を区別なく検索する
-set ignorecase
-
-set incsearch
-" 検索時に最後まで行ったら最初に戻る
-
-" 検索語をハイライト表示
-set hlsearch
-
+set wrapscan                   " 検索時にファイルの最後まで行ったら最初に戻る
+set incsearch                  " インクリメンタルサーチ
+set hlsearch                   " 検索文字の強調表示
+set ignorecase                 " 検索文字列が小文字の場合は大文字小文字を区別なく検索する
+set incsearch                  " 検索時に最後まで行ったら最初に戻る
+set hlsearch                   " 検索語をハイライト表示
 
 """""""""""""""""""""""""""
 " 入力補完"
@@ -133,8 +75,6 @@ call dein#add('$HOME/.cache/dein/repos/github.com/Shougo/dein.vim')
 "call dein#add('Shougo/neosnippet.vim')
 "call dein#add('Shougo/neosnippet-snippets')
 
-" カラースキーム変更
-call dein#add('morhetz/gruvbox')
 
 " エクスプローラーの追加
 call dein#add('preservim/nerdtree')
@@ -143,31 +83,28 @@ autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 map <C-e> :NERDTreeToggle<CR>
 
-" クォーテーションの切り替え
-call dein#add('tpope/vim-surround')
+call dein#add('tpope/vim-surround')                     " クォーテーションの切り替え
 " ダブルコーテーション→シングルコーテーション
-nmap ff <Plug>Csurround"'
+nmap ff <Plug>Csurround"'                               
 " シングルコーテーション→ダブルコーテーション
 nmap tt <Plug>Csurround'"
 
-" インデントの視覚化 gcc
-call dein#add('nathanaelkane/vim-indent-guides')
-
-" コメントアウト コマンド有効化
-call dein#add('tomtom/tcomment_vim')
-" ヘルプ日本語化"
-call dein#add('vim-jp/vimdoc-ja')
-
-" ライトラインのビジュアル変更
-call dein#add('itchyny/lightline.vim')
+call dein#add('morhetz/gruvbox')                        " カラースキーム変更
+call dein#add('nathanaelkane/vim-indent-guides')        " インデントの視覚化
+call dein#add('bronson/vim-trailing-whitespace')        " 末尾の全角半角空白文字を赤くハイライト
+call dein#add('tomtom/tcomment_vim')                    " コメントアウト コマンド有効化 gcc
+call dein#add('pmsorhaindo/syntastic-local-eslint.vim') " プロジェクトに入ってるESLintを読み込む
+call dein#add('vim-jp/vimdoc-ja')                       " ヘルプ日本語化
+call dein#add('Shougo/neocomplcache')                   " コード補完
+call dein#add('tpope/vim-endwise')                      " end 自動挿入
+call dein#add('scrooloose/syntastic.git')               " Ruby 構文チェック
+call dein#add('itchyny/lightline.vim')                  " ライトラインのビジュアル変更
 let g:lightline = {
       \ 'colorscheme': 'wombat'
       \ }
 
 " Required:
 call dein#end()
-
-
 
 " 未インストールのプラグインをインストール
 if dein#check_install()
@@ -178,13 +115,4 @@ endif
 " Required:
 filetype plugin indent on
 
-
-" If you want to install not installed plugins on startup.
-"if dein#check_install()
-"  call dein#install()
-"endif
-
 "End dein Scripts-------------------------
-
-
-
