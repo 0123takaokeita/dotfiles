@@ -11,16 +11,17 @@
 [alias]
 	br = branch
 	co = checkout
-	cm = commit
 	st = status -s
 	cp = cherry-pick
 	gr = log --graph --date=short --decorate=short --pretty=format:'%Cgreen%h %Creset%cd %Cblue%cn %Cred%d %Creset%s'
 	undo = reset --soft HEAD^
 	brl = branch -a
 	cp = cherry-pick
+	ci = commit -m
 [core]
 	pager = LESSCHARSET=utf-8 less
 	quotepath = false
 	editor = vim
 [rebase]
 	autostash = true
+	autosquash = true
