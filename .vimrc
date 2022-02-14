@@ -26,8 +26,8 @@ set shiftwidth=2               " 行頭でのTab文字の表示幅
 set t_CO=256                   " 使用配色追加
 
 """""""""""""""""""""""
-"""""""""""""""""""""""
 " 編集系
+"""""""""""""""""""""""
 set wildmode=list:longest      " コマンドラインの補完
 set virtualedit=onemore        " 行末の1文字先までカーソルを移動できるように
 set hidden                     " バッファが編集中でもその他のファイルを開けるように
@@ -76,18 +76,19 @@ call dein#add('$HOME/.cache/dein/repos/github.com/Shougo/dein.vim')
 "call dein#add('Shougo/neosnippet-snippets')
 
 
-" エクスプローラーの追加
-call dein#add('preservim/nerdtree')
-autocmd vimenter * NERDTree
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-map <C-e> :NERDTreeToggle<CR>
+call dein#add('preservim/nerdtree')                     " エクスプローラーの追加
+  map <C-e> :NERDTreeToggle<CR>                         " Ctrl + e エクスプローラー起動
+  let NERDTreeShowHidden = 1                            " 隠しファイルの常時表示
 
 call dein#add('tpope/vim-surround')                     " クォーテーションの切り替え
-" ダブルコーテーション→シングルコーテーション
-nmap ff <Plug>Csurround"'                               
-" シングルコーテーション→ダブルコーテーション
-nmap tt <Plug>Csurround'"
+  nmap ff <Plug>Csurround"'
+  nmap tt <Plug>Csurround'"
+
+call dein#add('ryanoasis/vim-devicons')                 " icon install
+  let g:webdevicons_enable_nerdtree = 1                 " icon 有効化
+
+call dein#add('vim-scripts/vim-auto-save')              " ファイルのオートセーブ
+  let g:auto_save = 1                                   " 起動時に自動保存の有効化 OFF :AutoSaveToggle
 
 call dein#add('morhetz/gruvbox')                        " カラースキーム変更
 call dein#add('nathanaelkane/vim-indent-guides')        " インデントの視覚化
