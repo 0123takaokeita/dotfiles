@@ -92,6 +92,8 @@ call dein#add('vim-scripts/vim-auto-save')              " ファイルのオー�
 
 call dein#add("ctrlpvim/ctrlp.vim")                     " file 検索をCtrl + pで行える。
     let g:ctrlp_show_hidden = 1                         " 隠しファイルも表示する。
+
+call dein#add("cocopon/iceberg.vim")                    " icebergのカラースキーム
 call dein#add('morhetz/gruvbox')                        " カラースキーム変更
 call dein#add('nathanaelkane/vim-indent-guides')        " インデントの視覚化
 call dein#add('bronson/vim-trailing-whitespace')        " 末尾の全角半角空白文字を赤くハイライト
