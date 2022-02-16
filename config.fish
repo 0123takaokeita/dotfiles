@@ -28,3 +28,6 @@ alias python='python3'
 
 # lsコマンドのオプション指定
 alias ls='ls -FA'
+
+# 環境変数を改行区切りで表示
+echo $PATH | tr " " "\n" | nl

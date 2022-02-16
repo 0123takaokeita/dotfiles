@@ -76,16 +76,20 @@ call dein#add('$HOME/.cache/dein/repos/github.com/Shougo/dein.vim')
 "call dein#add('Shougo/neosnippet-snippets')
 
 
+call dein#add('ryanoasis/vim-devicons')                 " icon install
+  let g:webdevicons_conceal_nerdtree_brackets = 1
+  let g:WebDevIconsNerdTreeAfterGlyphPadding = ' '
+  let g:webdevicons_enable_nerdtree = 1                 " icon 有効化
 call dein#add('preservim/nerdtree')                     " エクスプローラーの追加
   map <C-e> :NERDTreeToggle<CR>                         " Ctrl + e エクスプローラー起動
   let NERDTreeShowHidden = 1                            " 隠しファイルの常時表示
+  let g:NERDTreeDirArrows = 1
+call dein#add('tiagofumo/vim-nerdtree-syntax-highlight')
 
 call dein#add('tpope/vim-surround')                     " クォーテーションの切り替え
   nmap ff <Plug>Csurround"'
   nmap tt <Plug>Csurround'"
 
-call dein#add('ryanoasis/vim-devicons')                 " icon install
-  let g:webdevicons_enable_nerdtree = 1                 " icon 有効化
 
 call dein#add('vim-scripts/vim-auto-save')              " ファイルのオートセーブ
   let g:auto_save = 1                                   " 起動時に自動保存の有効化 OFF :AutoSaveToggle
