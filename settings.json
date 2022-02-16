@@ -1,0 +1,45 @@
+{
+    "git.enableSmartCommit": true,
+    "files.autoSave": "onFocusChange",
+    "git.autofetch": true,
+    "diffEditor.ignoreTrimWhitespace": false,
+    "[markdown]": {
+        "editor.defaultFormatter": "yzhang.markdown-all-in-one"
+    },
+    "editor.fontFamily": "hackgennerd",
+    "editor.fontSize": 16,
+    "files.eol": "\n",
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true,
+    "workbench.colorTheme": "GitHub Dark Colorblind (Beta)",
+    "sync.gist": "d8392ebc5da6d7642f858db415780ad3",
+    "todohighlight.isEnable": true,
+    "workbench.iconTheme": "material-icon-theme",
+    "files.autoGuessEncoding": true,
+    "editor.minimap.enabled": false,
+    "editor.bracketPairColorization.enabled": true,
+    "githubPullRequests.queries": [
+        {
+            "label": "Waiting For My Review",
+            "query": "is:open review-requested:${user}"
+        },
+        {
+            "label": "Assigned To Me",
+            "query": "is:open assignee:${user}"
+        },
+        {
+            "label": "Created By Me",
+            "query": "is:open author:${user}"
+        }
+    ],
+    "editor.renderWhitespace": "boundary",
+    "editor.formatOnSaveMode": "modificationsIfAvailable",
+    "workbench.tree.indent": 18,
+    "[python]": {
+        "editor.tabSize": 4,
+        "editor.insertSpaces": true
+    },
+    "explorer.compactFolders": false,
+    "vim.vimrc.enable": true,
+    "vim.vimrc.path": "/Users/takaokeita/.vimrc",
+}
