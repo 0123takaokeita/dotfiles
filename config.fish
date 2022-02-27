@@ -3,17 +3,21 @@ if status is-interactive
 end
 
 # Mysqlパス
-set -x PATH /usr/local/opt/mysql/bin $PATH
+set -x PATH  /usr/local/opt/mysql/bin $PATH
 
-# Laravel composer パス
-set -x PATH $HOME/.composer/vendor/bin $PATH
+# rbrenv path
+set -x  PATH $HOME/.rbenb/bin $PATH
+status --is-interactive; and source (rbenv init -|psub)
+
+# Laravel compos
+set -x PATH  $HOME/.composer/vendor/bin $PATH
 
 # nodebrew パス
-set -x PATH $HOME/.nodebrew/current/bin $PATH
+set -x PATH  $HOME/.nodebrew/current/bin $PATH
 
 # PHP パス
-set -x PATH /usr/local/opt/php@8.0/bin $PATH
-set -x PATH /usr/local/opt/php@8.0/sbin $PATH
+set -x PATH  /usr/local/opt/php@8.0/bin $PATH
+set -x  PATH /usr/local/opt/php@8.0/sbin $PATH
 
 
 # rmコマンドのalias登録
@@ -30,4 +34,8 @@ alias python='python3'
 alias ls='ls -FA'
 
 # 環境変数を改行区切りで表示
-echo $PATH | tr " " "\n" | nl
+alias pathls='echo $PATH | tr " " "\n" | nl'
+alias pathfish='echo $fish_user_paths | tr " " "\n" | nl'
+
+# よく使用するディレクトリ
+alias paiza='cd /Users/keita_takao/learning/paiza'
