@@ -90,6 +90,7 @@ set number                     " 数字の表示
 set ruler                      " 現在の行と列を表示する。
 set laststatus=2               " ステータスラインを常に表示
 set showcmd                    " 入力中のコマンドをステータスに表示する
+set title                      " window title の表示
 
 """"""""""""""""""""""
 " 編集系
