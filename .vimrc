@@ -35,6 +35,8 @@ call dein#add('nathanaelkane/vim-indent-guides')         " indent guide
 
 call dein#add('airblade/vim-gitgutter')                  " gitの差分を表示
   let g:gitgutter_highlight_lines = 1                    " ハイライトの有効化
+
+call dein#add('ayu-theme/ayu-vim')                       " colortheme ayu
 call dein#add('bronson/vim-trailing-whitespace')         " 末尾の全角半角空白文字を赤くハイライト
 call dein#add('tomtom/tcomment_vim')                     " コメントアウト コマンド有効化 gcc
 call dein#add('pmsorhaindo/syntastic-local-eslint.vim')  " プロジェクトに入ってるESLintを読み込む
@@ -64,8 +66,8 @@ filetype indent on             " ファイル対応ごとにインデントを�
 syntax on
 colorscheme ayu
   " let ayucolor="light"
- let ayucolor="mirage"
-  " let ayucolor="dark"
+  " let ayucolor="mirage"
+  let ayucolor="dark"
 
 """""""""""""""""""""""
 " 環境設定
