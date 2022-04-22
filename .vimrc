@@ -30,8 +30,8 @@ call dein#add("ctrlpvim/ctrlp.vim")                      " file 検索をCtrl + 
 call dein#add('itchyny/lightline.vim')                   " ライトラインのビジュアル変更
   let g:lightline = { 'colorscheme': 'wombat'}
 
-call dein#add('vim-indent-rainbow')                      " indentに色を付ける
-call dein#add('ayu-theme/ayu-vim')                       " cloloersheme ayu
+call dein#add('nathanaelkane/vim-indent-guides')         " indent guide
+  let g:indent_guides_enable_on_vim_startup = 1          " 起動時にindent guideを有効
 call dein#add('bronson/vim-trailing-whitespace')         " 末尾の全角半角空白文字を赤くハイライト
 call dein#add('tomtom/tcomment_vim')                     " コメントアウト コマンド有効化 gcc
 call dein#add('pmsorhaindo/syntastic-local-eslint.vim')  " プロジェクトに入ってるESLintを読み込む
