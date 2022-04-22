@@ -4,8 +4,8 @@
 	process = git-lfs filter-process
 	required = true
 [user]
-	name = Keita Takao:
-	email = keita.takao.1112@gmail.com
+	name = Takao
+	email = k.takao@neogenia.co.jp
 [color]
 	ui = true
 [alias]
