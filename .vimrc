@@ -36,6 +36,10 @@ call dein#add('nathanaelkane/vim-indent-guides')         " indent guide
 call dein#add('airblade/vim-gitgutter')                  " gitの差分を表示
   let g:gitgutter_highlight_lines = 1                    " ハイライトの有効化
 
+call dein#add('junegunn/vim-easy-align')                 " align regex
+  xmap ga <Plug>(EasyAlign)                              " visual modeでga
+  nmap ga <Plug>(EasyAlign)                              " normal modeでga
+
 call dein#add('ayu-theme/ayu-vim')                       " colortheme ayu
 call dein#add('bronson/vim-trailing-whitespace')         " 末尾の全角半角空白文字を赤くハイライト
 call dein#add('tomtom/tcomment_vim')                     " コメントアウト コマンド有効化 gcc
