@@ -7,15 +7,11 @@ set runtimepath+=$HOME/.cache/dein/repos/github.com/Shougo/dein.vim
 call dein#begin('$HOME/.cache/dein')
 call dein#add('$HOME/.cache/dein/repos/github.com/Shougo/dein.vim')
 
-call dein#add('Shougo/unite.vim')                        " 共通インターフェースunite
-call dein#add('Shougo/neomru.vim')                       " file_mruの有効化
-  map <C-u> :Unite 
-
-call dein#add('ryanoasis/vim-devicons')                  " icon install
-  let g:WebDevIconsNerdTreeAfterGlyphPadding = '   '     " icon after space
-  let g:webdevicons_enable_nerdtree = 1                  " icon enable
-
 call dein#add('tiagofumo/vim-nerdtree-syntax-highlight') " NERTDTree syntax
+call dein#add('ryanoasis/vim-devicons')                  " icon install
+  let g:webdevicons_enable_nerdtree = 1                  " icon enable
+  let g:WebDevIconsNerdTreeAfterGlyphPadding = '   '     " icon after space
+
 call dein#add('preservim/nerdtree')                      " エクスプローラーの追加
   let NERDTreeShowHidden = 1                             " 隠しファイルの常時表示
   let g:NERDTreeDirArrows = 1
@@ -52,6 +48,7 @@ call dein#add('vim-jp/vimdoc-ja')                        " ヘルプ日本語化
 call dein#add('Shougo/neocomplcache')                    " コード補完
 call dein#add('tpope/vim-endwise')                       " end 自動挿入
 call dein#add('scrooloose/syntastic.git')                " Ruby 構文チェック
+call dein#add('mattn/emmet-vim')                         " emmet記法有効化
 
 "  未インストールのプラグインをインストール
 if dein#check_install()
