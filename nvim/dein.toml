@@ -1,0 +1,39 @@
+[[plugins]] # plugin manager
+repo        = 'Shougo/dein.vim'
+
+[[plugins]] # neovim help jp
+repo        = 'nekowasabi/nvimdoc-ja'
+
+[[plugins]] # file tree
+repo        = 'preservim/nerdtree'
+hook_add = '''
+  let NERDTreeShowHidden = 1
+  let g:NERDTreeDirArrows = 1
+  map <C-e> :NERDTreeToggle<CR>
+'''
+
+[[plugins]] # NERTDTree syntax
+repo = 'tiagofumo/vim-nerdtree-syntax-highlight'
+
+[[plugins]] # icon install
+repo = 'ryanoasis/vim-devicons'
+hook_add = '''
+  let g:webdevicons_enable_nerdtree = 1
+  let g:WebDevIconsNerdTreeAfterGlyphPadding = '   '
+'''
+
+[[plugins]] # surround vim  クォーテーションの切り替え
+repo        = 'tpope/vim-surround'
+
+[[plugins]] # ファイル検索
+repo        = "ctrlpvim/ctrlp.vim"
+
+[[plugins]] # カラースキーマ
+repo        = 'ayu-theme/ayu-vim'
+
+[[plugins]] # 機能拡張環境
+repo        = 'neoclide/coc.nvim'
+source      = 'release'
+build       = 'coc#util#install()'
+
+
