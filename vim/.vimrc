@@ -1,6 +1,6 @@
-"""""""""""""""""""""""""""""""""""""""
-"dein Script
-""""""""""""""""""""""""""""""""""""""
+"#####################################
+"           dein Script
+"#####################################
 
 " Required: deinのリポジトリパスを設定
 set runtimepath+=$HOME/.cache/dein/repos/github.com/Shougo/dein.vim
@@ -40,6 +40,16 @@ call dein#add('junegunn/vim-easy-align')                 " align regex
   xmap ga <Plug>(EasyAlign)                              " visual modeでga
   nmap ga <Plug>(EasyAlign)                              " normal modeでga
 
+call dein#add('marcus/rsense')                           " コード補完
+
+call dein#add('thinca/vim-ref')                          " show documents. example :Ref refe Array push.
+call dein#add('yuku-t/vim-ref-ri')                       " ドキュメント参照
+
+call dein#add('szw/vim-tags')                            " メソッド定義元へのジャンプ
+call dein#add('vim-scripts/ruby-matchit')                "
+
+call dein#add('w0rp/ale')                                " 構文チェック rubocop
+
 call dein#add('ayu-theme/ayu-vim')                       " colortheme ayu
 call dein#add('bronson/vim-trailing-whitespace')         " 末尾の全角半角空白文字を赤くハイライト
 call dein#add('tomtom/tcomment_vim')                     " コメントアウト コマンド有効化 gcc
@@ -47,7 +57,6 @@ call dein#add('pmsorhaindo/syntastic-local-eslint.vim')  " プロジェクトに
 call dein#add('vim-jp/vimdoc-ja')                        " ヘルプ日本語化
 call dein#add('Shougo/neocomplcache')                    " コード補完
 call dein#add('tpope/vim-endwise')                       " end 自動挿入
-call dein#add('scrooloose/syntastic.git')                " Ruby 構文チェック
 call dein#add('mattn/emmet-vim')                         " emmet記法有効化
 
 "  未インストールのプラグインをインストール
@@ -58,8 +67,30 @@ endif
 call dein#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""
-" dein script end
+" Rsense
 """""""""""""""""""""""""""""""""""""""""""""""""""
+let g:rsenseHome = '$HOME/.rbenv/shims/rsense'
+let g:rsenseUseOmniFunc = 1
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""
+" neocomplete.vim
+"""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:acp_enableAtStartup = 0
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_smart_case = 1
+if !exists('g:neocomplete#force_omni_input_patterns')
+  let g:neocomplete#force_omni_input_patterns = {}
+endif
+let g:neocomplete#force_omni_input_patterns.ruby = '[^.*\t]\.\w*\|\h\w*::'
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""
+" neocomplete.vim
+"""""""""""""""""""""""""""""""""""""""""""""""""""
+" syntastic_mode_mapをactiveにするとバッファ保存時にsyntasticが走る
+" active_filetypesに、保存時にsyntasticを走らせるファイルタイプを指定する
+let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': ['ruby'] }
+let g:syntastic_ruby_checkers = ['rubocop']
+
 
 """"""""""""""""""""""""""""""
 " colorscheme setting
@@ -105,13 +136,14 @@ set virtualedit=onemore        " 行末の1文字先までカーソルを移動�
 set hidden                     " バッファが編集中でもその他のファイルを開けるように
 set formatoptions+=mM          " 日本語の行の連結時に空白を入力しない。
 set backspace=indent,eol,start " バックスペースの削除を調整
-set ai                         " 自動インデント設定
+set autoindent                 " 自動インデント設定
 set autoindent                 " 改行時にindentをキープ
 set smartindent                " インデントはスマートインデント
 set list listchars=tab:\▸\-    " 不可視文字を可視化(タブが「▸-」と表示される)
 set expandtab                  " Tab文字を半角スペースにする
 set tabstop=2                  " 行頭以外のTab文字の表示幅（スペースいくつ分）
 set shiftwidth=2               " 行頭でのTab文字の表示幅
+set imdisable                  " IME自動OFF
 
 """""""""""""""""""""""
 " 検索系
