@@ -32,6 +32,7 @@ call dein#add('airblade/vim-gitgutter')                  " gitの差分を表示
 call dein#add('junegunn/vim-easy-align')                 " align regex
 call dein#add('prabirshrestha/vim-lsp')                  " lsp server
 call dein#add('mattn/vim-lsp-settings')                  " lsp settings
+call dein#add('mattn/vim-maketable')                     " table 整形
 
 "===========================
 " 自動保管 ddc setting
