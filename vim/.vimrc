@@ -30,6 +30,23 @@ call dein#add('itchyny/lightline.vim')                   " ライトラインの
 call dein#add('nathanaelkane/vim-indent-guides')         " indent guide
 call dein#add('airblade/vim-gitgutter')                  " gitの差分を表示
 call dein#add('junegunn/vim-easy-align')                 " align regex
+call dein#add('prabirshrestha/vim-lsp')                  " lsp server
+call dein#add('mattn/vim-lsp-settings')                  " lsp settings
+
+"===========================
+" 自動保管 ddc setting
+"===========================
+call dein#add('Shougo/ddc.vim')
+call dein#add('vim-denops/denops.vim')
+call dein#add('Shougo/ddc-around')
+call dein#add('Shougo/ddc-matcher_head')
+
+call ddc#custom#patch_global('sources', ['around'])
+call ddc#custom#patch_global('sourceOptions', {
+    \ '_': {
+    \     'matchers': ['matcher_head'],
+    \ }})
+call ddc#enable()
 
 "  未インストールのプラグインをインストール
 if dein#check_install()
@@ -37,6 +54,18 @@ if dein#check_install()
 endif
 
 call dein#end()
+
+" 未使用のプラグインを削除
+function! DeinClean() abort
+  let s:removed_plugins = dein#check_clean()
+  if len(s:removed_plugins) > 0
+    echom s:removed_plugins
+    call map(s:removed_plugins, "delete(v:val, 'rf')")
+    call dein#recache_runtimepath()
+  endif
+endfunction
+
+command! CleanPlugins call DeinClean()
 
 "===========================
 " plugin settings
@@ -120,8 +149,8 @@ set showmatch                  " 正規表現入力時にマッチにジャン�
 " keymap
 "===========================
 map <C-e> :NERDTreeToggle<CR>
-nmap ff <Plug>Csurround"'                              " ダブルをシングルに変換
-nmap tt <Plug>Csurround'"                              " シングルをダブルに変換
-xmap ga <Plug>(EasyAlign)                              " visual modeでga
-nmap ga <Plug>(EasyAlign)                              " normal modeでga
+nmap ff <Plug>Csurround"'       " ダブルをシングルに変換
+nmap tt <Plug>Csurround'"       " シングルをダブルに変換
+xmap ga <Plug>(EasyAlign)       " visual modeでga
+nmap ga <Plug>(EasyAlign)       " normal modeでga
 
