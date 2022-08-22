@@ -33,9 +33,10 @@ call dein#add('junegunn/vim-easy-align')                 " align regex
 call dein#add('prabirshrestha/vim-lsp')                  " lsp server
 call dein#add('mattn/vim-lsp-settings')                  " lsp settings
 call dein#add('mattn/vim-maketable')                     " table 整形
+call dein#add('wakatime/vim-wakatime')                   " トラッキング
 
 "===========================
-" 自動保管 ddc setting
+" 自動補完 ddc setting
 "===========================
 call dein#add('Shougo/ddc.vim')
 call dein#add('vim-denops/denops.vim')
