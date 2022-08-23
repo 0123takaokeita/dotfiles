@@ -27,6 +27,7 @@ call dein#add('tpope/vim-surround')                      " クォーテーショ
 call dein#add('vim-scripts/vim-auto-save')               " ファイルのオートセーブ
 call dein#add("ctrlpvim/ctrlp.vim")                      " file 検索をCtrl + pで行える。
 call dein#add('itchyny/lightline.vim')                   " ライトラインのビジュアル変更
+call dein#add('delphinus/lightline-delphinus')           " ライトラインプラグイン
 call dein#add('nathanaelkane/vim-indent-guides')         " indent guide
 call dein#add('airblade/vim-gitgutter')                  " gitの差分を表示
 call dein#add('junegunn/vim-easy-align')                 " align regex
