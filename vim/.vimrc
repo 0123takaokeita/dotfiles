@@ -34,6 +34,7 @@ call dein#add('prabirshrestha/vim-lsp')                  " lsp server
 call dein#add('mattn/vim-lsp-settings')                  " lsp settings
 call dein#add('mattn/vim-maketable')                     " table 整形
 call dein#add('wakatime/vim-wakatime')                   " トラッキング
+call dein#add('dense-analysis/ale')                      " 静的解析
 
 "===========================
 " 自動補完 ddc setting
@@ -82,6 +83,8 @@ let g:indent_guides_enable_on_vim_startup  = 1         " 起動時にindent guid
 let g:gitgutter_highlight_lines            = 1         " ハイライトの有効化
 let g:github_colors_soft                   = 1
 let g:github_colors_block_diffmark         = 1
+let g:ale_linters_explicit                 = 1
+let g:ale_linters = {'ruby': ['rubocop']}
 let g:lightline = { 'colorscheme': 'wombat'}           " lightlineのテーマ指定 wombat or github
 let g:airline_theme = "github"
 let g:WebDevIconsNerdTreeAfterGlyphPadding = '   '     " icon after space
