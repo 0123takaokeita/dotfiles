@@ -26,3 +26,18 @@ alias ls='ls -FA'
 alias pathls='echo $PATH | tr " " "\n" | nl'
 alias pathfish='echo $fish_user_paths | tr " " "\n" | nl'
 
+
+# git  alias
+alias g='git'
+alias ga='git add'
+alias gd='git diff'
+alias gs='git status'
+alias gp='git push'
+alias gb='git branch'
+alias gbl='git branch -a'
+alias gf='git fetch'
+alias gc='git commit'
+alias gst='git stash'
+alias gco='git checkout'
+alias gl='git log --oneline'
+alias glg="git log --graph --date=short --decorate=short --pretty=format:'%Cgreen%h %Creset%cd %Cblue%cn %Cred%d %Creset%s'"
