@@ -36,6 +36,7 @@ call dein#add('mattn/vim-lsp-settings')                  " lsp settings
 call dein#add('mattn/vim-maketable')                     " table 整形
 call dein#add('wakatime/vim-wakatime')                   " トラッキング
 call dein#add('dense-analysis/ale')                      " 静的解析
+call dein#add('ervandew/supertab')                       " Tabで補完
 
 "===========================
 " 自動補完 ddc setting
