@@ -16,7 +16,7 @@ call dein#add('$HOME/.cache/dein/repos/github.com/Shougo/dein.vim')
 call dein#add('vim-jp/vimdoc-ja')                        " ヘルプ日本語化
 call dein#add('tomtom/tcomment_vim')                     " コメントアウト コマンド有効化 gcc
 call dein#add('cormacrelf/vim-colors-github')            " colortheme github
-call dein#add('bronson/vim-trailing-whitespace')         " 末尾の全角半角空白文字を赤くハイライト
+call dein#add('bronson/vim-trailing-whitespace')         " 末尾の全角半角空白文字を赤くハイライト cmd: FixWhitespace 末尾のスペース全削除
 call dein#add('pmsorhaindo/syntastic-local-eslint.vim')  " プロジェクトに入ってるESLintを読み込む
 call dein#add('tpope/vim-endwise')                       " end 自動挿入
 call dein#add('mattn/emmet-vim')                         " emmet記法有効化
