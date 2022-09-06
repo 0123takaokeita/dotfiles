@@ -14,7 +14,7 @@ call dein#begin('$HOME/.cache/dein')
 call dein#add('$HOME/.cache/dein/repos/github.com/Shougo/dein.vim')
 
 call dein#add('vim-jp/vimdoc-ja')                        " ヘルプ日本語化
-call dein#add('tomtom/tcomment_vim')                     " コメントアウト コマンド有効化 gcc
+call dein#add('tpope/vim-commentary')                    " comment out
 call dein#add('cormacrelf/vim-colors-github')            " colortheme github
 call dein#add('bronson/vim-trailing-whitespace')         " 末尾の全角半角空白文字を赤くハイライト cmd: FixWhitespace 末尾のスペース全削除
 call dein#add('pmsorhaindo/syntastic-local-eslint.vim')  " プロジェクトに入ってるESLintを読み込む
@@ -134,7 +134,6 @@ set hidden                     " バッファが編集中でもその他のフ�
 set formatoptions+=mM          " 日本語の行の連結時に空白を入力しない。
 set backspace=indent,eol,start " バックスペースの削除を調整
 set autoindent                 " 自動インデント設定
-set autoindent                 " 改行時にindentをキープ
 set smartindent                " インデントはスマートインデント
 set list listchars=tab:\▸\-    " 不可視文字を可視化(タブが「▸-」と表示される)
 set expandtab                  " Tab文字を半角スペースにする
@@ -155,9 +154,11 @@ set showmatch                  " 正規表現入力時にマッチにジャン�
 "===========================
 " keymap
 "===========================
-map <C-e> :NERDTreeToggle<CR>
-nmap ff <Plug>Csurround"'       " ダブルをシングルに変換
-nmap tt <Plug>Csurround'"       " シングルをダブルに変換
-xmap ga <Plug>(EasyAlign)       " visual modeでga
-nmap ga <Plug>(EasyAlign)       " normal modeでga
+map     <C-e>      :NERDTreeToggle<CR>
+noremap <Leader>r  :FixWhitespace<CR>
+noremap <Leader>m  :MakeTable!<CR>
+nmap    ff          <Plug>Csurround"'     " ダブルをシングルに変換
+nmap    tt          <Plug>Csurround'"     " シングルをダブルに変換
+xmap    ga          <Plug>EasyAlign       " visual modeでga
+nmap    ga          <Plug>EasyAlign       " normal modeでga
 
