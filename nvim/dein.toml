@@ -4,6 +4,9 @@ repo        = 'Shougo/dein.vim'
 [[plugins]] # neovim help jp
 repo        = 'nekowasabi/nvimdoc-ja'
 
+[[plugins]]
+repo = 'vim-jp/vimdoc-ja'
+
 [[plugins]] # file tree
 repo        = 'preservim/nerdtree'
 hook_add = '''
@@ -22,5 +25,4 @@ hook_add = '''
   let g:WebDevIconsNerdTreeAfterGlyphPadding = '   '
 '''
 
-[[plugins]] # 機能拡張環境
-repo        = 'neoclide/coc.nvim'
+
