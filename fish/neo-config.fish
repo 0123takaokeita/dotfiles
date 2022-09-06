@@ -26,6 +26,16 @@ alias ls='ls -FA'
 alias pathls='echo $PATH | tr " " "\n" | nl'
 alias pathfish='echo $fish_user_paths | tr " " "\n" | nl'
 
+alias lg='lazygit'
+alias dl='docui'
+alias neo='nvim'
+alias vim='nvim'
+alias vi='vim'
+alias s-fish='source ~/.config/fish/config.fish'
+
+# cd directory
+alias dot='cd ~/dotfiles; neo'
+alias bys='cd ~/vm_share/byYourSide; neo'
 
 # git  alias
 alias g='git'
