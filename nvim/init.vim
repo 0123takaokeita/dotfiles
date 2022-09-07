@@ -33,6 +33,7 @@ call dein#add('lambdalisue/fern-renderer-nerdfont.vim')  " File Tree icon, NOTE:
 call dein#add('lambdalisue/glyph-palette.vim')           " File Tree Palette
 call dein#add('lambdalisue/fern-git-status.vim')         " Git Status view
 call dein#add('lambdalisue/fern-bookmark.vim')           " File Tree Bookmark
+call dein#add('skanehira/denops-silicon.vim')            " code 画像生成 :Silicon
 
 "===========================
 " 自動補完 ddc setting
@@ -112,6 +113,7 @@ nnoremap <C-e>     :Fern . -reveal=% -drawer -toggle -width=40<CR>
 noremap <C-p>      :Files<CR>
 noremap <Leader>r  :FixWhitespace<CR>
 noremap <Leader>m  :MakeTable!<CR>
+noremap <Leader>o  :Silicon silicon.png<CR>
 xmap    ga         <Plug>(EasyAlign)
 nmap    ff         <Plug>Csurround"'       " ダブルをシングルに変換
 nmap    tt         <Plug>Csurround'"       " シングルをダブルに変換
