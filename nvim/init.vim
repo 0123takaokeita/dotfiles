@@ -12,22 +12,27 @@ call dein#add('bronson/vim-trailing-whitespace')         " 末尾の全角半角
 call dein#add('pmsorhaindo/syntastic-local-eslint.vim')  " プロジェクトに入ってるESLintを読み込む
 call dein#add('tpope/vim-endwise')                       " end 自動挿入
 call dein#add('mattn/emmet-vim')                         " emmet記法有効化
-call dein#add('tiagofumo/vim-nerdtree-syntax-highlight') " NERTDTree syntax
-call dein#add('ryanoasis/vim-devicons')                  " icon install
 call dein#add('preservim/nerdtree')                      " エクスプローラーの追加
 call dein#add('tpope/vim-surround')                      " クォーテーションの切り替え
 call dein#add('vim-scripts/vim-auto-save')               " ファイルのオートセーブ
-call dein#add("ctrlpvim/ctrlp.vim")                      " file 検索をCtrl + pで行える。
 call dein#add('itchyny/lightline.vim')                   " ライトラインのビジュアル変更
 call dein#add('delphinus/lightline-delphinus')           " ライトラインプラグイン
 call dein#add('airblade/vim-gitgutter')                  " gitの差分を表示
-call dein#add('junegunn/vim-easy-align')                 " align regex
+call dein#add('junegunn/vim-easy-align')                 " align regex コード整形
 call dein#add('mattn/vim-maketable')                     " table 整形 cmd: MakeTable
 call dein#add('wakatime/vim-wakatime')                   " トラッキング
 call dein#add('nathanaelkane/vim-indent-guides')         " indent
 call dein#add('prabirshrestha/vim-lsp')                  " lsp server
 call dein#add('mattn/vim-lsp-settings')                  " lsp settings
 call dein#add('dense-analysis/ale')                      " 静的解析
+call dein#add('junegunn/fzf', {'merged': 0})             " File 検索
+call dein#add('junegunn/fzf.vim', {'depends': 'fzf'})    " File 検索
+call dein#add('lambdalisue/fern.vim')                    " File Tree
+call dein#add('lambdalisue/nerdfont.vim')                " File Tree icon
+call dein#add('lambdalisue/fern-renderer-nerdfont.vim')  " File Tree icon, NOTE: コンソールのフォントをNerdにしてください。
+call dein#add('lambdalisue/glyph-palette.vim')           " File Tree Palette
+call dein#add('lambdalisue/fern-git-status.vim')         " Git Status view
+call dein#add('lambdalisue/fern-bookmark.vim')           " File Tree Bookmark
 
 "===========================
 " 自動補完 ddc setting
@@ -53,21 +58,29 @@ call dein#end()
 "===========================
 " plugin settings
 "===========================
-let g:webdevicons_enable_nerdtree          = 1         " icon enable
-let g:WebDevIconsNerdTreeAfterGlyphPadding = '   '     " icon after space
-let g:NERDTreeDirArrows                    = 1
-let g:NERDTreeShowHidden                   = 1         " 隠しファイルの常時表示
-let g:auto_save                            = 1         " 起動時に自動保存の有効化 OFF :AutoSaveToggle
-let g:ctrlp_show_hidden                    = 1         " 隠しファイルも表示する。
-let g:gitgutter_highlight_lines            = 1         " ハイライトの有効化
-let g:github_colors_soft                   = 1
-let g:github_colors_block_diffmark         = 1
-let g:indent_guides_enable_on_vim_startup  = 1
-let g:indent_guides_auto_colors            = 1
-let g:ale_linters_explicit                 = 1
+let g:auto_save                           = 1 " 起動時に自動保存の有効化 OFF :AutoSaveToggle
+let g:gitgutter_highlight_lines           = 1 " 差分ハイライト有効化
+let g:github_colors_soft                  = 1
+let g:github_colors_block_diffmark        = 1
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_auto_colors           = 1
+let g:ale_linters_explicit                = 1
+let g:fern#default_hidden                 = 1 " 隠しファイル表示
+let g:fern#renderer = 'nerdfont'
 let g:ale_linters = {'ruby': ['rubocop']}
-let g:lightline = { 'colorscheme': 'github'}           " lightlineのテーマ指定 wombat or github
+let g:lightline = { 'colorscheme': 'github'}  " lightlineのテーマ指定 wombat or github
 let g:airline_theme = "github"
+
+" Files 検索 で隠しファイル表示
+command! -bang -nargs=? -complete=dir Files
+  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'source': 'ag --hidden --ignore .git -g ""'}), <bang>0)
+
+"" icon color setting
+augroup my-glyph-palette
+  autocmd! *
+  autocmd FileType fern call glyph_palette#apply()
+  autocmd FileType nerdtree,startify call glyph_palette#apply()
+augroup END
 
 "===========================
 " system setting
@@ -95,7 +108,8 @@ colorscheme github
 " keymap
 "===========================
 let g:mapleader = "\<Space>" " Leaderキーをスペースに設定
-map     <C-e>      :NERDTreeToggle<CR>
+nnoremap <C-e>     :Fern . -reveal=% -drawer -toggle -width=40<CR>
+noremap <C-p>      :Files<CR>
 noremap <Leader>r  :FixWhitespace<CR>
 noremap <Leader>m  :MakeTable!<CR>
 xmap    ga         <Plug>(EasyAlign)
