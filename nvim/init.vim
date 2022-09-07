@@ -83,6 +83,24 @@ augroup my-glyph-palette
   autocmd FileType nerdtree,startify call glyph_palette#apply()
 augroup END
 
+"" fzf.vim
+fun! FzfOmniFiles()
+  let is_git = system('git status')
+  if v:shell_error
+    :Files
+  else
+    :GFiles
+  endif
+endfun
+
+" <S-?>でプレビューを表示/非表示する
+command! -bang -nargs=* Rg
+\ call fzf#vim#grep(
+\ 'rg --column --line-number --hidden --ignore-case --no-heading --color=always '.shellescape(<q-args>), 1,
+\ <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 3..'}, 'up:60%')
+\ : fzf#vim#with_preview({'options': '--exact --delimiter : --nth 3..'}, 'right:50%:hidden', '?'),
+\ <bang>0)
+
 "===========================
 " system setting
 "===========================
@@ -110,10 +128,13 @@ colorscheme github
 "===========================
 let g:mapleader = "\<Space>" " Leaderキーをスペースに設定
 nnoremap <C-e>     :Fern . -reveal=% -drawer -toggle -width=40<CR>
-noremap <C-p>      :Files<CR>
-noremap <Leader>r  :FixWhitespace<CR>
-noremap <Leader>m  :MakeTable!<CR>
-noremap <Leader>o  :Silicon silicon.png<CR>
-xmap    ga         <Plug>(EasyAlign)
-nmap    ff         <Plug>Csurround"'       " ダブルをシングルに変換
-nmap    tt         <Plug>Csurround'"       " シングルをダブルに変換
+nnoremap <C-p>     :call FzfOmniFiles()<CR>
+nnoremap <C-g>     :Rg<CR>
+nnoremap <Leader>f vawy:Rg <C-R>"<CR>
+xnoremap <Leader>f y:Rg <C-R>"<CR>
+noremap  <Leader>r :FixWhitespace<CR>
+noremap  <Leader>m :MakeTable!<CR>
+noremap  <Leader>o :Silicon silicon.png<CR>
+xmap     ga        <Plug>(EasyAlign)
+nmap     ff        <Plug>Csurround"'       " ダブルをシングルに変換
+nmap     tt        <Plug>Csurround'"       " シングルをダブルに変換
