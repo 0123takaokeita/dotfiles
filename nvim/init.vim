@@ -142,15 +142,42 @@ colorscheme github
 "===========================
 " keymap
 "===========================
-let g:mapleader = "\<Space>" " Leaderキーをスペースに設定
+let g:mapleader = "\<Space>"
+
+" File Tree
 nnoremap <C-e>     :Fern . -reveal=% -drawer -toggle -width=40<CR>
+
+"Sercher
 nnoremap <C-p>     :call FzfOmniFiles()<CR>
 nnoremap <C-g>     :Rg<CR>
-nnoremap <Leader>f vawy:Rg <C-R>"<CR>
-xnoremap <Leader>f y:Rg <C-R>"<CR>
+nnoremap fr        vawy:Rg <C-R>"<CR>
+xnoremap fr        y:Rg <C-R>"<CR>
+nnoremap fb        :Buffers<CR>
+nnoremap fp        :Buffers<CR><CR>
+nnoremap fl        :BLines<CR>
+nnoremap fm        :Marks<CR>
+nnoremap fh        :History<CR>
+nnoremap fc        :Commits<CR>
+
+" code alignment
 noremap  <Leader>r :FixWhitespace<CR>
 noremap  <Leader>m :MakeTable!<CR>
-noremap  <Leader>o :Silicon silicon.png<CR>
 xmap     ga        <Plug>(EasyAlign)
-nmap     ff        <Plug>Csurround"'       " ダブルをシングルに変換
-nmap     tt        <Plug>Csurround'"       " シングルをダブルに変換
+nmap     ff        <Plug>Csurround"'
+nmap     tt        <Plug>Csurround'"
+
+" code image
+noremap  <Leader>o :Silicon silicon.png<CR>
+
+" git
+nnoremap gl         :LazyGit<CR>
+nnoremap g[         :GitGutterPrevHunk<CR>
+nnoremap g]         :GitGutterNextHunk<CR>
+nnoremap gh         :GitGutterLineHighlightsToggle<CR>
+nnoremap gp         :GitGutterPreviewHunk<CR>
+
+" spell_converter
+nnoremap <Leader>c  viw:s/\v_(.)/\u\1/g<CR>
+nnoremap <Leader>s  viw:s/\%V\([A-Z]\)/_\l\1/g<CR>
+xnoremap <Leader>c  :s/\%V\(_\\|-\)\(.\)/\u\2/g<CR>
+xnoremap <Leader>s  :s/\%V\([A-Z]\)/_\l\1/g<CR>
