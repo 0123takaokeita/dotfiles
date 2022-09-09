@@ -34,6 +34,7 @@ call dein#add('lambdalisue/glyph-palette.vim')           " File Tree Palette
 call dein#add('lambdalisue/fern-git-status.vim')         " Git Status view
 call dein#add('lambdalisue/fern-bookmark.vim')           " File Tree Bookmark
 call dein#add('skanehira/denops-silicon.vim')            " code 画像生成 :Silicon
+call dein#add('tpope/vim-fugitive')                      " stutas bar git view
 
 "===========================
 " 自動補完 ddc setting
@@ -69,8 +70,20 @@ let g:ale_linters_explicit                = 1
 let g:fern#default_hidden                 = 1 " 隠しファイル表示
 let g:fern#renderer = 'nerdfont'
 let g:ale_linters = {'ruby': ['rubocop']}
-let g:lightline = { 'colorscheme': 'github'}  " lightlineのテーマ指定 wombat or github
 let g:airline_theme = "github"
+
+
+" wonbat | PaperColor | github | one
+let g:lightline = {
+      \ 'colorscheme': 'PaperColor',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'FugitiveHead'
+      \ },
+      \ }
 
 " Files 検索 で隠しファイル表示
 command! -bang -nargs=? -complete=dir Files
