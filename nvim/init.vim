@@ -117,14 +117,17 @@ command! -bang -nargs=* Rg
 "===========================
 " system setting
 "===========================
-set clipboard+=unnamed         " クリップボードを共有
-set number                     " view number
-set expandtab                  " Tabを半角スペースにする
-set tabstop=2                  " 行頭以外のTab文字の表示幅
-set shiftwidth=2               " 行頭でのTab文字の表示幅
-set list listchars=tab:\▸\-    " 不可視文字を可視化(タブが「▸-」と表示される)
-set smartindent                " インデントはスマートインデント
+set clipboard+=unnamed       " クリップボードを共有
+set number                   " view number
+set expandtab                " Tabを半角スペースにする
+set tabstop=2                " 行頭以外のTab文字の表示幅
+set shiftwidth=2             " 行頭でのTab文字の表示幅
+set list listchars=tab:\▸\-  " 不可視文字を可視化(タブが「▸-」と表示される)
+set smartindent              " インデントはスマートインデント
 set helplang=ja
+set cursorline
+set splitright               " 分割時に右に分割
+set splitbelow               " 分割時に下に分割
 
 "===========================
 " colorscheme setting
