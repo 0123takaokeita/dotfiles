@@ -40,6 +40,7 @@ call dein#add('kdheepak/lazygit.nvim')                                " lazygit
 call dein#add('ayu-theme/ayu-vim')                                    " theme ayu
 call dein#add('morhetz/gruvbox')                                      " theme gruvbox
 call dein#add('machakann/vim-highlightedyank')                        " yank highlight
+call dein#add('simeji/winresizer')                                    " window changer
 
 "===========================
 " 自動補完 ddc setting
