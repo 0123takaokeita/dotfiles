@@ -67,6 +67,18 @@ endif
 
 call dein#end()
 
+" 未使用のプラグインを削除
+function! DeinClean() abort
+  let s:removed_plugins = dein#check_clean()
+  if len(s:removed_plugins) > 0
+    echom s:removed_plugins
+    call map(s:removed_plugins, "delete(v:val, 'rf')")
+    call dein#recache_runtimepath()
+  endif
+endfunction
+
+command! CleanPlugins call DeinClean()
+
 "===========================
 " plugin settings
 "===========================
