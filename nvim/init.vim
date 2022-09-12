@@ -208,6 +208,7 @@ noremap  <Leader>o :Silicon silicon.png<CR>
 
 " git
 nnoremap gl         :LazyGit<CR>
+
 nnoremap g[         :GitGutterPrevHunk<CR>
 nnoremap g]         :GitGutterNextHunk<CR>
 nnoremap gh         :GitGutterLineHighlightsToggle<CR>
@@ -218,3 +219,13 @@ nnoremap <Leader>c  viw:s/\v_(.)/\u\1/g<CR>
 nnoremap <Leader>s  viw:s/\%V\([A-Z]\)/_\l\1/g<CR>
 xnoremap <Leader>c  :s/\%V\(_\\|-\)\(.\)/\u\2/g<CR>
 xnoremap <Leader>s  :s/\%V\([A-Z]\)/_\l\1/g<CR>
+
+" window manager
+noremap <Leader>w   :WinResizerStartResize<CR>
+
+" over ride *
+noremap * *N
+
+" term
+nnoremap <leader>tl :<c-u>exec v:count.'Tclear'<cr>
+
