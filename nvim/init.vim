@@ -41,6 +41,8 @@ call dein#add('ayu-theme/ayu-vim')                                    " theme ay
 call dein#add('morhetz/gruvbox')                                      " theme gruvbox
 call dein#add('machakann/vim-highlightedyank')                        " yank highlight
 call dein#add('simeji/winresizer')                                    " window changer
+call dein#add('zefei/vim-wintabs')                                    " tab view
+call dein#add('zefei/vim-wintabs-powerline')                          " tab view powerline
 
 "===========================
 " 自動補完 ddc setting
