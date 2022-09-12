@@ -82,20 +82,29 @@ command! CleanPlugins call DeinClean()
 "===========================
 " plugin settings
 "===========================
-let g:auto_save                           = 1 " 起動時に自動保存の有効化 OFF :AutoSaveToggle
-let g:gitgutter_highlight_lines           = 1 " 差分ハイライト有効化
-let g:github_colors_soft                  = 1
-let g:github_colors_block_diffmark        = 1
-let g:indent_guides_enable_on_vim_startup = 1
-let g:indent_guides_auto_colors           = 1
-let g:ale_linters_explicit                = 1
-let g:fern#default_hidden                 = 1 " 隠しファイル表示
-let g:fern#renderer = 'nerdfont'
-let g:ale_linters = {'ruby': ['rubocop']}
-let g:airline_theme = "github"
+let g:auto_save                              = 1 " 自動保存の有効化 OFF :AutoSaveToggle
+let g:github_colors_soft                     = 1
+let g:github_colors_block_diffmark           = 1 " 差分マークのハイライト表示
+let g:indent_guides_enable_on_vim_startup    = 1
+let g:ale_linters_explicit                   = 1
+let g:fern#default_hidden                    = 1 " 隠しファイル表示
+let g:fern#renderer                          = 'nerdfont'
+let g:ale_linters                            = {'ruby': ['rubocop']}
+let g:airline_theme                          = "github"
+let g:lazygit_floating_window_winblend       = 0                    " transparency of floating window
+let g:lazygit_floating_window_scaling_factor = 0.9                  " scaling factor for floating window
+let g:lazygit_floating_window_corner_chars   = ['╭', '╮', '╰', '╯'] " customize lazygit popup window corner characters
+let g:lazygit_floating_window_use_plenary    = 0                    " use plenary.nvim to manage floating window if available
+let g:lazygit_use_neovim_remote              = 1                    " fallback to 0 if neovim-remote is not installed
+let g:loaded_perl_provider                   = 0
+let g:loaded_python3_provider                = 0
+let g:highlightedyank_highlight_duration     = 150
+let g:winresizer_start_key                   = '<C-w><C-w>'
 
+let g:neoterm_autoinsert = 1
+let g:neoterm_autoscroll = 1
 
-" wonbat | PaperColor | github | one
+" wonbat | PaperColor | github | one | gruvbox | ayu
 let g:lightline = {
       \ 'colorscheme': 'PaperColor',
       \ 'active': {
@@ -106,6 +115,10 @@ let g:lightline = {
       \   'gitbranch': 'FugitiveHead'
       \ },
       \ }
+
+highlight GitGutterAdd ctermfg=green
+highlight GitGutterChange ctermfg=blue
+highlight GitGutterDelete ctermfg=red
 
 " Files 検索 で隠しファイル表示
 command! -bang -nargs=? -complete=dir Files
@@ -133,7 +146,7 @@ command! -bang -nargs=* Rg
 \ call fzf#vim#grep(
 \ 'rg --column --line-number --hidden --ignore-case --no-heading --color=always '.shellescape(<q-args>), 1,
 \ <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 3..'}, 'up:60%')
-\ : fzf#vim#with_preview({'options': '--exact --delimiter : --nth 3..'}, 'right:50%:hidden', '?'),
+\ : fzf#vim#with_preview({'options': '--exact --delimiter : --nth 3..'}, 'right:50%', '?'),
 \ <bang>0)
 
 "===========================
