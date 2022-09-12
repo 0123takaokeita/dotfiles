@@ -167,12 +167,14 @@ set splitbelow               " 分割時に下に分割
 "===========================
 " colorscheme setting
 "===========================
-filetype on        " ファイルタイプを検出
-filetype indent on " ファイル対応ごとにインデントをロード
-syntax on
-set termguicolors
-set t_Co=256       " 使用色を追加
-colorscheme github
+filetype    on        " ファイルタイプを検出
+filetype    indent on " ファイル対応ごとにインデントをロード
+syntax      on
+set         termguicolors
+set         t_Co=256  " 使用色を追加
+let ayucolor="mirage" " light or mirage or dark
+" let g:gruvbox_contrast_dark = 'hard'
+colorscheme github " github or ayu or gruvbox
 
 "===========================
 " keymap
