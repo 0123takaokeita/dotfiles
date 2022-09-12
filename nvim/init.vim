@@ -1,5 +1,5 @@
 "===========================
-" plugins
+" Plugins
 "===========================
 set runtimepath+=$HOME/.cache/dein/repos/github.com/Shougo/dein.vim
 call dein#begin('$HOME/.cache/dein')
@@ -33,18 +33,14 @@ call dein#add('lambdalisue/fern-renderer-nerdfont.vim')               " File Tre
 call dein#add('lambdalisue/glyph-palette.vim')                        " File Tree Palette
 call dein#add('lambdalisue/fern-git-status.vim')                      " Git Status view
 call dein#add('lambdalisue/fern-bookmark.vim')                        " File Tree Bookmark
-" call dein#add('skanehira/denops-silicon.vim')                         " code 画像生成 :Silicon 出力されない
-" call dein#add('segeljakt/vim-silicon')                                " code 画像生成 :Silicon 出力されない
+call dein#add('vim-denops/denops.vim')                                " deno
+call dein#add('skanehira/denops-silicon.vim')                         " code 画像生成
 call dein#add('tpope/vim-fugitive')                                   " stutas bar git view
 call dein#add('kdheepak/lazygit.nvim')                                " lazygit
 call dein#add('ayu-theme/ayu-vim')                                    " theme ayu
 call dein#add('morhetz/gruvbox')                                      " theme gruvbox
 call dein#add('machakann/vim-highlightedyank')                        " yank highlight
-call dein#add('simeji/winresizer')                                    " window changer
-call dein#add('zefei/vim-wintabs')                                    " tab view
-call dein#add('zefei/vim-wintabs-powerline')                          " tab view powerline
-call dein#add('neoclide/coc.nvim', { 'merged': 0, 'rev': 'release' }) " dependence: node >= 14.14
-call dein#add('kassio/neoterm') " term
+call dein#add('neoclide/coc.nvim', { 'merged': 0, 'rev': 'release' }) " dependence: node >= 14.14, setting-check: :checkhealth
 
 "===========================
 " 自動補完 ddc setting
@@ -80,7 +76,7 @@ endfunction
 command! CleanPlugins call DeinClean()
 
 "===========================
-" plugin settings
+" Plugin Settings
 "===========================
 let g:auto_save                              = 1 " 自動保存の有効化 OFF :AutoSaveToggle
 let g:github_colors_soft                     = 1
@@ -91,18 +87,11 @@ let g:fern#default_hidden                    = 1 " 隠しファイル表示
 let g:fern#renderer                          = 'nerdfont'
 let g:ale_linters                            = {'ruby': ['rubocop']}
 let g:airline_theme                          = "github"
-let g:lazygit_floating_window_winblend       = 0                    " transparency of floating window
-let g:lazygit_floating_window_scaling_factor = 0.9                  " scaling factor for floating window
-let g:lazygit_floating_window_corner_chars   = ['╭', '╮', '╰', '╯'] " customize lazygit popup window corner characters
-let g:lazygit_floating_window_use_plenary    = 0                    " use plenary.nvim to manage floating window if available
-let g:lazygit_use_neovim_remote              = 1                    " fallback to 0 if neovim-remote is not installed
+let g:lazygit_floating_window_scaling_factor = 0.95       " scaling factor for floating window
 let g:loaded_perl_provider                   = 0
 let g:loaded_python3_provider                = 0
+let g:loaded_ruby_provider                   = 0
 let g:highlightedyank_highlight_duration     = 150
-let g:winresizer_start_key                   = '<C-w><C-w>'
-
-let g:neoterm_autoinsert = 1
-let g:neoterm_autoscroll = 1
 
 " wonbat | PaperColor | github | one | gruvbox | ayu
 let g:lightline = {
@@ -115,10 +104,6 @@ let g:lightline = {
       \   'gitbranch': 'FugitiveHead'
       \ },
       \ }
-
-highlight GitGutterAdd ctermfg=green
-highlight GitGutterChange ctermfg=blue
-highlight GitGutterDelete ctermfg=red
 
 " Files 検索 で隠しファイル表示
 command! -bang -nargs=? -complete=dir Files
@@ -148,7 +133,9 @@ fun! FzfOmniFiles()
   if v:shell_error
     :Files
   else
-    :GFiles
+    " :GFiles
+    " とりあえずどちらもFiles
+    :Files
   endif
 endfun
 
@@ -161,7 +148,7 @@ command! -bang -nargs=* Rg
 \ <bang>0)
 
 "===========================
-" system setting
+" System Setting
 "===========================
 set clipboard+=unnamed       " クリップボードを共有
 set number                   " view number
@@ -174,69 +161,72 @@ set helplang=ja
 set cursorline
 set splitright               " 分割時に右に分割
 set splitbelow               " 分割時に下に分割
+set nowrap
 
 "===========================
-" colorscheme setting
+" Colorscheme Setting
 "===========================
 filetype    on        " ファイルタイプを検出
 filetype    indent on " ファイル対応ごとにインデントをロード
 syntax      on
 set         termguicolors
 set         t_Co=256  " 使用色を追加
-let ayucolor="mirage" " light or mirage or dark
-" let g:gruvbox_contrast_dark = 'hard'
+let ayucolor                = "mirage" " light or mirage or dark
+let g:gruvbox_contrast_dark = 'hard'
 colorscheme github " github or ayu or gruvbox
 
 "===========================
-" keymap
+" Keymap
 "===========================
 let g:mapleader = "\<Space>"
 
 " File Tree
-nnoremap <C-e>     :Fern . -reveal=% -drawer -toggle -width=40<CR>
+nnoremap <C-e>          :Fern . -reveal=% -drawer -toggle -width=40<CR>
 
 "Sercher
-nnoremap <C-p>     :call FzfOmniFiles()<CR>
-nnoremap <C-g>     :Rg<CR>
-nnoremap fr        vawy:Rg <C-R>"<CR>
-xnoremap fr        y:Rg <C-R>"<CR>
-nnoremap fb        :Buffers<CR>
-nnoremap fp        :Buffers<CR><CR>
-nnoremap fl        :BLines<CR>
-nnoremap fm        :Marks<CR>
-nnoremap fh        :History<CR>
-nnoremap fc        :Commits<CR>
+nnoremap <C-p>          :call FzfOmniFiles()<CR>
+nnoremap <C-g>          :Rg<CR>
+nnoremap fr             vawy:Rg <C-R>"<CR>
+xnoremap fr             y:Rg <C-R>"<CR>
+nnoremap fb             :Buffers<CR>
+nnoremap fp             :Buffers<CR><CR>
+nnoremap fl             :BLines<CR>
+nnoremap fm             :Marks<CR>
+nnoremap fh             :History<CR>
+nnoremap fc             :Commits<CR>
 
-" code alignment
-noremap  <Leader>r :FixWhitespace<CR>
-noremap  <Leader>m :MakeTable!<CR>
-xmap     ga        <Plug>(EasyAlign)
-nmap     ff        <Plug>Csurround"'
-nmap     tt        <Plug>Csurround'"
+" Code Alignment
+noremap  <Leader>r      :FixWhitespace<CR>
+noremap  <Leader>m      :MakeTable!<CR>
+xmap     ga             <Plug>(EasyAlign)
+nmap     ff             <Plug>Csurround"'
+nmap     tt             <Plug>Csurround'"
 
-" code image
-noremap  <Leader>o :Silicon silicon.png<CR>
+" Code Image
+noremap  <Leader>o      :Silicon silicon.png<CR>
 
-" git
-nnoremap gl         :LazyGit<CR>
+" Git
+nnoremap gl             :LazyGit<CR>
 
-nnoremap g[         :GitGutterPrevHunk<CR>
-nnoremap g]         :GitGutterNextHunk<CR>
-nnoremap gh         :GitGutterLineHighlightsToggle<CR>
-nnoremap gp         :GitGutterPreviewHunk<CR>
+nnoremap g[             :GitGutterPrevHunk<CR>
+nnoremap g]             :GitGutterNextHunk<CR>
+nnoremap gh             :GitGutterLineHighlightsToggle<CR>
+nnoremap gp             :GitGutterPreviewHunk<CR>
 
-" spell_converter
-nnoremap <Leader>c  viw:s/\v_(.)/\u\1/g<CR>
-nnoremap <Leader>s  viw:s/\%V\([A-Z]\)/_\l\1/g<CR>
-xnoremap <Leader>c  :s/\%V\(_\\|-\)\(.\)/\u\2/g<CR>
-xnoremap <Leader>s  :s/\%V\([A-Z]\)/_\l\1/g<CR>
+" Spell Converter
+nnoremap <Leader>c      viw:s/\v_(.)/\u\1/g<CR>
+nnoremap <Leader>s      viw:s/\%V\([A-Z]\)/_\l\1/g<CR>
+xnoremap <Leader>c      :s/\%V\(_\\|-\)\(.\)/\u\2/g<CR>
+xnoremap <Leader>s      :s/\%V\([A-Z]\)/_\l\1/g<CR>
 
-" window manager
-noremap <Leader>w   :WinResizerStartResize<CR>
+" Silicon
+xnoremap <Leader>o      :Silicon
 
-" over ride *
-noremap * *N
+" Over Ride *
+noremap *               *N
 
-" term
-nnoremap <leader>tl :<c-u>exec v:count.'Tclear'<cr>
-
+" coc.nvim
+" <Tab>で次、<S+Tab>で前
+inoremap <silent><expr> <TAB> coc#pum#visible() ? coc#pum#next(1) : <SID>check_back_space() ? "\<Tab>" : coc#refresh()
+inoremap <expr><S-TAB>  coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
