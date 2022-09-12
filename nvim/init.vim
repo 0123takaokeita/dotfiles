@@ -39,6 +39,7 @@ call dein#add('tpope/vim-fugitive')                                   " stutas b
 call dein#add('kdheepak/lazygit.nvim')                                " lazygit
 call dein#add('ayu-theme/ayu-vim')                                    " theme ayu
 call dein#add('morhetz/gruvbox')                                      " theme gruvbox
+call dein#add('machakann/vim-highlightedyank')                        " yank highlight
 
 "===========================
 " 自動補完 ddc setting
