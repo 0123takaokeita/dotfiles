@@ -49,17 +49,17 @@ call dein#add('kassio/neoterm') " term
 "===========================
 " 自動補完 ddc setting
 "===========================
-call dein#add('Shougo/ddc.vim')
-call dein#add('vim-denops/denops.vim')
-call dein#add('Shougo/ddc-around')
-call dein#add('Shougo/ddc-matcher_head')
+" call dein#add('Shougo/ddc.vim')
+" call dein#add('vim-denops/denops.vim')
+" call dein#add('Shougo/ddc-around')
+" call dein#add('Shougo/ddc-matcher_head')
 
-call ddc#custom#patch_global('sources', ['around'])
-call ddc#custom#patch_global('sourceOptions', {
-    \ '_': {
-    \     'matchers': ['matcher_head'],
-    \ }})
-call ddc#enable()
+" call ddc#custom#patch_global('sources', ['around'])
+" call ddc#custom#patch_global('sourceOptions', {
+"     \ '_': {
+"     \     'matchers': ['matcher_head'],
+"     \ }})
+" call ddc#enable()
 
 if dein#check_install()
   call dein#install()
