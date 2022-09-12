@@ -124,6 +124,17 @@ highlight GitGutterDelete ctermfg=red
 command! -bang -nargs=? -complete=dir Files
   \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'source': 'ag --hidden --ignore .git -g ""'}), <bang>0)
 
+" Fern
+" Use 'select' instead of 'edit' for default 'open' action
+function! s:init_fern() abort
+  nmap <buffer> d <Plug>(fern-action-remove)
+endfunction
+
+augroup fern-custom
+  autocmd! *
+  autocmd FileType fern call s:init_fern()
+augroup END
+
 "" icon color setting
 augroup my-glyph-palette
   autocmd! *
