@@ -43,6 +43,7 @@ call dein#add('machakann/vim-highlightedyank')                        " yank hig
 call dein#add('simeji/winresizer')                                    " window changer
 call dein#add('zefei/vim-wintabs')                                    " tab view
 call dein#add('zefei/vim-wintabs-powerline')                          " tab view powerline
+call dein#add('neoclide/coc.nvim', { 'merged': 0, 'rev': 'release' }) " dependence: node >= 14.14
 
 "===========================
 " 自動補完 ddc setting
