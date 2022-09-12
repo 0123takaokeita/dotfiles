@@ -5,36 +5,40 @@ set runtimepath+=$HOME/.cache/dein/repos/github.com/Shougo/dein.vim
 call dein#begin('$HOME/.cache/dein')
 call dein#add('$HOME/.cache/dein/repos/github.com/Shougo/dein.vim')
 
-call dein#add('vim-jp/vimdoc-ja')                        " ヘルプ日本語化
-call dein#add('tpope/vim-commentary')                    " comment out
-call dein#add('cormacrelf/vim-colors-github')            " colortheme github
-call dein#add('bronson/vim-trailing-whitespace')         " 末尾の全角半角空白文字を赤くハイライト cmd: FixWhitespace 末尾のスペース全削除
-call dein#add('pmsorhaindo/syntastic-local-eslint.vim')  " プロジェクトに入ってるESLintを読み込む
-call dein#add('tpope/vim-endwise')                       " end 自動挿入
-call dein#add('mattn/emmet-vim')                         " emmet記法有効化
-call dein#add('preservim/nerdtree')                      " エクスプローラーの追加
-call dein#add('tpope/vim-surround')                      " クォーテーションの切り替え
-call dein#add('vim-scripts/vim-auto-save')               " ファイルのオートセーブ
-call dein#add('itchyny/lightline.vim')                   " ライトラインのビジュアル変更
-call dein#add('delphinus/lightline-delphinus')           " ライトラインプラグイン
-call dein#add('airblade/vim-gitgutter')                  " gitの差分を表示
-call dein#add('junegunn/vim-easy-align')                 " align regex コード整形
-call dein#add('mattn/vim-maketable')                     " table 整形 cmd: MakeTable
-call dein#add('wakatime/vim-wakatime')                   " トラッキング
-call dein#add('nathanaelkane/vim-indent-guides')         " indent
-call dein#add('prabirshrestha/vim-lsp')                  " lsp server
-call dein#add('mattn/vim-lsp-settings')                  " lsp settings
-call dein#add('dense-analysis/ale')                      " 静的解析
-call dein#add('junegunn/fzf', {'merged': 0})             " File 検索
-call dein#add('junegunn/fzf.vim', {'depends': 'fzf'})    " File 検索
-call dein#add('lambdalisue/fern.vim')                    " File Tree
-call dein#add('lambdalisue/nerdfont.vim')                " File Tree icon
-call dein#add('lambdalisue/fern-renderer-nerdfont.vim')  " File Tree icon, NOTE: コンソールのフォントをNerdにしてください。
-call dein#add('lambdalisue/glyph-palette.vim')           " File Tree Palette
-call dein#add('lambdalisue/fern-git-status.vim')         " Git Status view
-call dein#add('lambdalisue/fern-bookmark.vim')           " File Tree Bookmark
-call dein#add('skanehira/denops-silicon.vim')            " code 画像生成 :Silicon
-call dein#add('tpope/vim-fugitive')                      " stutas bar git view
+call dein#add('vim-jp/vimdoc-ja')                                     " ヘルプ日本語化
+call dein#add('tpope/vim-commentary')                                 " comment out
+call dein#add('cormacrelf/vim-colors-github')                         " colortheme github
+call dein#add('bronson/vim-trailing-whitespace')                      " 末尾の全角半角空白文字を赤くハイライト cmd: FixWhitespace 末尾のスペース全削除
+call dein#add('pmsorhaindo/syntastic-local-eslint.vim')               " プロジェクトに入ってるESLintを読み込む
+call dein#add('tpope/vim-endwise')                                    " end 自動挿入
+call dein#add('mattn/emmet-vim')                                      " emmet記法有効化
+call dein#add('preservim/nerdtree')                                   " エクスプローラーの追加
+call dein#add('tpope/vim-surround')                                   " クォーテーションの切り替え
+call dein#add('vim-scripts/vim-auto-save')                            " Auto Save
+call dein#add('itchyny/lightline.vim')                                " ライトラインのビジュアル変更
+call dein#add('delphinus/lightline-delphinus')                        " ライトラインプラグイン
+call dein#add('airblade/vim-gitgutter')                               " gitの差分を表示
+call dein#add('junegunn/vim-easy-align')                              " align regex コード整形
+call dein#add('mattn/vim-maketable')                                  " table 整形 cmd: MakeTable
+call dein#add('wakatime/vim-wakatime')                                " トラッキング
+call dein#add('nathanaelkane/vim-indent-guides')                      " indent
+call dein#add('prabirshrestha/vim-lsp')                               " lsp server
+call dein#add('mattn/vim-lsp-settings')                               " lsp settings
+call dein#add('dense-analysis/ale')                                   " 静的解析
+call dein#add('junegunn/fzf', {'merged': 0})                          " File 検索
+call dein#add('junegunn/fzf.vim', {'depends': 'fzf'})                 " File 検索
+call dein#add('lambdalisue/fern.vim')                                 " File Tree
+call dein#add('lambdalisue/nerdfont.vim')                             " File Tree icon
+call dein#add('lambdalisue/fern-renderer-nerdfont.vim')               " File Tree icon, NOTE: コンソールのフォントをNerdにしてください。
+call dein#add('lambdalisue/glyph-palette.vim')                        " File Tree Palette
+call dein#add('lambdalisue/fern-git-status.vim')                      " Git Status view
+call dein#add('lambdalisue/fern-bookmark.vim')                        " File Tree Bookmark
+" call dein#add('skanehira/denops-silicon.vim')                         " code 画像生成 :Silicon 出力されない
+" call dein#add('segeljakt/vim-silicon')                                " code 画像生成 :Silicon 出力されない
+call dein#add('tpope/vim-fugitive')                                   " stutas bar git view
+call dein#add('kdheepak/lazygit.nvim')                                " lazygit
+call dein#add('ayu-theme/ayu-vim')                                    " theme ayu
+call dein#add('morhetz/gruvbox')                                      " theme gruvbox
 
 "===========================
 " 自動補完 ddc setting
