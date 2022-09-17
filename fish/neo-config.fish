@@ -33,8 +33,10 @@ alias vim='nvim'
 alias vi='vim'
 alias s-fish='source ~/.config/fish/config.fish'
 
+alias touch='sh $HOME/dotfiles/fish/mkdir_touch.sh'
+
 # cd directory
-alias dot='cd ~/dotfiles; neo'
+alias dot='cd ~/dotfiles; neo nvim/init.vim'
 alias bys='cd ~/vm_share/byYourSide; neo'
 
 # git  alias
