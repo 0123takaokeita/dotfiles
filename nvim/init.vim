@@ -213,12 +213,9 @@ let g:silicon_options = {
 set clipboard+=unnamed      " クリップボードを共有
 set number                  " view number
 set expandtab               " Tabを半角スペースにする
-set tabstop=2               " 行頭以外のTab文字の表示幅
-set shiftwidth=2            " 行頭でのTab文字の表示幅
 set list listchars=tab:\▸\- " 不可視文字を可視化(タブが「▸-」と表示される)
-set smartindent             " インデントはスマートインデント
 " set helplang=ja             " help 日本語
-set cursorline              " 横のカーソルラインをハイライト
+" set cursorline              " 横のカーソルラインをハイライト
 set splitright              " 分割時に右に分割
 set splitbelow              " 分割時に下に分割
 set nowrap                  " 折返無効化
@@ -227,12 +224,22 @@ set virtualedit=onemore     " 行末の1文字先までカーソルを移動で�
 set ignorecase              " 大文字小文字を区別なく検索する
 set imdisable               " IME自動OFF
 
+set tabstop=4
+set shiftwidth=4
+set autoindent
+set smartindent
+
+augroup fileTypeIndent
+    autocmd!
+    autocmd BufNewFile,BufRead *.rb setlocal tabstop=2 shiftwidth=2
+augroup END
+
 "===========================
 " Colorscheme Setting
 "===========================
 syntax   on
 filetype on                     " ファイルタイプを検出
-filetype indent on              " ファイル対応ごとにインデントをロード
+filetype plugin indent on       " ファイル対応ごとにインデントをロード
 set      termguicolors
 set      t_Co=256               " 使用色を追加
 " set      pumblend=50            " pop-up の透明度設定 5 ~ 30 くらいが標準
