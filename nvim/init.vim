@@ -242,13 +242,14 @@ filetype on                     " ファイルタイプを検出
 filetype plugin indent on       " ファイル対応ごとにインデントをロード
 set      termguicolors
 set      t_Co=256               " 使用色を追加
-" set      pumblend=50            " pop-up の透明度設定 5 ~ 30 くらいが標準
-hi       Pmenu    ctermbg=20 ctermfg=15
-hi       PmenuSel ctermbg=13 ctermfg=0
-let ayucolor                = "dark" " light or mirage or dark
-let g:gruvbox_contrast_dark = 'soft' " soft or hard
-colorscheme github " github or ayu or gruvbox or tokyonight-storm or tokyonight-night
 
+let ayucolor                = 'mirage' " light or mirage or dark
+let g:gruvbox_contrast_dark = 'soft' " soft or hard
+colorscheme tokyonight-night " github or ayu or gruvbox or tokyonight-storm or tokyonight-night
+
+" set      pumblend=10 " pop-up の透明度設定 5 ~ 30 くらいが標準
+" hi CocMenuSel ctermbg=237 guibg=#13354A
+hi CocFloating ctermbg=237 guibg=#13354A
 
 "===========================
 " Keymap
