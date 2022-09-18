@@ -8,6 +8,7 @@ status --is-interactive; and source (rbenv init -|psub)
 
 # neovim 設定
 set -x XDG_CONFIG_HOME $HOME/.config
+set -x MYVIMRC $HOME/.config/nvim/init.vim
 
 # rmコマンドのalias登録
 alias rm='trash'
