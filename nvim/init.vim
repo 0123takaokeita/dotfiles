@@ -5,15 +5,19 @@ set runtimepath+=$HOME/.cache/dein/repos/github.com/Shougo/dein.vim
 call dein#begin('$HOME/.cache/dein')
 call dein#add('$HOME/.cache/dein/repos/github.com/Shougo/dein.vim')
 
-" call dein#add('vim-jp/vimdoc-ja')                                     " ヘルプ日本語化
-call dein#add('tpope/vim-commentary')                                 " comment out
+call dein#add('vim-jp/vimdoc-ja')                                     " ヘルプ日本語化
 call dein#add('cormacrelf/vim-colors-github')                         " colortheme github
 call dein#add('bronson/vim-trailing-whitespace')                      " 末尾の全角半角空白文字を赤くハイライト cmd: FixWhitespace 末尾のスペース全削除
 call dein#add('pmsorhaindo/syntastic-local-eslint.vim')               " プロジェクトに入ってるESLintを読み込む
 call dein#add('tpope/vim-endwise')                                    " end 自動挿入
 call dein#add('mattn/emmet-vim')                                      " emmet記法有効化
 call dein#add('preservim/nerdtree')                                   " エクスプローラーの追加
-call dein#add('tpope/vim-surround')                                   " クォーテーションの切り替え
+call dein#add('tpope/vim-commentary')                                 " comment out
+call dein#add('tpope/vim-surround')                                   " text object を囲う
+call dein#add('tpope/vim-repeat')                                     " surround を . で repeat
+" call dein#add('machakann/vim-sandwich')                               " テキストオブジェクトの囲いを編集
+call dein#add('machakann/vim-highlightedyank')                        " yank highlight
+call dein#add('tpope/vim-fugitive')                                   " stutas bar git view
 call dein#add('vim-scripts/vim-auto-save')                            " Auto Save
 call dein#add('itchyny/lightline.vim')                                " ライトラインのビジュアル変更
 call dein#add('delphinus/lightline-delphinus')                        " ライトラインプラグイン
@@ -22,8 +26,6 @@ call dein#add('junegunn/vim-easy-align')                              " align re
 call dein#add('mattn/vim-maketable')                                  " table 整形 cmd: MakeTable
 call dein#add('wakatime/vim-wakatime')                                " トラッキング
 call dein#add('nathanaelkane/vim-indent-guides')                      " indent
-call dein#add('prabirshrestha/vim-lsp')                               " lsp server
-call dein#add('mattn/vim-lsp-settings')                               " lsp settings
 call dein#add('dense-analysis/ale')                                   " 静的解析
 call dein#add('junegunn/fzf', {'merged': 0})                          " File 検索
 call dein#add('junegunn/fzf.vim', {'depends': 'fzf'})                 " File 検索
@@ -33,31 +35,37 @@ call dein#add('lambdalisue/fern-renderer-nerdfont.vim')               " File Tre
 call dein#add('lambdalisue/glyph-palette.vim')                        " File Tree Palette
 call dein#add('lambdalisue/fern-git-status.vim')                      " Git Status view
 call dein#add('lambdalisue/fern-bookmark.vim')                        " File Tree Bookmark
-call dein#add('tpope/vim-fugitive')                                   " stutas bar git view
 call dein#add('kdheepak/lazygit.nvim')                                " lazygit
 call dein#add('ayu-theme/ayu-vim')                                    " theme ayu
 call dein#add('morhetz/gruvbox')                                      " theme gruvbox
 call dein#add('folke/tokyonight.nvim', { 'branch': 'main' })          " theme tokyonight
-call dein#add('machakann/vim-highlightedyank')                        " yank highlight
 call dein#add('neoclide/coc.nvim', { 'merged': 0, 'rev': 'release' }) " dependence: node >= 14.14, setting-check: :checkhealth
 call dein#add('ryanoasis/vim-devicons')                               " add icon
 call dein#add('Townk/vim-autoclose')                                  " auto close
+call dein#add('yuezk/vim-js')                                         " js syntax
+call dein#add('maxmellon/vim-jsx-pretty')                             " React syntax
+call dein#add('vim-denops/denops.vim')                                " deno
+call dein#add('skanehira/denops-silicon.vim')                         " dependence: denops.vim Deno v12.5.0
+call dein#add('cespare/vim-toml')                                     " toml syntax highlight
+call dein#add('KabbAmine/vCoolor.vim')                                " color picker
+call dein#add('luochen1990/rainbow')                                  " bracket rainbow
+call dein#add('monaqa/smooth-scroll.vim')                             " scroll smooth
 
 "===========================
 " 自動補完 ddc setting
 "===========================
-call dein#add('vim-denops/denops.vim')                                " deno
-call dein#add('skanehira/denops-silicon.vim')                         " dependence: denops.vim Deno v12.5.0
-call dein#add('Shougo/ddc.vim')
-call dein#add('Shougo/ddc-around')
-call dein#add('Shougo/ddc-matcher_head')
+" call dein#add('prabirshrestha/vim-lsp')                               " lsp server
+" call dein#add('mattn/vim-lsp-settings')                               " lsp settings
+" call dein#add('Shougo/ddc.vim')
+" call dein#add('Shougo/ddc-around')
+" call dein#add('Shougo/ddc-matcher_head')
 
-call ddc#custom#patch_global('sources', ['around'])
-call ddc#custom#patch_global('sourceOptions', {
-    \ '_': {
-    \     'matchers': ['matcher_head'],
-    \ }})
-call ddc#enable()
+" call ddc#custom#patch_global('sources', ['around'])
+" call ddc#custom#patch_global('sourceOptions', {
+"     \ '_': {
+"     \     'matchers': ['matcher_head'],
+"     \ }})
+" call ddc#enable()
 
 if dein#check_install()
   call dein#install()
@@ -75,35 +83,70 @@ function! DeinClean() abort
   endif
 endfunction
 
+"===========================
+" Colorscheme Setting
+"===========================
+syntax   on
+filetype on                     " ファイルタイプを検出
+filetype plugin indent on       " ファイル対応ごとにインデントをロード
+set      termguicolors
+set      t_Co=256               " 使用色を追加
+
+let ayucolor                = 'dark' " light or mirage or dark
+let g:gruvbox_contrast_dark = 'hard' " soft or hard
+colorscheme tokyonight-night " github or ayu or gruvbox or tokyonight-storm or tokyonight-night
+
+" set      pumblend=10 " pop-up の透明度設定 5 ~ 30 くらいが標準
+" hi CocMenuSel ctermbg=237 guibg=#13354A
+hi CocFloating ctermbg=237 guibg=#13354A
 command! CleanPlugins call DeinClean()
 
 "===========================
 " Plugin Settings
 "===========================
-let g:auto_save                                = 1 " 自動保存の有効化 OFF :AutoSaveToggle
-let g:highlightedyank_highlight_duration       = 150
-let g:indent_guides_enable_on_vim_startup      = 1
+let g:auto_save                           = 1 " 自動保存の有効化 OFF :AutoSaveToggle
+let g:highlightedyank_highlight_duration  = 150
+let g:indent_guides_enable_on_vim_startup = 1
+let g:jsx_ext_required                    = 0
+let g:airline#extensions#ale#enabled      = 1
+let g:rainbow_active                      = 1 "set to 0 if you want to enable it later via :RainbowToggle
 
+" ###########
+" emmet
+" ###########
+let g:user_emmet_leader_key='<C-K>'
+
+" ###########
 " gitgutter
+" ###########
 let g:github_colors_soft                       = 1
 let g:github_colors_block_diffmark             = 1 " 差分マークのハイライト表示
 
+" ###########
 " lazygit
+" ###########
 let g:lazygit_floating_window_scaling_factor   = 1 " scaling factor for floating window
-
-" ale
-" dependence: solargraph, rbenv を使用している場合 version ごとに install
-let g:ale_linters_explicit           = 1
-let g:airline#extensions#ale#enabled = 1
-let g:ale_lint_on_text_changed       = 1
-let g:ale_sign_error                 = '❌'
-let g:ale_sign_warning               = '🐥'
-let g:ale_linters = {
-      \'ruby': ['rubocop'],
-      \'javascript': ['eslint']
-      \}
+let g:lazygit_floating_window_winblend = 0 " transparency of floating window
+let g:lazygit_floating_window_corner_chars = ['╭', '╮', '╰', '╯'] " customize lazygit popup window corner characters
 
 " ###########
+" ale
+" ###########
+" dependence: solargraph, rbenv を使用している場合 version ごとに install
+let g:ale_linters_explicit           = 1
+let g:ale_lint_on_text_changed       = 1
+let g:ale_fixe_on_save               = 1
+let g:ale_sign_error                 = '☒'
+let g:ale_sign_warning               = '⚠'
+let g:ale_completion_autoimport      = 1
+" let g:ale_ruby_rubocop_executable    = 'bundle'
+
+let g:ale_linters = {
+      \'ruby': ['rubocop'],
+      \'typescript': ['eslint', 'tsserver']
+      \}
+      " \'javascript': ['eslint', 'tsserver'],
+
 " coc
 " ###########
 let g:loaded_perl_provider                     = 0
@@ -214,15 +257,15 @@ set clipboard+=unnamed      " クリップボードを共有
 set number                  " view number
 set expandtab               " Tabを半角スペースにする
 set list listchars=tab:\▸\- " 不可視文字を可視化(タブが「▸-」と表示される)
-" set helplang=ja             " help 日本語
-" set cursorline              " 横のカーソルラインをハイライト
+set helplang=ja             " help 日本語
+set cursorline              " 横のカーソルラインをハイライト
 set splitright              " 分割時に右に分割
 set splitbelow              " 分割時に下に分割
 set nowrap                  " 折返無効化
 set autoread                " 自動読込
 set virtualedit=onemore     " 行末の1文字先までカーソルを移動できるように
 set ignorecase              " 大文字小文字を区別なく検索する
-set imdisable               " IME自動OFF
+" set ambiwidth=double
 
 set tabstop=4
 set shiftwidth=4
@@ -231,25 +274,17 @@ set smartindent
 
 augroup fileTypeIndent
     autocmd!
-    autocmd BufNewFile,BufRead *.rb setlocal tabstop=2 shiftwidth=2
+    autocmd BufNewFile,BufRead *.rb   setlocal tabstop=2 shiftwidth=2
+    autocmd BufNewFile,BufRead *.vim  setlocal tabstop=2 shiftwidth=2
+    autocmd BufNewFile,BufRead *.js   setlocal tabstop=2 shiftwidth=2
+    autocmd BufNewFile,BufRead *.jsx  setlocal tabstop=2 shiftwidth=2
+    autocmd BufNewFile,BufRead *.ts   setlocal tabstop=2 shiftwidth=2
+    autocmd BufNewFile,BufRead *.tsx  setlocal tabstop=2 shiftwidth=2
+    autocmd BufNewFile,BufRead *.html setlocal tabstop=2 shiftwidth=2
+    autocmd BufNewFile,BufRead *.json setlocal tabstop=2 shiftwidth=2
+    autocmd BufNewFile,BufRead *.lua  setlocal tabstop=2 shiftwidth=2
 augroup END
 
-"===========================
-" Colorscheme Setting
-"===========================
-syntax   on
-filetype on                     " ファイルタイプを検出
-filetype plugin indent on       " ファイル対応ごとにインデントをロード
-set      termguicolors
-set      t_Co=256               " 使用色を追加
-
-let ayucolor                = 'mirage' " light or mirage or dark
-let g:gruvbox_contrast_dark = 'soft' " soft or hard
-colorscheme tokyonight-night " github or ayu or gruvbox or tokyonight-storm or tokyonight-night
-
-" set      pumblend=10 " pop-up の透明度設定 5 ~ 30 くらいが標準
-" hi CocMenuSel ctermbg=237 guibg=#13354A
-hi CocFloating ctermbg=237 guibg=#13354A
 
 "===========================
 " Keymap
@@ -290,23 +325,29 @@ nnoremap gh             :GitGutterLineHighlightsToggle<CR>
 nnoremap gp             :GitGutterPreviewHunk<CR>
 
 " Spell Converter
-nnoremap <Leader>c      viw:s/\v_(.)/\u\1/g<CR>
-nnoremap <Leader>s      viw:s/\%V\([A-Z]\)/_\l\1/g<CR>
-xnoremap <Leader>c      :s/\%V\(_\\|-\)\(.\)/\u\2/g<CR>
-xnoremap <Leader>s      :s/\%V\([A-Z]\)/_\l\1/g<CR>
+nnoremap <Leader>cc      viw:s/\v_(.)/\u\1/g<CR>
+nnoremap <Leader>cs      viw:s/\%V\([A-Z]\)/_\l\1/g<CR>
+xnoremap <Leader>cc      :s/\%V\(_\\|-\)\(.\)/\u\2/g<CR>
+xnoremap <Leader>cs      :s/\%V\([A-Z]\)/_\l\1/g<CR>
 
-" Over Ride *
+" Util
 noremap *               *N
-
-" Paste
-noremap <Leader>p       "0p
+noremap <Leader>w       ZZ
+noremap <Leader>q       :q!<CR>
+noremap <Leader>s       :vsplit<CR>
 
 " Source
 noremap <silent> <Leader><Leader> :source $MYVIMRC<CR>
 noremap <silent> <Leader>e :e $MYVIMRC<CR>
 
+" VCooler
+noremap <Leader>p :VCoolor<CR>
+
 " coc
-inoremap <expr> <cr> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
+" inoremap <expr> <cr> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
 nnoremap <silent> K  :call ShowDocumentation()<CR>
 nmap     <silent> gd <Plug>(coc-definition)
 nmap     <silent> gy <Plug>(coc-type-definition)
