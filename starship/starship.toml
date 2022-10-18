@@ -1,0 +1,74 @@
+# カスタムフォーマットを利用します
+scan_timeout = 10
+format = """
+[┌───────>](bold green)$ruby$nodejs$deno
+[│](bold green)$time
+[│](bold green)$git_branch
+[│](bold green)$directory
+[└─>](bold green)
+"""
+# [│](bold green)$username $hostname
+
+[character]
+success_symbol = "[➜](bold green) "
+error_symbol = "[✗](bold red) "
+vicmd_symbol = "[V](bold green) "
+
+[username]
+# disabled = ture
+style_user = "white bold"
+style_root = "black bold"
+format = "user: [$user]($style) "
+show_always = true
+
+[directory]
+# disabled = true
+truncation_length = 100
+truncate_to_repo  = false
+home_symbol = "~"
+style = "bold blue"
+format = "[$path]($style)"
+
+[deno]
+format = "via [🦕 $version](green bold) "
+
+[docker_context]
+format = "via [🐋 $context](blue bold)"
+
+[git_branch]
+symbol = " "
+# truncation_length = 10
+truncation_symbol = ""
+# ignore_branches = ["master", "main"]
+format = "[$symbol $branch ](bold purple)"
+
+[lua]
+format = "via [🌕 $version](bold blue) "
+
+[ruby]
+# disabled = true
+symbol = " "
+format = "[$symbol$version](bold red) "
+detect_files = ["Rakefile", ".git"]
+
+[package]
+# disabled = true
+symbol = " "
+style = "bg:#545B68 fg:#EEEEEE"
+display_private = false
+format = "[[](bg:#545B68 fg:#A6A6A6)$symbol$version[](bg:#A6A6A6 fg:#545B68)]($style)"
+
+[nodejs]
+symbol = ""
+format = "[$symbol $version](bold green) "
+
+[[battery.display]]
+threshold = 100
+style = "bold blue"
+
+[time]
+disabled = false
+use_12hr = true
+style = "bold yellow"
+time_format = "%Y/%D/%T"
+format = "[$time]($style)"
