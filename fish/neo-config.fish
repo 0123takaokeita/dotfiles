@@ -2,6 +2,9 @@ if status is-interactive
     # Commands to run in interactive sessions can go here
 end
 
+set -x LANG en_US.UTF-8
+set -x LC_ALL en_US.UTF-8
+
 # rbrenv path
 set -x  PATH $HOME/.rbenb/bin $PATH
 status --is-interactive; and source (rbenv init -|psub)
@@ -10,18 +13,21 @@ status --is-interactive; and source (rbenv init -|psub)
 set -x XDG_CONFIG_HOME $HOME/.config
 set -x MYVIMRC $HOME/.config/nvim/init.vim
 
-# rmコマンドのalias登録
-alias rm='trash'
-
-# nvimのエイリアス
-alias vi='nvim'
-alias vim='vim'
-
 # python3をデフォルトにする
 alias python='python3'
 
-# lsコマンドのオプション指定
-alias ls='ls -FA'
+# コマンド override
+alias rm='trash'
+alias ls='exa'
+alias la='exa -la'
+alias ll='exa -larbghHs name --icons --git'
+alias cat='bat'
+alias find='fd'
+alias ps='procs'
+alias du='dust'
+alias df='duf'
+alias top='btm'
+alias grep='rg'
 
 # 環境変数を改行区切りで表示
 alias pathls='echo $PATH | tr " " "\n" | nl'
@@ -32,13 +38,14 @@ alias dl='docui'
 alias neo='nvim'
 alias vim='nvim'
 alias vi='vim'
-alias s-fish='source ~/.config/fish/config.fish'
-
-alias touch='sh $HOME/dotfiles/fish/mkdir_touch.sh'
+alias sfish='source ~/.config/fish/config.fish'
 
 # cd directory
 alias dot='cd ~/dotfiles; neo nvim/init.vim'
 alias bys='cd ~/vm_share/byYourSide; neo'
+
+# directory 追加のtouch
+alias dirch='sh $HOME/dotfiles/fish/mkdir_touch.sh'
 
 # git  alias
 alias g='git'
@@ -54,3 +61,7 @@ alias gst='git stash'
 alias gco='git checkout'
 alias gl='git log --oneline'
 alias glg="git log --graph --date=short --decorate=short --pretty=format:'%Cgreen%h %Creset%cd %Cblue%cn %Cred%d %Creset%s'"
+
+starship init fish | source
+set -gx VOLTA_HOME "$HOME/.volta"
+set -gx PATH "$VOLTA_HOME/bin" $PATH
