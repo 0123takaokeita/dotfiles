@@ -15,7 +15,7 @@ call dein#add('preservim/nerdtree')                                   " エク�
 call dein#add('tpope/vim-commentary')                                 " comment out
 call dein#add('tpope/vim-surround')                                   " text object を囲う
 call dein#add('tpope/vim-repeat')                                     " surround を . で repeat
-" call dein#add('machakann/vim-sandwich')                               " テキストオブジェクトの囲いを編集
+call dein#add('machakann/vim-sandwich')                               " テキストオブジェクトの囲いを編集
 call dein#add('machakann/vim-highlightedyank')                        " yank highlight
 call dein#add('tpope/vim-fugitive')                                   " stutas bar git view
 call dein#add('vim-scripts/vim-auto-save')                            " Auto Save
@@ -39,9 +39,10 @@ call dein#add('kdheepak/lazygit.nvim')                                " lazygit
 call dein#add('ayu-theme/ayu-vim')                                    " theme ayu
 call dein#add('morhetz/gruvbox')                                      " theme gruvbox
 call dein#add('folke/tokyonight.nvim', { 'branch': 'main' })          " theme tokyonight
+call dein#add('sainnhe/everforest')                                   " theme everforest
+call dein#add('AhmedAbdulrahman/aylin.vim')                           " theme aylin
 call dein#add('neoclide/coc.nvim', { 'merged': 0, 'rev': 'release' }) " dependence: node >= 14.14, setting-check: :checkhealth
 call dein#add('ryanoasis/vim-devicons')                               " add icon
-call dein#add('Townk/vim-autoclose')                                  " auto close
 call dein#add('yuezk/vim-js')                                         " js syntax
 call dein#add('maxmellon/vim-jsx-pretty')                             " React syntax
 call dein#add('vim-denops/denops.vim')                                " deno
@@ -50,7 +51,6 @@ call dein#add('cespare/vim-toml')                                     " toml syn
 call dein#add('KabbAmine/vCoolor.vim')                                " color picker
 call dein#add('luochen1990/rainbow')                                  " bracket rainbow
 call dein#add('monaqa/smooth-scroll.vim')                             " scroll smooth
-
 "===========================
 " 自動補完 ddc setting
 "===========================
@@ -82,6 +82,7 @@ function! DeinClean() abort
     call dein#recache_runtimepath()
   endif
 endfunction
+command! CleanPlugins call DeinClean()
 
 "===========================
 " Colorscheme Setting
@@ -94,12 +95,12 @@ set      t_Co=256               " 使用色を追加
 
 let ayucolor                = 'dark' " light or mirage or dark
 let g:gruvbox_contrast_dark = 'hard' " soft or hard
-colorscheme tokyonight-night " github or ayu or gruvbox or tokyonight-storm or tokyonight-night
+" github or ayu or gruvbox or tokyonight-storm or tokyonight-night or everforest or aylin
+colorscheme tokyonight-night
 
 " set      pumblend=10 " pop-up の透明度設定 5 ~ 30 くらいが標準
 " hi CocMenuSel ctermbg=237 guibg=#13354A
 hi CocFloating ctermbg=237 guibg=#13354A
-command! CleanPlugins call DeinClean()
 
 "===========================
 " Plugin Settings
@@ -344,12 +345,6 @@ noremap <silent> <Leader>e :e $MYVIMRC<CR>
 noremap <Leader>p :VCoolor<CR>
 
 " coc
-" inoremap <expr> <cr> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#_select_confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
 nnoremap <silent> K  :call ShowDocumentation()<CR>
-nmap     <silent> gd <Plug>(coc-definition)
-nmap     <silent> gy <Plug>(coc-type-definition)
-nmap     <silent> gi <Plug>(coc-implementation)
-nmap     <silent> gr <Plug>(coc-references)
