@@ -6,12 +6,26 @@ gui:
     'feature': 'cyan'
     'master': 'red'
   theme:
-    lightTheme: true
+    lightTheme: false
     activeBorderColor:
       - green
       - bold
     inactiveBorderColor:
-      - gray
+      - white
+    optionsTextColor:
+      - blue
+    selectedLineBgColor:
+      - blue # set to `default` to have no background colour
+    selectedRangeBgColor:
+      - blue
+    cherryPickedCommitBgColor:
+      - cyan
+    cherryPickedCommitFgColor:
+      - blue
+    unstagedChangesColor:
+      - red
+  commitLength:
+    show: true
 os:
   editCommand: 'nvim'
 git:
