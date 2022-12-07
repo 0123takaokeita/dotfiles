@@ -310,7 +310,8 @@ nnoremap fc             :Commits<CR>
 
 " Code Alignment
 noremap  <Leader>r      :FixWhitespace<CR>
-noremap  <Leader>m      :MakeTable!<CR>
+noremap  <Leader>mt     :MakeTable!<CR>
+noremap  <Leader>mr     :UnmakeTable<CR>
 xmap     ga             <Plug>(EasyAlign)
 nmap     ff             <Plug>Csurround"'
 nmap     tt             <Plug>Csurround'"
