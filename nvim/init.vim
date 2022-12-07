@@ -267,7 +267,7 @@ set nowrap                  " 折返無効化
 set autoread                " 自動読込
 set virtualedit=onemore     " 行末の1文字先までカーソルを移動できるように
 set ignorecase              " 大文字小文字を区別なく検索する
-" set ambiwidth=double
+set noswapfile              " swap file を作成しない
 
 set tabstop=4
 set shiftwidth=4
