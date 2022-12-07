@@ -51,6 +51,7 @@ call dein#add('cespare/vim-toml')                                     " toml syn
 call dein#add('KabbAmine/vCoolor.vim')                                " color picker
 call dein#add('luochen1990/rainbow')                                  " bracket rainbow
 call dein#add('monaqa/smooth-scroll.vim')                             " scroll smooth
+call dein#add('tyru/open-browser.vim')
 "===========================
 " 自動補完 ddc setting
 "===========================
@@ -343,7 +344,10 @@ noremap <silent> <Leader><Leader> :source $MYVIMRC<CR>
 noremap <silent> <Leader>e :e $MYVIMRC<CR>
 
 " VCooler
-noremap <Leader>p :VCoolor<CR>
+noremap <Leader>cp :VCoolor<CR>
+
+" PreviewMarkdown
+noremap <Leader>p  :PrevimOpen<CR>
 
 " coc
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#_select_confirm()
