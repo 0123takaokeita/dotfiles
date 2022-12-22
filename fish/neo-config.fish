@@ -34,11 +34,13 @@ alias pathls='echo $PATH | tr " " "\n" | nl'
 alias pathfish='echo $fish_user_paths | tr " " "\n" | nl'
 
 alias lg='lazygit'
-alias dl='docui'
+alias ld='docui'
 alias neo='nvim'
 alias vim='nvim'
 alias vi='vim'
 alias sfish='source ~/.config/fish/config.fish'
+alias osaka='curl wttr.in/Osaka'
+alias tenki='curl wttr.in/'
 
 # cd directory
 alias dot='cd ~/dotfiles; neo nvim/init.vim'
