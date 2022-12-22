@@ -5,18 +5,25 @@ end
 set -x LANG en_US.UTF-8
 set -x LC_ALL en_US.UTF-8
 
-# rbrenv path
+# rbrenv config
 set -x  PATH $HOME/.rbenb/bin $PATH
 status --is-interactive; and source (rbenv init -|psub)
 
-# neovim 設定
+# neovim config
 set -x XDG_CONFIG_HOME $HOME/.config
 set -x MYVIMRC $HOME/.config/nvim/init.vim
 
-# python3をデフォルトにする
-alias python='python3'
 
-# コマンド override
+# go 設定
+set -x GOPATH $HOME/go
+set -x PATH $GOPATH/bin $PATH
+
+# volta 設定
+set -gx VOLTA_HOME "$HOME/.volta"
+set -gx PATH "$VOLTA_HOME/bin" $PATH
+
+# cmd alias
+alias python='python3'
 alias rm='trash'
 alias ls='exa'
 alias la='exa -la'
@@ -33,8 +40,9 @@ alias grep='rg'
 alias pathls='echo $PATH | tr " " "\n" | nl'
 alias pathfish='echo $fish_user_paths | tr " " "\n" | nl'
 
+# 起動エイリアス
 alias lg='lazygit'
-alias ld='docui'
+alias ld='lazydocker'
 alias neo='nvim'
 alias vim='nvim'
 alias vi='vim'
@@ -45,6 +53,8 @@ alias tenki='curl wttr.in/'
 # cd directory
 alias dot='cd ~/dotfiles; neo nvim/init.vim'
 alias bys='cd ~/vm_share/byYourSide; neo'
+alias ...='cd ../..'
+alias ....='cd ../../..'
 
 # directory 追加のtouch
 alias dirch='sh $HOME/dotfiles/fish/mkdir_touch.sh'
@@ -65,5 +75,3 @@ alias gl='git log --oneline'
 alias glg="git log --graph --date=short --decorate=short --pretty=format:'%Cgreen%h %Creset%cd %Cblue%cn %Cred%d %Creset%s'"
 
 starship init fish | source
-set -gx VOLTA_HOME "$HOME/.volta"
-set -gx PATH "$VOLTA_HOME/bin" $PATH
