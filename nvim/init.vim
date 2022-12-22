@@ -1,4 +1,3 @@
-"===========================
 " Plugins
 "===========================
 set runtimepath+=$HOME/.cache/dein/repos/github.com/Shougo/dein.vim
@@ -51,7 +50,10 @@ call dein#add('cespare/vim-toml')                                     " toml syn
 call dein#add('KabbAmine/vCoolor.vim')                                " color picker
 call dein#add('luochen1990/rainbow')                                  " bracket rainbow
 call dein#add('monaqa/smooth-scroll.vim')                             " scroll smooth
+" call dein#add('skanehira/preview-markdown.vim')                       " markdown preview NOTE: mdcat が拡張されたら導入したい
+call dein#add('previm/previm')                       " markdown preview
 call dein#add('tyru/open-browser.vim')
+
 "===========================
 " 自動補完 ddc setting
 "===========================
@@ -99,7 +101,8 @@ let g:gruvbox_contrast_dark = 'hard' " soft or hard
 " github or ayu or gruvbox or tokyonight-storm or tokyonight-night or everforest or aylin
 colorscheme tokyonight-night
 
-" set      pumblend=10 " pop-up の透明度設定 5 ~ 30 くらいが標準
+set pumblend=10 " pop-up の透明度設定 5 ~ 30 くらいが標準
+
 " hi CocMenuSel ctermbg=237 guibg=#13354A
 hi CocFloating ctermbg=237 guibg=#13354A
 
@@ -109,9 +112,11 @@ hi CocFloating ctermbg=237 guibg=#13354A
 let g:auto_save                           = 1 " 自動保存の有効化 OFF :AutoSaveToggle
 let g:highlightedyank_highlight_duration  = 150
 let g:indent_guides_enable_on_vim_startup = 1
-let g:jsx_ext_required                    = 0
-let g:airline#extensions#ale#enabled      = 1
-let g:rainbow_active                      = 1 "set to 0 if you want to enable it later via :RainbowToggle
+" let g:jsx_ext_required                    = 0
+" let g:airline#extensions#ale#enabled      = 1
+" let g:rainbow_active                      = 1 "set to 0 if you want to enable it later via :RainbowToggle
+" let g:preview_markdown_parser             = 'mdr'
+" let g:preview_markdown_auto_update        = 1
 
 " ###########
 " emmet
@@ -138,8 +143,8 @@ let g:lazygit_floating_window_corner_chars = ['╭', '╮', '╰', '╯'] " cust
 let g:ale_linters_explicit           = 1
 let g:ale_lint_on_text_changed       = 1
 let g:ale_fixe_on_save               = 1
-let g:ale_sign_error                 = '☒'
-let g:ale_sign_warning               = '⚠'
+let g:ale_sign_error                 = ''
+let g:ale_sign_warning               = ''
 let g:ale_completion_autoimport      = 1
 " let g:ale_ruby_rubocop_executable    = 'bundle'
 
@@ -230,7 +235,6 @@ command! -bang -nargs=* Rg
 \ : fzf#vim#with_preview({'options': '--exact --delimiter : --nth 3..'}, 'right:50%', '?'),
 \ <bang>0)
 
-
 " ###########
 " Silicon
 " ###########
@@ -286,7 +290,6 @@ augroup fileTypeIndent
     autocmd BufNewFile,BufRead *.json setlocal tabstop=2 shiftwidth=2
     autocmd BufNewFile,BufRead *.lua  setlocal tabstop=2 shiftwidth=2
 augroup END
-
 
 "===========================
 " Keymap
@@ -354,3 +357,4 @@ noremap <Leader>p  :PrevimOpen<CR>
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#_select_confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 nnoremap <silent> K  :call ShowDocumentation()<CR>
+
