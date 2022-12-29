@@ -342,6 +342,7 @@ noremap <Leader>w       ZZ
 noremap <Leader>q       :q!<CR>
 noremap <Leader>s       :vsplit<CR>
 noremap <Esc><Esc>      :noh<CR>
+noremap <Leader>zf      :set foldmethod=indent<CR>
 
 " Source
 noremap <silent> <Leader><Leader> :source $MYVIMRC<CR>
