@@ -1,5 +1,5 @@
 # バックアップファイル作成
-brew bundle dump
+brew bundle dump --global
 
 # バックアップファイルから復元
 # brew bundle
