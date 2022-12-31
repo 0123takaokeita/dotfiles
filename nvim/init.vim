@@ -10,7 +10,6 @@ call dein#add('bronson/vim-trailing-whitespace')                      " 末尾�
 call dein#add('pmsorhaindo/syntastic-local-eslint.vim')               " プロジェクトに入ってるESLintを読み込む
 call dein#add('tpope/vim-endwise')                                    " end 自動挿入
 call dein#add('mattn/emmet-vim')                                      " emmet記法有効化
-call dein#add('preservim/nerdtree')                                   " エクスプローラーの追加
 call dein#add('tpope/vim-commentary')                                 " comment out
 call dein#add('tpope/vim-surround')                                   " text object を囲う
 call dein#add('tpope/vim-repeat')                                     " surround を . で repeat
@@ -53,6 +52,7 @@ call dein#add('monaqa/smooth-scroll.vim')                             " scroll s
 " call dein#add('skanehira/preview-markdown.vim')                       " markdown preview NOTE: mdcat が拡張されたら導入したい
 call dein#add('previm/previm')                       " markdown preview
 call dein#add('tyru/open-browser.vim')
+call dein#add('machakann/vim-swap')                                   " 引数の入れ替え g<
 
 "===========================
 " 自動補完 ddc setting
