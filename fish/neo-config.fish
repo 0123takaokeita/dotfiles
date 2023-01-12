@@ -22,6 +22,9 @@ set -x PATH $GOPATH/bin $PATH
 set -gx VOLTA_HOME "$HOME/.volta"
 set -gx PATH "$VOLTA_HOME/bin" $PATH
 
+# less コマンドデフォルトオプション
+set -x LESS -i -M -R -S -W -z-4 -x4
+
 # cmd alias
 alias python='python3'
 alias rm='trash'
@@ -39,10 +42,12 @@ alias grep='rg'
 # 環境変数を改行区切りで表示
 alias pathls='echo $PATH | tr " " "\n" | nl'
 alias pathfish='echo $fish_user_paths | tr " " "\n" | nl'
+alias env='env | sort'
 
 # 起動エイリアス
 alias lg='lazygit'
 alias ld='lazydocker'
+alias di='docui'
 alias neo='nvim'
 alias vim='nvim'
 alias vi='vim'
@@ -68,7 +73,7 @@ alias gp='git push'
 alias gb='git branch'
 alias gbl='git branch -a'
 alias gf='git fetch'
-alias gc='git commit'
+alias gc='git commit -m'
 alias gst='git stash'
 alias gco='git checkout'
 alias gl='git log --oneline'
