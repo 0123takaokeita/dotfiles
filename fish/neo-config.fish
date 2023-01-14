@@ -1,29 +1,17 @@
-if status is-interactive
-    # Commands to run in interactive sessions can go here
-end
+# https://natsukium.github.io/fish-docs-jp/tutorial.html
 
-set -x LANG en_US.UTF-8
-set -x LC_ALL en_US.UTF-8
-
-# rbrenv config
-set -x  PATH $HOME/.rbenb/bin $PATH
-status --is-interactive; and source (rbenv init -|psub)
-
-# neovim config
 set -x XDG_CONFIG_HOME $HOME/.config
 set -x MYVIMRC $HOME/.config/nvim/init.vim
+set -x LANG en_US.UTF-8
+set -x LC_ALL en_US.UTF-8
+set -x LESS -i -M -R -S -W -z-4 -x4 # less コマンドデフォルトオプション
 
+# rbrenv config
+fish_add_path $HOME/.rbenv/shims
+# status --is-interactive; and source (rbenv init -|psub)
 
-# go 設定
-set -x GOPATH $HOME/go
-set -x PATH $GOPATH/bin $PATH
-
-# volta 設定
-set -gx VOLTA_HOME "$HOME/.volta"
-set -gx PATH "$VOLTA_HOME/bin" $PATH
-
-# less コマンドデフォルトオプション
-set -x LESS -i -M -R -S -W -z-4 -x4
+fish_add_path $HOME/go/bin # go 設定
+fish_add_path $HOME/.volta/bin # volta 設定
 
 # cmd alias
 alias python='python3'
