@@ -155,8 +155,17 @@ return require('packer').startup(function()
     requires = {
         'nvim-lua/plenary.nvim',
         'kyazdani42/nvim-web-devicons',
+        'nvim-treesitter/nvim-treesitter',
+        'nvim-telescope/telescope-fzy-native.nvim',
+    },
+    extensions = {
+        fzy_native = {
+            override_generic_sorter = false,
+            override_file_sorter = true,
+        }
     }
   }
+  require('telescope').load_extension('fzy_native')
 
   use 'folke/tokyonight.nvim'
   use {
