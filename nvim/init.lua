@@ -67,6 +67,7 @@ opt.expandtab     = true
 opt.tabstop       = 4     -- tag入力の変更
 opt.shiftwidth    = 2
 opt.cursorline    = true
+opt.helpheight    = 1000
 opt.swapfile      = false -- swapfileを作らない
 opt.wrap          = false -- 折返し無効
 opt.termguicolors = true  -- カラースキームのために
