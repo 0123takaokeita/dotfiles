@@ -24,8 +24,8 @@ key.set('n', 'gh', '<cmd>GitGutterLineHighlightsToggle<cr>')
 key.set('n', 'gp', '<cmd>GitGutterPreviewHunk<cr>')
 
 -- telescope
-key.set('n', '<C-p>', '<cmd>Telescope find_files<CR>')
-key.set('n', '<C-g>', '<cmd>Telescope live_grep<CR>')
+key.set('n', '<C-p>', '<cmd>Telescope find_files hidden=true<CR>')
+key.set('n', '<C-g>', '<cmd>Telescope live_grep hidden=true<CR>')
 
 -- Split window
 key.set('n', 'ss', ':split<CR>eturn><C-w>w')
