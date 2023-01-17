@@ -15,6 +15,8 @@ key.set('n', '<Leader><Leader>', '<cmd>source  ~/.config/nvim/init.lua<cr> <cmd>
 key.set('n', '*','*N')
 key.set('n', '<Leader>zf', '<cmd>set foldmethod=indent<cr>')
 key.set('n', '<Leader>m', '<cmd>Mason<cr>')
+key.set('n', '<Leader>n', '<cmd>:noh<cr>')
+key.set('n', '<Leader>h', '<cmd>:checkhealth<cr>')
 
 -- Open LazyGit
 key.set('n', 'gl', ':LazyGit<CR>')
@@ -24,8 +26,13 @@ key.set('n', 'gh', '<cmd>GitGutterLineHighlightsToggle<cr>')
 key.set('n', 'gp', '<cmd>GitGutterPreviewHunk<cr>')
 
 -- telescope
-key.set('n', '<C-p>', '<cmd>Telescope find_files hidden=true<CR>')
-key.set('n', '<C-g>', '<cmd>Telescope live_grep hidden=true<CR>')
+-- key.set('n', '<C-p>', '<cmd>Telescope find_files hidden=true<CR>')
+key.set('n', '<C-p>', '<cmd>Telescope find_files<CR>')
+-- key.set('n', '<C-g>', '<cmd>Telescope live_grep hidden=true<CR>')
+key.set('n', '<C-g>', '<cmd>Telescope live_grep<CR>')
+key.set('n', 'go', '<cmd>Telescope oldfiles theme=get_dropdown hidden=true<CR>')
+key.set('n', 'gt', '<cmd>Telescope buffers theme=get_dropdown hidden=true<CR>')
+key.set('n', 'gb', '<cmd>Telescope git_branches theme=get_dropdown hidden=true<CR>')
 
 -- Split window
 key.set('n', 'ss', ':split<CR>eturn><C-w>w')
@@ -67,6 +74,7 @@ opt.expandtab     = true
 opt.tabstop       = 4     -- tag入力の変更
 opt.shiftwidth    = 2
 opt.cursorline    = true
+opt.cursorcolumn  = true
 opt.helpheight    = 1000
 opt.swapfile      = false -- swapfileを作らない
 opt.wrap          = false -- 折返し無効
@@ -128,13 +136,14 @@ return require('packer').startup(function()
   use 'monaqa/smooth-scroll.vim'               -- smooth scroller
   use 'tpope/vim-surround'                     -- ex: text object operation. key: <>S([
   use 'tpope/vim-commentary'                   -- comment out key:gcc
-  use 'lambdalisue/fern.vim'                  -- filer
-  use 'lambdalisue/nerdfont.vim'            -- filer icon
+
+  use 'lambdalisue/fern.vim'                   -- filer
+  use 'lambdalisue/nerdfont.vim'               -- filer icon
+  use 'lambdalisue/fern-renderer-nerdfont.vim'
+  use 'lambdalisue/fern-git-status.vim'
     g['fern#renderer'] = 'nerdfont'
     g['fern#default_hidden'] = true
 
-  use 'lambdalisue/fern-renderer-nerdfont.vim'
-  use 'lambdalisue/fern-git-status.vim'
 
   use 'machakann/vim-highlightedyank'          -- yank highlight
     g.highlightedyank_highlight_duration = 100 -- duration time
@@ -146,7 +155,7 @@ return require('packer').startup(function()
   use 'vim-scripts/vim-auto-save'              -- auto save
     g.auto_save       = true
 
-  use 'kdheepak/lazygit.nvim' 
+  use 'kdheepak/lazygit.nvim'
     g.lazygit_floating_window_scaling_factor = 1  -- window size
     g.lazygit_floating_window_winblend       = 0 -- window transparency
 
@@ -180,7 +189,7 @@ return require('packer').startup(function()
      }
    end
   }
- 
+
   use({"folke/noice.nvim",
 	config = function()
 	  require("noice").setup({
@@ -223,22 +232,22 @@ return require('packer').startup(function()
   })
 
   -- TODO: Progress
-  --
   -- complete
   use {
     'hrsh7th/nvim-cmp',
     module = { "cmp" },
     requires = {
-      { 'hrsh7th/cmp-nvim-lsp', event = { 'InsertEnter' } },
-      { 'hrsh7th/cmp-buffer', event = { 'InsertEnter' } },
-      { 'hrsh7th/cmp-path', event = { 'InsertEnter' } },
-      { 'hrsh7th/cmp-vsnip', event = { 'InsertEnter' } },
-      { 'hrsh7th/vim-vsnip', event = { 'InsertEnter' } },
-      { 'hrsh7th/cmp-cmdline', event = { 'CmdlineEnter' } },
+      { 'hrsh7th/cmp-nvim-lsp', event = { 'InsertEnter'  } },
+      { 'hrsh7th/cmp-buffer',   event = { 'InsertEnter'  } },
+      { 'hrsh7th/cmp-path',     event = { 'InsertEnter'  } },
+      { 'hrsh7th/cmp-vsnip',    event = { 'InsertEnter'  } },
+      { 'hrsh7th/vim-vsnip',    event = { 'InsertEnter'  } },
+      { 'hrsh7th/cmp-cmdline',  event = { 'CmdlineEnter' } },
     },
     config = nvim_cmp_config,
   }
 
+  -- Ruby LSP setup
   require'lspconfig'.solargraph.setup{}
   local nvim_lsp = require('lspconfig')
   local on_attach = function(client, bufnr)
