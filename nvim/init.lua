@@ -124,6 +124,7 @@ end
 
 return require('packer').startup(function()
   use 'wbthomason/packer.nvim'                 -- plugin manager
+  use 'monaqa/smooth-scroll.vim'               -- smooth scroller
   use 'tpope/vim-surround'                     -- ex: text object operation. key: <>S([
   use 'tpope/vim-commentary'                   -- comment out key:gcc
   use 'lambdalisue/fern.vim'                  -- filer
