@@ -17,6 +17,7 @@ key.set('n', '<Leader>zf', '<cmd>set foldmethod=indent<cr>')
 key.set('n', '<Leader>m', '<cmd>Mason<cr>')
 key.set('n', '<Leader>n', '<cmd>:noh<cr>')
 key.set('n', '<Leader>h', '<cmd>:checkhealth<cr>')
+key.set('n', '<Leader>p', '<cmd>:PrevimOpen<cr>')
 
 -- Open LazyGit
 key.set('n', 'gl', ':LazyGit<CR>')
@@ -62,7 +63,7 @@ key.set('n', '<C-a>', 'gg<S-v>G')
 key.set('n', 'ff', '<plug>Csurround"\'')
 key.set('n', 'tt', '<plug>Csurround\'"')
 
-o.cmdheight = 4 -- コマンド表示領域
+o.cmdheight = 0 -- コマンド表示領域
 
 -- クリップボード共有
 opt.clipboard:append({ fn.has('mac') == 4 and 'unnamed' or 'unnamedplus' })
@@ -74,7 +75,7 @@ opt.expandtab     = true
 opt.tabstop       = 4     -- tag入力の変更
 opt.shiftwidth    = 2
 opt.cursorline    = true
-opt.cursorcolumn  = true
+-- opt.cursorcolumn  = true
 opt.helpheight    = 1000
 opt.swapfile      = false -- swapfileを作らない
 opt.wrap          = false -- 折返し無効
@@ -136,6 +137,7 @@ return require('packer').startup(function()
   use 'monaqa/smooth-scroll.vim'               -- smooth scroller
   use 'tpope/vim-surround'                     -- ex: text object operation. key: <>S([
   use 'tpope/vim-commentary'                   -- comment out key:gcc
+  use 'previm/previm'                          -- markdown preview
 
   use 'lambdalisue/fern.vim'                   -- filer
   use 'lambdalisue/nerdfont.vim'               -- filer icon
