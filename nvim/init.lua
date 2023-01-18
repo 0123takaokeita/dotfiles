@@ -176,6 +176,25 @@ return require('packer').startup(function()
     }
   }
   require('telescope').load_extension('fzy_native')
+  require'nvim-treesitter.configs'.setup {
+    ensure_installed = {
+      'lua', 'typescript', 'tsx',
+      'go', 'gomod', 'sql', 'toml', 'yaml',
+      'html', 'javascript', 'graphql',
+      'markdown', 'markdown_inline', 'help',
+      'ruby', 'php'
+    },
+    highlight = {
+      enable = true,
+      disable = { }
+    },
+    indent = {
+      enable = true, -- これを設定することでtree-sitterによるインデントを有効にできます
+    },
+    run = ':TSUpdate',
+    auto_install = true,
+
+  }
 
   use 'folke/tokyonight.nvim'
   use {
