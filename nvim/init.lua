@@ -84,6 +84,8 @@ opt.splitright    = true  -- split時に右側に表示する
 opt.splitbelow    = true  -- split時に下側に表示する
 opt.autoread      = true  -- vim以外での変更を自動読み込み
 opt.ignorecase    = true  -- 検索時に大文字小文字を区別しない
+opt.list          = true  -- 不可視文字可視化
+opt.listchars:append "space:⋅" -- spaceを・に変更
 
 
 cmd.packadd 'packer.nvim'
@@ -322,4 +324,19 @@ return require('packer').startup(function()
   end
 
   -- END
+
+  cmd [[highlight IndentBlanklineIndent1 guibg=#1f1f1f gui=nocombine]]
+  cmd [[highlight IndentBlanklineIndent2 guibg=#1a1a1a gui=nocombine]]
+  use "lukas-reineke/indent-blankline.nvim"
+  require("indent_blankline").setup {
+    char = "",
+    char_highlight_list = {
+        "IndentBlanklineIndent1",
+        "IndentBlanklineIndent2",
+    },
+    space_char_highlight_list = {
+        "IndentBlanklineIndent1",
+        "IndentBlanklineIndent2",
+    },
+  }
 end)
