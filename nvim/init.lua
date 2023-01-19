@@ -60,8 +60,8 @@ key.set('n', '-', '<C-x>')
 key.set('n', '<C-a>', 'gg<S-v>G')
 
 -- Surround
-key.set('n', 'ff', '<plug>Csurround"\'')
-key.set('n', 'tt', '<plug>Csurround\'"')
+key.set('n', 'tt', '<Plug>(nvim-surround-change)"\'')
+key.set('n', 'ff', '<Plug>(nvim-surround-change)\'"')
 
 o.cmdheight = 0 -- コマンド表示領域
 
@@ -135,7 +135,6 @@ end
 return require('packer').startup(function()
   use 'wbthomason/packer.nvim'                 -- plugin manager
   use 'monaqa/smooth-scroll.vim'               -- smooth scroller
-  use 'tpope/vim-surround'                     -- ex: text object operation. key: <>S([
   use 'tpope/vim-commentary'                   -- comment out key:gcc
   use 'previm/previm'                          -- markdown preview
 
@@ -322,7 +321,6 @@ return require('packer').startup(function()
       }
     }
   end
-
   -- END
 
   cmd [[highlight IndentBlanklineIndent1 guibg=#1f1f1f gui=nocombine]]
@@ -339,4 +337,14 @@ return require('packer').startup(function()
         "IndentBlanklineIndent2",
     },
   }
+
+  use({
+      'kylechui/nvim-surround',
+      tag = '*', -- Use for stability; omit to use `main` branch for the latest features
+      config = function()
+          require('nvim-surround').setup({
+              -- Configuration here, or leave empty to use defaults
+          })
+      end
+  })
 end)
