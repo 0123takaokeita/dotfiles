@@ -135,7 +135,16 @@ end
 return require('packer').startup(function()
   use 'wbthomason/packer.nvim'                 -- plugin manager
   use 'monaqa/smooth-scroll.vim'               -- smooth scroller
-  use 'tpope/vim-commentary'                   -- comment out key:gcc
+
+  -- line comment gcc
+  use {
+    'numToStr/Comment.nvim',
+    config = function()
+        require('Comment').setup()
+    end
+  }
+
+
   use 'previm/previm'                          -- markdown preview
 
   use 'lambdalisue/fern.vim'                   -- filer
