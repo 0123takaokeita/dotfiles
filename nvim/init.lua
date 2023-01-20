@@ -403,4 +403,11 @@ return require('packer').startup(function()
   -- <a-n>next <a-p> prev
   use 'RRethy/vim-illuminate'
 
+  use 'RRethy/nvim-treesitter-endwise'
+  require('nvim-treesitter.configs').setup {
+    endwise = {
+        enable = true,
+    },
+  }
+
 end)
