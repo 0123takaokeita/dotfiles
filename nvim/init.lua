@@ -399,4 +399,8 @@ return require('packer').startup(function()
           })
       end
   })
+
+  -- <a-n>next <a-p> prev
+  use 'RRethy/vim-illuminate'
+
 end)
