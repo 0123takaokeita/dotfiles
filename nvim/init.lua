@@ -9,6 +9,9 @@ key = vim.keymap
 
 cmd.packadd 'packer.nvim'
 vim.cmd [[
+  colorscheme ayu-dark
+  colorscheme ayu-mirage
+  colorscheme tokyonight-storm
   colorscheme tokyonight-night
   highlight IndentBlanklineIndent1 guibg=#1f1f1f gui=nocombine
   highlight IndentBlanklineIndent2 guibg=#1a1a1a gui=nocombine
@@ -41,17 +44,11 @@ local gitsigns_config = function()
 
       -- Actions
       map({'n', 'v'}, '<leader>hs', ':Gitsigns stage_hunk<CR>')
-      -- map({'n', 'v'}, '<leader>hr', ':Gitsigns reset_hunk<CR>')
-      -- map('n', '<leader>hS', gs.stage_buffer)
-      -- map('n', '<leader>hu', gs.undo_stage_hunk)
-      -- map('n', '<leader>hR', gs.reset_buffer)
+      map({'n', 'v'}, '<leader>hr', ':Gitsigns reset_hunk<CR>')
+      map('n', '<leader>hS', gs.stage_buffer)
       map('n', '<leader>hp', gs.preview_hunk)
       map('n', '<leader>hb', function() gs.blame_line{full=true} end)
-      -- map('n', '<leader>tb', gs.toggle_current_line_blame)
       map('n', '<leader>hd', gs.diffthis)
-      -- map('n', '<leader>hD', function() gs.diffthis('~') end)
-      -- map('n', '<leader>td', gs.toggle_deleted)
-      -- map({'o', 'x'}, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
     end
   }
 end
@@ -320,6 +317,7 @@ opt.listchars:append 'space:⋅' -- spaceを・に変更
 
 require('packer').startup( function(use)
   use 'wbthomason/packer.nvim'
+  use 'Shatur/neovim-ayu'
   use 'monaqa/smooth-scroll.vim'
   use 'junegunn/vim-easy-align'
   use 'vim-jp/vimdoc-ja'
