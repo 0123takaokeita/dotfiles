@@ -5,6 +5,8 @@ set -x MYVIMRC $HOME/.config/nvim/init.vim
 set -x LANG en_US.UTF-8
 set -x LC_ALL en_US.UTF-8
 set -x LESS -i -M -R -S -W -z-4 -x4 # less コマンドデフォルトオプション
+set -x GITHUB_UNAME 0123takaokeita
+set -x PYENV_ROOT $HOME/.pyenv
 
 # rbrenv config
 fish_add_path $HOME/.rbenv/shims
@@ -14,6 +16,7 @@ fish_add_path $HOME/go/bin # go 設定
 fish_add_path $HOME/.volta/bin # volta 設定
 
 # cmd alias
+alias lsis='gh issue list -a $GITHUB_UNAME'
 alias python='python3'
 alias rm='trash'
 alias ls='exa'
