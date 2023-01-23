@@ -298,6 +298,13 @@ local noice_config = function()
   }
 end
 
+local which_key_config = function()
+  vim.o.timeout = true
+  vim.o.timeoutlen = 300
+  require("which-key").setup {
+  }
+end
+
 
 -- keymap
 g.mapleader = ' '
@@ -431,3 +438,4 @@ require('packer').startup( function(use)
   }
 end)
 
+  use { "folke/which-key.nvim", config = which_key_config }
