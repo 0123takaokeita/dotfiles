@@ -305,6 +305,17 @@ local which_key_config = function()
   }
 end
 
+local lspsage_config = function()
+  require('lspsaga').setup {
+    ui = {
+      winblend = 10,
+      border = 'rounded',
+      colors = {
+        normal_bg = '#002b36'
+      }
+    }
+  }
+end
 
 -- keymap
 g.mapleader = ' '
@@ -438,4 +449,6 @@ require('packer').startup( function(use)
   }
 end)
 
+  use { "glepnir/lspsaga.nvim", config = lspsage_config, branch = "main" }
   use { "folke/which-key.nvim", config = which_key_config }
+end)
