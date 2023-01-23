@@ -26,7 +26,7 @@ return {
 
   window_padding = { left = 0, right = 0, top = 0, bottom = 0, },
   use_ime = true,
-  font_size = 22,
+  font_size = 20,
   color_scheme = "tokyonight",
   adjust_window_size_when_changing_font_size = false,
   enable_tab_bar = true,
