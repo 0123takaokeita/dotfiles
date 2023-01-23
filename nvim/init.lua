@@ -321,6 +321,15 @@ local bufferline_config = function()
   require("bufferline").setup{}
 end
 
+local octo_config = function ()
+  require"octo".setup()
+end
+
+local silicon_config = function()
+  keymap('n', '<Leader>o', '<Plug>(silicon-generate)')
+  keymap('x', '<Leader>o', '<Plug>(silicon-generate)')
+end
+
 -- keymap
 g.mapleader = ' '
 keymap('n', '<Leader>w',        'ZZ')
@@ -337,6 +346,7 @@ keymap('n', '<C-g>',            '<cmd>Telescope live_grep<CR>')
 keymap('n', '<c-o>',            '<cmd>Telescope oldfiles theme=get_dropdown hidden=true<CR>')
 keymap('n', '<c-;>',            '<cmd>Telescope commands hidden=true<CR>')
 keymap('n', '<c-k>',            '<cmd>Telescope keymaps hidden=true<CR>')
+keymap('n', '<c-u>',            '<cmd>Octo issue list<CR>')
 keymap('n', 'ss',               ':split<CR>eturn><C-w>w')
 keymap('n', 'sv',               ':vsplit<CR>eturn><C-w>w')
 keymap('n', '<C-w>',            '<C-w>w')
@@ -401,6 +411,18 @@ require('packer').startup( function(use)
   use { 'folke/todo-comments.nvim',            config = todo_comment_config, requires = 'nvim-lua/plenary.nvim' }
   use { "glepnir/lspsaga.nvim",                config = lspsage_config,      branch = "main" }
   use { 'akinsho/bufferline.nvim',             config = bufferline_config,   tag = "v3.*", requires = 'nvim-tree/nvim-web-devicons'}
+  use { 'vim-denops/denops.vim' }
+  use { 'skanehira/denops-silicon.vim', config = silicon_config }
+
+  use {
+    'pwntester/octo.nvim',
+    requires = {
+      'nvim-lua/plenary.nvim',
+      'nvim-telescope/telescope.nvim',
+      'kyazdani42/nvim-web-devicons',
+    },
+    config = octo_config,
+  }
 
   use {
     'lambdalisue/fern.vim',
