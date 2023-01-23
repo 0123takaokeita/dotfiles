@@ -105,37 +105,38 @@ local mason_lsp_config = function()
   })
 end
 
+-- lsp icons
 local status, lspkind = pcall(require, 'lspkind')
 if (not status) then return end
 require('lspkind').init({
     mode = 'symbol_text',
     preset = 'codicons',
     symbol_map = {
-      Text = "",
-      Method = "",
-      Function = "",
-      Constructor = "",
-      Field = "ﰠ",
-      Variable = "",
-      Class = "ﴯ",
-      Interface = "",
-      Module = "",
-      Property = "ﰠ",
-      Unit = "塞",
-      Value = "",
-      Enum = "",
-      Keyword = "",
-      Snippet = "",
-      Color = "",
-      File = "",
-      Reference = "",
-      Folder = "",
-      EnumMember = "",
-      Constant = "",
-      Struct = "פּ",
-      Event = "",
-      Operator = "",
-      TypeParameter = ""
+      Text          = '',
+      Method        = '',
+      Function      = '',
+      Constructor   = '',
+      Field         = 'ﰠ',
+      Variable      = '',
+      Class         = 'ﴯ',
+      Interface     = '',
+      Module        = '',
+      Property      = 'ﰠ',
+      Unit          = '塞',
+      Value         = '',
+      Enum          = '',
+      Keyword       = '',
+      Snippet       = '',
+      Color         = '',
+      File          = '',
+      Reference     = '',
+      Folder        = '',
+      EnumMember    = '',
+      Constant      = '',
+      Struct        = 'פּ',
+      Event         = '',
+      Operator      = '',
+      TypeParameter = ''
     },
 })
 
@@ -145,7 +146,6 @@ local nvim_cmp_config = function()
   cmp.setup({
     formatting = {
       format = require('lspkind').cmp_format({ with_text = false, maxwidth = 50 }) 
-      -- format = lspkind.cmp_format({ with_text = false, maxwidth = 50 })
     },
     window = {
       documentation = cmp.config.window.bordered(),
@@ -317,6 +317,10 @@ local lspsage_config = function()
   }
 end
 
+local bufferline_config = function()
+  require("bufferline").setup{}
+end
+
 -- keymap
 g.mapleader = ' '
 keymap('n', '<Leader>w',        'ZZ')
@@ -355,6 +359,7 @@ opt.clipboard:append({ fn.has('mac') == 4 and 'unnamed' or 'unnamedplus' }) -- �
 opt.number        = true  -- 行数表示
 opt.title         = true
 opt.shell         = 'fish'
+opt.icon          = true
 opt.expandtab     = true
 opt.tabstop       = 4     -- tag入力の変更
 opt.shiftwidth    = 2
@@ -389,12 +394,13 @@ require('packer').startup( function(use)
   use { 'machakann/vim-highlightedyank',       config = highlightyank_config }
   use { 'lewis6991/gitsigns.nvim',             config = gitsigns_config }
   use { 'vim-scripts/vim-auto-save',           config = auto_save_config }
-  use { "folke/which-key.nvim",                config = which_key_config }
+  use { 'folke/which-key.nvim',                config = which_key_config }
   use { 'nvim-lualine/lualine.nvim',           config = lualine_config }
   use { 'kylechui/nvim-surround',              config = surround_config,     tag = "*" }
   use { 'kdheepak/lazygit.nvim',               config = lazygit_config,      requires = 'kyazdani42/nvim-web-devicons' }
   use { 'folke/todo-comments.nvim',            config = todo_comment_config, requires = 'nvim-lua/plenary.nvim' }
   use { "glepnir/lspsaga.nvim",                config = lspsage_config,      branch = "main" }
+  use { 'akinsho/bufferline.nvim',             config = bufferline_config,   tag = "v3.*", requires = 'nvim-tree/nvim-web-devicons'}
 
   use {
     'lambdalisue/fern.vim',
