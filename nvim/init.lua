@@ -380,19 +380,21 @@ require('packer').startup( function(use)
   use 'folke/tokyonight.nvim'
   use 'RRethy/vim-illuminate'
   use 'neovim/nvim-lspconfig'
+  use 'onsails/lspkind.nvim'
   use { 'numToStr/Comment.nvim',               config = comment_config }
   use { 'williamboman/mason-lspconfig.nvim',   config = mason_lsp_config }
   use { 'lukas-reineke/indent-blankline.nvim', config = indent_line_config }
   use { 'RRethy/nvim-treesitter-endwise',      config = treesitter_config }
   use { 'williamboman/mason.nvim',             config = mason_config,        }
-  use { 'kylechui/nvim-surround',              config = surround_config,     tag = "*" }
   use { 'machakann/vim-highlightedyank',       config = highlightyank_config }
   use { 'lewis6991/gitsigns.nvim',             config = gitsigns_config }
   use { 'vim-scripts/vim-auto-save',           config = auto_save_config }
-  use { 'kdheepak/lazygit.nvim',               config = lazygit_config,      requires = 'kyazdani42/nvim-web-devicons' }
+  use { "folke/which-key.nvim",                config = which_key_config }
   use { 'nvim-lualine/lualine.nvim',           config = lualine_config }
+  use { 'kylechui/nvim-surround',              config = surround_config,     tag = "*" }
+  use { 'kdheepak/lazygit.nvim',               config = lazygit_config,      requires = 'kyazdani42/nvim-web-devicons' }
   use { 'folke/todo-comments.nvim',            config = todo_comment_config, requires = 'nvim-lua/plenary.nvim' }
-  use { 'onsails/lspkind.nvim' }
+  use { "glepnir/lspsaga.nvim",                config = lspsage_config,      branch = "main" }
 
   use {
     'lambdalisue/fern.vim',
@@ -418,7 +420,7 @@ require('packer').startup( function(use)
     },
   }
 
-  use({"folke/noice.nvim",
+  use {"folke/noice.nvim",
     config = noice_config,
     presets = {
       bottom_search         = true,  -- use a classic bottom cmdline for search
@@ -428,17 +430,17 @@ require('packer').startup( function(use)
       lsp_doc_border        = false, -- add a border to hover docs and signature help
     },
     requires = { "MunifTanjim/nui.nvim", "rcarriga/nvim-notify", }
-  })
+  }
 
   use {
    'nvim-telescope/telescope.nvim',
     tag = '0.1.0',
     config = telescope_config,
     requires = {
-        'nvim-lua/plenary.nvim',
-        'kyazdani42/nvim-web-devicons',
-        'nvim-treesitter/nvim-treesitter',
-        'nvim-telescope/telescope-fzy-native.nvim',
+      'nvim-lua/plenary.nvim',
+      'kyazdani42/nvim-web-devicons',
+      'nvim-treesitter/nvim-treesitter',
+      'nvim-telescope/telescope-fzy-native.nvim',
     },
     extensions = {
         fzy_native = {
@@ -447,8 +449,4 @@ require('packer').startup( function(use)
         }
     },
   }
-end)
-
-  use { "glepnir/lspsaga.nvim", config = lspsage_config, branch = "main" }
-  use { "folke/which-key.nvim", config = which_key_config }
 end)
