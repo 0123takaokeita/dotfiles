@@ -5,7 +5,7 @@ opt = vim.opt
 cmd = vim.cmd
 fn  = vim.fn
 api = vim.api
-key = vim.keymap
+keymap = vim.keymap.set
 
 cmd.packadd 'packer.nvim'
 vim.cmd [[
@@ -220,7 +220,7 @@ local on_attach = function(client, bufnr)
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   -- buf_set_keymap('n', 'gD',        '<Cmd>lua vim.lsp.buf.declaration()<CR>',                                opts)
   -- buf_set_keymap('n', 'gd',        '<Cmd>lua vim.lsp.buf.definition()<CR>',                                 opts)
-  -- buf_set_keymap('n', 'K',         '<Cmd>lua vim.lsp.buf.hover()<CR>',                                      opts)
+  buf_set_keymap('n', 'K',         '<Cmd>lua vim.lsp.buf.hover()<CR>',                                      opts)
   -- buf_set_keymap('n', 'gi',        '<cmd>lua vim.lsp.buf.implementation()<CR>',                             opts)
   -- buf_set_keymap('n', '<C-k>',     '<cmd>lua vim.lsp.buf.signature_help()<CR>',                             opts)
   -- buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>',                       opts)
@@ -263,37 +263,37 @@ end
 
 -- keymap
 g.mapleader = ' '
-key.set('n', '<Leader>w',        'ZZ')
-key.set('n', '<Leader>e',        '<cmd>e ~/.config/nvim/init.lua<cr>')
-key.set('n', '<Leader><Leader>', '<cmd>source  ~/.config/nvim/init.lua<cr> <cmd>lua print("Reloaded init.lua")<cr>')
-key.set('n', '*',                '*N')
-key.set('n', '<Leader>m',        '<cmd>Mason<cr>')
-key.set('n', '<Leader>n',        '<cmd>noh<cr>')
-key.set('n', '<Leader>h',        '<cmd>checkhealth<cr>')
-key.set('n', '<Leader>p',        '<cmd>PrevimOpen<cr>')
-key.set('n', 'gl',               ':LazyGit<CR>')
-key.set('n', 'gh',               '<cmd>GitGutterLineHighlightsToggle<cr>')
-key.set('n', 'gp',               '<cmd>GitGutterPreviewHunk<cr>')
-key.set('n', '<C-p>',            '<cmd>Telescope find_files<CR>')
-key.set('n', '<C-g>',            '<cmd>Telescope live_grep<CR>')
-key.set('n', '<c-o>',            '<cmd>Telescope oldfiles theme=get_dropdown hidden=true<CR>')
-key.set('n', '<c-;>',            '<cmd>Telescope commands hidden=true<CR>')
-key.set('n', '<c-k>',            '<cmd>Telescope keymaps hidden=true<CR>')
-key.set('n', 'ss',               ':split<CR>eturn><C-w>w')
-key.set('n', 'sv',               ':vsplit<CR>eturn><C-w>w')
-key.set('n', '<C-w>',            '<C-w>w')
-key.set('',  'sh',               '<C-w>h')
-key.set('',  'sk',               '<C-w>k')
-key.set('',  'sj',               '<C-w>j')
-key.set('',  'sl',               '<C-w>l')
-key.set('n', '<C-e>',            ':Fern . -reveal=% -drawer -toggle -width=33<CR>')
-key.set('x', 'ga',               '<Plug>(EasyAlign)')
-key.set('n', '+',                '<C-a>')
-key.set('n', '-',                '<C-x>')
-key.set('n', '<C-a>',            'gg<S-v>G')
-key.set('n', '<Leader>s',        '<cmd>PackerSync<cr>')
-key.set('n', '<Leader>u',        '<cmd>PackerUpdate<cr>')
-key.set('n', '<Leader>i',        '<cmd>PackerInstall<cr>')
+keymap('n', '<Leader>w',        'ZZ')
+keymap('n', '<Leader>e',        '<cmd>e ~/.config/nvim/init.lua<cr>')
+keymap('n', '<Leader><Leader>', '<cmd>source  ~/.config/nvim/init.lua<cr> <cmd>lua print("Reloaded init.lua")<cr>')
+keymap('n', '*',                '*N')
+keymap('n', '<Leader>m',        '<cmd>Mason<cr>')
+keymap('n', '<Leader>n',        '<cmd>noh<cr>')
+keymap('n', '<Leader>h',        '<cmd>checkhealth<cr>')
+keymap('n', '<Leader>p',        '<cmd>PrevimOpen<cr>')
+keymap('n', 'gl',               ':LazyGit<CR>')
+keymap('n', '<C-p>',            '<cmd>Telescope find_files<CR>')
+keymap('n', '<C-g>',            '<cmd>Telescope live_grep<CR>')
+keymap('n', '<c-o>',            '<cmd>Telescope oldfiles theme=get_dropdown hidden=true<CR>')
+keymap('n', '<c-;>',            '<cmd>Telescope commands hidden=true<CR>')
+keymap('n', '<c-k>',            '<cmd>Telescope keymaps hidden=true<CR>')
+keymap('n', 'ss',               ':split<CR>eturn><C-w>w')
+keymap('n', 'sv',               ':vsplit<CR>eturn><C-w>w')
+keymap('n', '<C-w>',            '<C-w>w')
+keymap('',  'sh',               '<C-w>h')
+keymap('',  'sk',               '<C-w>k')
+keymap('',  'sj',               '<C-w>j')
+keymap('',  'sl',               '<C-w>l')
+keymap('n', '<C-e>',            ':Fern . -reveal=% -drawer -toggle -width=33<CR>')
+keymap('x', 'ga',               '<Plug>(EasyAlign)')
+keymap('n', '+',                '<C-a>')
+keymap('n', '-',                '<C-x>')
+keymap('n', '<C-a>',            'gg<S-v>G')
+keymap('n', '<Leader>s',        '<cmd>PackerSync<cr>')
+keymap('n', '<Leader>u',        '<cmd>PackerUpdate<cr>')
+keymap('n', '<Leader>i',        '<cmd>PackerInstall<cr>')
+keymap("n", "gh", "<cmd>Lspsaga lsp_finder<CR>")
+keymap("n", "gr", "<cmd>Lspsaga rename<CR>")
 
 opt.clipboard:append({ fn.has('mac') == 4 and 'unnamed' or 'unnamedplus' }) -- クリップボード共有
 opt.number        = true  -- 行数表示
