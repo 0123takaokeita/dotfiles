@@ -9,12 +9,15 @@ keymap = vim.keymap.set
 
 cmd.packadd 'packer.nvim'
 vim.cmd [[
+  highlight IndentBlanklineIndent1 guibg=#1f1f1f gui=nocombine
+  highlight IndentBlanklineIndent2 guibg=#1a1a1a gui=nocombine
   colorscheme ayu-dark
   colorscheme ayu-mirage
   colorscheme tokyonight-storm
+  colorscheme iceberg
+  colorscheme nightfox
+  colorscheme duskfox
   colorscheme tokyonight-night
-  highlight IndentBlanklineIndent1 guibg=#1f1f1f gui=nocombine
-  highlight IndentBlanklineIndent2 guibg=#1a1a1a gui=nocombine
 ]]
 
  -- git 変更表示
@@ -185,8 +188,7 @@ end
 local fern_config = function()
   g['fern#renderer']                  = 'nerdfont'
   g['fern#window_selector_use_popup'] = true
-  g['fern#default_hidden']            = 1
-  g['fern#default_exclude']           = '.git$'
+  g['fern#default_hidden']            = true
 end
 
 -- telescope searcher
@@ -207,7 +209,7 @@ end
 -- lazygit wrapper
 local lazygit_config = function()
     g.lazygit_floating_window_scaling_factor = 1  -- window size
-    g.lazygit_floating_window_winblend       = 30 -- window transparency
+    g.lazygit_floating_window_winblend       = 0  -- window transparency
 end
 
 -- auto save
@@ -258,7 +260,6 @@ local on_attach = function(client, bufnr)
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   -- buf_set_keymap('n', 'gD',        '<Cmd>lua vim.lsp.buf.declaration()<CR>',                                opts)
   -- buf_set_keymap('n', 'gd',        '<Cmd>lua vim.lsp.buf.definition()<CR>',                                 opts)
-  buf_set_keymap('n', 'K',         '<Cmd>lua vim.lsp.buf.hover()<CR>',                                      opts)
   -- buf_set_keymap('n', 'gi',        '<cmd>lua vim.lsp.buf.implementation()<CR>',                             opts)
   -- buf_set_keymap('n', '<C-k>',     '<cmd>lua vim.lsp.buf.signature_help()<CR>',                             opts)
   -- buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>',                       opts)
@@ -272,11 +273,12 @@ local on_attach = function(client, bufnr)
   -- buf_set_keymap('n', '[d',        '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>',                           opts)
   -- buf_set_keymap('n', ']d',        '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>',                           opts)
   -- buf_set_keymap('n', '<space>q',  '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>',                         opts)
-  -- buf_set_keymap("n", "<space>f",  "<cmd>lua vim.lsp.buf.formatting()<CR>",                                 opts)
+  buf_set_keymap('n', 'K',        '<Cmd>lua vim.lsp.buf.hover()<CR>',  opts)
+  buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.format()<CR>", opts)
 end
 
 local nvim_lsp = require('lspconfig')
-local servers = { "solargraph" }
+local servers = { 'solargraph' }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
@@ -288,6 +290,16 @@ end
 
 local noice_config = function()
   require("noice").setup {
+    messages = {
+      -- NOTE: If you enable messages, then the cmdline is enabled automatically.
+      -- This is a current Neovim limitation.
+      enabled = true, -- enables the Noice messages UI
+      view = "mini", -- default view for messages
+      view_error = "notify", -- view for errors
+      view_warn = "notify", -- view for warnings
+      view_history = "messages", -- view for :messages
+      view_search = "virtualtext", -- view for search count messages. Set to `false` to disable
+    },
     lsp = {
       override = {
         ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
@@ -396,6 +408,8 @@ require('packer').startup( function(use)
   use 'RRethy/vim-illuminate'
   use 'neovim/nvim-lspconfig'
   use 'onsails/lspkind.nvim'
+  use 'cocopon/iceberg.vim'
+  use 'EdenEast/nightfox.nvim'
   use { 'numToStr/Comment.nvim',               config = comment_config }
   use { 'williamboman/mason-lspconfig.nvim',   config = mason_lsp_config }
   use { 'lukas-reineke/indent-blankline.nvim', config = indent_line_config }
@@ -476,5 +490,13 @@ require('packer').startup( function(use)
             override_file_sorter = true,
         }
     },
+  }
+  use {
+  "jackMort/ChatGPT.nvim",
+    config = function()
+      require("chatgpt").setup({
+        -- optional configuration
+      })
+    end
   }
 end)
