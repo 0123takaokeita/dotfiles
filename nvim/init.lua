@@ -9,13 +9,162 @@ keymap = vim.keymap.set
 
 cmd.packadd 'packer.nvim'
 vim.cmd [[
-  colorscheme ayu-dark
-  colorscheme ayu-mirage
-  colorscheme tokyonight-storm
-  colorscheme tokyonight-night
   highlight IndentBlanklineIndent1 guibg=#1f1f1f gui=nocombine
   highlight IndentBlanklineIndent2 guibg=#1a1a1a gui=nocombine
+  colorscheme tokyonight-storm
+  colorscheme nightfox
+  colorscheme tokyonight-night
+  colorscheme carbonfox
+  colorscheme iceberg
+  colorscheme duskfox
+  colorscheme ayu-dark
+  colorscheme ayu-mirage
 ]]
+
+-- LSPに追加する内容
+local on_attach = function(client, bufnr)
+  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+  local opts = { noremap=true, silent=true } -- Mappings.
+
+  buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>',           opts)
+  buf_set_keymap('n', '[d',        '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+  buf_set_keymap('n', ']d',        '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+  buf_set_keymap('n', 'K',         '<Cmd>lua vim.lsp.buf.hover()<CR>',            opts)
+  buf_set_keymap("n", "<space>f",  "<cmd>lua vim.lsp.buf.format()<CR>",           opts)
+end
+
+-- Diagnostic symbols in the sign column (gutter)
+local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
+vim.diagnostic.config {
+  virtual_text = { prefix = '●' },
+  update_in_insert = true,
+  float = { source = "always",},  -- Or "if_many" 
+}
+
+for type, icon in pairs(signs) do
+  local hl = "DiagnosticSign" .. type
+  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
+end
+
+-- luasnip setup
+local luasnip = require('luasnip')
+
+-- LSP Manager
+local mason_config = function()
+  require("mason").setup({
+   ui = {
+       icons = {
+           package_installed   = "✓",
+           package_pending     = "➜",
+           package_uninstalled = "✗"
+       }
+     }
+  })
+end
+
+-- mason lsp manager ex
+-- server auto install
+local mason_lsp_config = function()
+  require("mason-lspconfig").setup({
+    ensure_installed = { 'sumneko_lua', 'rust_analyzer', 'solargraph', 'csharp_ls', 'phpactor' },
+    automatic_installation = true,
+  })
+end
+
+-- setting complete
+local nvim_cmp_config = function()
+  local cmp = require 'cmp'
+  cmp.setup {
+    formatting = {
+      format = require('lspkind').cmp_format({ with_text = true, maxwidth = 50 })
+    },
+    snippet = {
+      expand = function(args)
+        luasnip.lsp_expand(args.body)
+      end,
+    },
+    mapping = cmp.mapping.preset.insert({
+      ['<C-u>'] = cmp.mapping.scroll_docs(-4), -- Up
+      ['<C-d>'] = cmp.mapping.scroll_docs(4), -- Down
+      ['<C-Space>'] = cmp.mapping.complete(),
+      ['<CR>'] = cmp.mapping.confirm {
+        behavior = cmp.ConfirmBehavior.Replace,
+        select = true,
+      },
+      ['<Tab>'] = cmp.mapping(function(fallback)
+        if cmp.visible() then
+          cmp.select_next_item()
+        elseif luasnip.expand_or_jumpable() then
+          luasnip.expand_or_jump()
+        else
+          fallback()
+        end
+      end, { 'i', 's' }),
+      ['<S-Tab>'] = cmp.mapping(function(fallback)
+        if cmp.visible() then
+          cmp.select_prev_item()
+        elseif luasnip.jumpable(-1) then
+          luasnip.jump(-1)
+        else
+          fallback()
+        end
+      end, { 'i', 's' }),
+    }),
+    sources = {
+      { name = 'nvim_lsp' },
+      { name = 'luasnip' },
+      { name = 'vsnip' },
+      { name = 'path' },
+      { name = 'buffer', option = {
+          get_bufnrs = function()
+            local bufs = {}
+            for _, win in ipairs(api.nvim_list_wins()) do
+              bufs[api.nvim_win_get_buf(win)] = true
+            end
+            return vim.tbl_keys(bufs)
+          end
+        }
+      },
+    },
+  }
+end
+
+-- server list
+-- Mason でインストールしたサーバーをここで配列に追加してください。
+local servers = {
+  'solargraph',
+  'csharp_ls',
+  'clangd',
+  'rust_analyzer',
+  'tsserver',
+  'pyright',
+  'sumneko_lua',
+  'phpactor'
+}
+
+-- -- Set up completion using nvim_cmp with LSP source
+local lspconfig = require('lspconfig')
+-- local capabilities = require("cmp_nvim_lsp").default_capabilities() -- Add additional capabilities supported by nvim-cmp
+for _, lsp in ipairs(servers) do
+  lspconfig[lsp].setup {
+    -- capabilities = capabilities,
+    on_attach = on_attach,
+    flags = { debounce_text_changes = 150, },
+  }
+end
+
+local lspsage_config = function()
+  require('lspsaga').setup {
+    ui = {
+      winblend = 10,
+      border = 'rounded',
+      colors = {
+        normal_bg = '#002b36'
+      }
+    }
+  }
+end
 
  -- git 変更表示
 local gitsigns_config = function()
@@ -84,27 +233,6 @@ local indent_line_config = function()
   }
 end
 
--- LSP Manager
-local mason_config = function()
-  require("mason").setup({
-   ui = {
-       icons = {
-           package_installed   = "✓",
-           package_pending     = "➜",
-           package_uninstalled = "✗"
-       }
-     }
-  })
-end
-
--- mason lsp manager
-local mason_lsp_config = function()
-  require("mason-lspconfig").setup({
-    ensure_installed = { 'sumneko_lua', 'rust_analyzer', 'ruby_ls' },
-    automatic_installation = true,
-  })
-end
-
 -- lsp icons
 local status, lspkind = pcall(require, 'lspkind')
 if (not status) then return end
@@ -140,53 +268,11 @@ require('lspkind').init({
     },
 })
 
--- nvim-cmp
-local nvim_cmp_config = function()
-  local cmp = require('cmp')
-  cmp.setup({
-    formatting = {
-      format = require('lspkind').cmp_format({ with_text = false, maxwidth = 50 }) 
-    },
-    window = {
-      documentation = cmp.config.window.bordered(),
-    },
-    preselect = cmp.PreselectMode.None,
-    mapping = cmp.mapping.preset.insert({
-      ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-      ['<C-f>'] = cmp.mapping.scroll_docs(4),
-      ["<C-p>"] = cmp.mapping.select_prev_item(),
-      ["<C-n>"] = cmp.mapping.select_next_item(),
-      ['<Tab>'] = cmp.mapping.complete(),
-      ['<CR>'] = cmp.mapping.confirm({ select = true }),
-    }),
-    sources = {
-      { name = 'nvim_lsp' },
-      { name = 'vsnip' },
-      { name = 'buffer', option = {
-        get_bufnrs = function()
-          local bufs = {}
-          for _, win in ipairs(api.nvim_list_wins()) do
-            bufs[api.nvim_win_get_buf(win)] = true
-          end
-          return vim.tbl_keys(bufs)
-        end
-      } },
-      { name = 'path' },
-    },
-    snippet = {
-      expand = function(args)
-        fn['vsnip#anonymous'](args.body)
-      end
-    },
-  })
-end
-
 -- Filer
 local fern_config = function()
   g['fern#renderer']                  = 'nerdfont'
   g['fern#window_selector_use_popup'] = true
-  g['fern#default_hidden']            = 1
-  g['fern#default_exclude']           = '.git$'
+  g['fern#default_hidden']            = true
 end
 
 -- telescope searcher
@@ -207,7 +293,7 @@ end
 -- lazygit wrapper
 local lazygit_config = function()
     g.lazygit_floating_window_scaling_factor = 1  -- window size
-    g.lazygit_floating_window_winblend       = 30 -- window transparency
+    g.lazygit_floating_window_winblend       = 0  -- window transparency
 end
 
 -- auto save
@@ -238,56 +324,18 @@ local treesitter_config = function()
   }
 end
 
-require'lspconfig'.solargraph.setup{}
-local on_attach = function(client, bufnr)
-  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
-
-  local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
-  for type, icon in pairs(signs) do
-    local hl = "DiagnosticSign" .. type
-    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-  end
-
-  --Enable completion triggered by <c-x><c-o>
-  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
-
-  -- Mappings.
-  local opts = { noremap=true, silent=true }
-
-  -- See `:help vim.lsp.*` for documentation on any of the below functions
-  -- buf_set_keymap('n', 'gD',        '<Cmd>lua vim.lsp.buf.declaration()<CR>',                                opts)
-  -- buf_set_keymap('n', 'gd',        '<Cmd>lua vim.lsp.buf.definition()<CR>',                                 opts)
-  buf_set_keymap('n', 'K',         '<Cmd>lua vim.lsp.buf.hover()<CR>',                                      opts)
-  -- buf_set_keymap('n', 'gi',        '<cmd>lua vim.lsp.buf.implementation()<CR>',                             opts)
-  -- buf_set_keymap('n', '<C-k>',     '<cmd>lua vim.lsp.buf.signature_help()<CR>',                             opts)
-  -- buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>',                       opts)
-  -- buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>',                    opts)
-  -- buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-  -- buf_set_keymap('n', '<space>D',  '<cmd>lua vim.lsp.buf.type_definition()<CR>',                            opts)
-  -- buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>',                                     opts)
-  -- buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>',                                opts)
-  -- buf_set_keymap('n', 'gr',        '<cmd>lua vim.lsp.buf.references()<CR>',                                 opts)
-  -- buf_set_keymap('n', '<space>e',  '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>',               opts)
-  -- buf_set_keymap('n', '[d',        '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>',                           opts)
-  -- buf_set_keymap('n', ']d',        '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>',                           opts)
-  -- buf_set_keymap('n', '<space>q',  '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>',                         opts)
-  -- buf_set_keymap("n", "<space>f",  "<cmd>lua vim.lsp.buf.formatting()<CR>",                                 opts)
-end
-
-local nvim_lsp = require('lspconfig')
-local servers = { "solargraph" }
-for _, lsp in ipairs(servers) do
-  nvim_lsp[lsp].setup {
-    on_attach = on_attach,
-    flags = {
-      debounce_text_changes = 150,
-    }
-  }
-end
-
 local noice_config = function()
   require("noice").setup {
+    messages = {
+      -- NOTE: If you enable messages, then the cmdline is enabled automatically.
+      -- This is a current Neovim limitation.
+      enabled = true, -- enables the Noice messages UI
+      view = "mini", -- default view for messages
+      view_error = "notify", -- view for errors
+      view_warn = "notify", -- view for warnings
+      view_history = "messages", -- view for :messages
+      view_search = "virtualtext", -- view for search count messages. Set to `false` to disable
+    },
     lsp = {
       override = {
         ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
@@ -305,17 +353,6 @@ local which_key_config = function()
   }
 end
 
-local lspsage_config = function()
-  require('lspsaga').setup {
-    ui = {
-      winblend = 10,
-      border = 'rounded',
-      colors = {
-        normal_bg = '#002b36'
-      }
-    }
-  }
-end
 
 local bufferline_config = function()
   require("bufferline").setup{}
@@ -332,38 +369,40 @@ end
 
 -- keymap
 g.mapleader = ' '
+keymap('n', '*',                '*N')
 keymap('n', '<Leader>w',        'ZZ')
 keymap('n', '<Leader>e',        '<cmd>e ~/.config/nvim/init.lua<cr>')
 keymap('n', '<Leader><Leader>', '<cmd>source  ~/.config/nvim/init.lua<cr> <cmd>lua print("Reloaded init.lua")<cr>')
-keymap('n', '*',                '*N')
 keymap('n', '<Leader>m',        '<cmd>Mason<cr>')
 keymap('n', '<Leader>n',        '<cmd>noh<cr>')
 keymap('n', '<Leader>h',        '<cmd>checkhealth<cr>')
 keymap('n', '<Leader>p',        '<cmd>PrevimOpen<cr>')
-keymap('n', 'gl',               ':LazyGit<CR>')
-keymap('n', '<C-p>',            '<cmd>Telescope find_files<CR>')
-keymap('n', '<C-g>',            '<cmd>Telescope live_grep<CR>')
-keymap('n', '<c-o>',            '<cmd>Telescope oldfiles theme=get_dropdown hidden=true<CR>')
-keymap('n', '<c-;>',            '<cmd>Telescope commands hidden=true<CR>')
-keymap('n', '<c-k>',            '<cmd>Telescope keymaps hidden=true<CR>')
-keymap('n', '<c-u>',            '<cmd>Octo issue list<CR>')
-keymap('n', 'ss',               ':split<CR>eturn><C-w>w')
+keymap('n', '<Leader>s',        '<cmd>PackerSync<cr>')
+keymap('n', '<Leader>u',        '<cmd>PackerUpdate<cr>')
+keymap('n', '<Leader>i',        '<cmd>PackerInstall<cr>')
+keymap('n', 'ss',               ':split<CR>enurn><C-w>w')
 keymap('n', 'sv',               ':vsplit<CR>eturn><C-w>w')
 keymap('n', '<C-w>',            '<C-w>w')
 keymap('',  'sh',               '<C-w>h')
 keymap('',  'sk',               '<C-w>k')
 keymap('',  'sj',               '<C-w>j')
 keymap('',  'sl',               '<C-w>l')
-keymap('n', '<C-e>',            ':Fern . -reveal=% -drawer -toggle -width=33<CR>')
-keymap('x', 'ga',               '<Plug>(EasyAlign)')
+keymap('n', '<C-e>',            '<cmd>Fern . -reveal=% -drawer -toggle -width=33<cr>')
 keymap('n', '+',                '<C-a>')
 keymap('n', '-',                '<C-x>')
 keymap('n', '<C-a>',            'gg<S-v>G')
-keymap('n', '<Leader>s',        '<cmd>PackerSync<cr>')
-keymap('n', '<Leader>u',        '<cmd>PackerUpdate<cr>')
-keymap('n', '<Leader>i',        '<cmd>PackerInstall<cr>')
+keymap('n', 'gl',               ':LazyGit<CR>')
 keymap("n", "gh", "<cmd>Lspsaga lsp_finder<CR>")
 keymap("n", "gr", "<cmd>Lspsaga rename<CR>")
+keymap('x', 'ga',               '<Plug>(EasyAlign)')
+keymap('n', '<C-p>',            '<cmd>Telescope find_files hidden=true<CR>')
+keymap('n', '<C-g>',            '<cmd>Telescope live_grep<CR>')
+keymap('n', '<C-l>',            '<cmd>TodoTelescope<CR>')
+keymap('n', '<c-o>',            '<cmd>Telescope oldfiles theme=get_dropdown hidden=true<CR>')
+keymap('n', '<c-;>',            '<cmd>Telescope commands hidden=true<CR>')
+keymap('n', '<c-k>',            '<cmd>Telescope keymaps hidden=true<CR>')
+keymap('n', '<c-n>',            '<cmd>Octo issue list<CR>')
+keymap('n', '<c-m>',            '<cmd>Octo pr list<CR>')
 
 opt.clipboard:append({ fn.has('mac') == 4 and 'unnamed' or 'unnamedplus' }) -- クリップボード共有
 opt.number        = true  -- 行数表示
@@ -396,6 +435,10 @@ require('packer').startup( function(use)
   use 'RRethy/vim-illuminate'
   use 'neovim/nvim-lspconfig'
   use 'onsails/lspkind.nvim'
+  use 'cocopon/iceberg.vim'
+  use 'EdenEast/nightfox.nvim'
+  use 'L3MON4D3/LuaSnip' -- Snippets plugin
+  use 'saadparwaiz1/cmp_luasnip'
   use { 'numToStr/Comment.nvim',               config = comment_config }
   use { 'williamboman/mason-lspconfig.nvim',   config = mason_lsp_config }
   use { 'lukas-reineke/indent-blankline.nvim', config = indent_line_config }
@@ -476,5 +519,13 @@ require('packer').startup( function(use)
             override_file_sorter = true,
         }
     },
+  }
+  use {
+  "jackMort/ChatGPT.nvim",
+    config = function()
+      require("chatgpt").setup({
+        -- optional configuration
+      })
+    end
   }
 end)
