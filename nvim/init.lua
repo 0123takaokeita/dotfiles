@@ -182,7 +182,7 @@ local gitsigns_config = function()
       local function map(mode, l, r, opts)
         opts = opts or {}
         opts.buffer = bufnr
-        vim.keymap.set(mode, l, r, opts)
+        keymap(mode, l, r, opts)
       end
 
       -- Navigation
@@ -299,6 +299,8 @@ end
 local lazygit_config = function()
   g.lazygit_floating_window_scaling_factor = 1 -- window size
   g.lazygit_floating_window_winblend       = 0 -- window transparency
+  g.lazygit_floating_window_use_plenary    = 1 -- use plenary.nvim to manage floating window if available
+  g.lazygit_use_neovim_remote              = 1 -- fallback to 0 if neovim-remote is not installed
 end
 
 -- auto save
@@ -489,9 +491,9 @@ opt.shell         = 'fish'
 opt.icon          = true
 opt.expandtab     = true
 opt.tabstop       = 4 -- tag入力の変更
-opt.shiftwidth    = 2
-opt.cursorline    = true
-opt.helpheight    = 1000
+opt.shiftwidth    = 2 -- shift size 2
+opt.cursorline    = true -- cursorline highlight
+opt.helpheight    = 1000 -- help wndow size
 opt.swapfile      = false -- swapfileを作らない
 opt.wrap          = false -- 折返し無効
 opt.helplang      = 'ja' -- help 日本語化
@@ -503,47 +505,43 @@ opt.list          = true -- 不可視文字可視化
 opt.termguicolors = true
 opt.listchars:append 'space:⋅' -- spaceを・に変更
 
-
 -- keymap
 g.mapleader = ' '
-keymap('n', '*', '*N')
-keymap('n', '<Leader>w', 'ZZ')
-keymap('n', '<Leader>e', '<cmd>e ~/.config/nvim/init.lua<cr>')
-keymap('n', '<Leader><Leader>', '<cmd>source  ~/.config/nvim/init.lua<cr> <cmd>lua print("Reloaded init.lua")<cr>')
-keymap('n', '<Leader>m', '<cmd>Mason<cr>')
-keymap('n', '<Leader>n', '<cmd>noh<cr>')
-keymap('n', '<Leader>h', '<cmd>checkhealth<cr>')
-keymap('n', '<Leader>p', '<cmd>PrevimOpen<cr>')
-keymap('n', '<Leader>s', '<cmd>PackerSync<cr>')
-keymap('n', '<Leader>u', '<cmd>PackerUpdate<cr>')
-keymap('n', '<Leader>i', '<cmd>PackerInstall<cr>')
-keymap('n', 'ss', ':split<CR>enurn><C-w>w')
-keymap('n', 'sv', ':vsplit<CR>eturn><C-w>w')
-keymap('n', '<C-w>', '<C-w>w')
-keymap('', 'sh', '<C-w>h')
-keymap('', 'sk', '<C-w>k')
-keymap('', 'sj', '<C-w>j')
-keymap('', 'sl', '<C-w>l')
-keymap('n', '<C-e>', '<cmd>Fern . -reveal=% -drawer -toggle -width=33<cr>')
-keymap('n', '+', '<C-a>')
-keymap('n', '-', '<C-x>')
-keymap('n', '<C-a>', 'gg<S-v>G')
-keymap('n', 'gl', ':LazyGit<CR>')
-keymap('x', 'ga', '<Plug>(EasyAlign)')
-keymap('n', '<C-p>', '<cmd>Telescope find_files hidden=true<CR>')
-keymap('n', '<C-g>', '<cmd>Telescope live_grep<CR>')
-keymap('n', '<C-l>', '<cmd>TodoTelescope<CR>')
-keymap('n', '<c-o>', '<cmd>Telescope oldfiles theme=get_dropdown hidden=true<CR>')
-keymap('n', '<c-;>', '<cmd>Telescope commands hidden=true<CR>')
-keymap('n', '<c-k>', '<cmd>Telescope keymaps hidden=true<CR>')
-keymap('n', '<c-u>', '<cmd>Octo issue list<CR>')
-keymap('n', '<c-m>', '<cmd>Octo pr list<CR>')
-keymap("n", "gh", "<cmd>Lspsaga lsp_finder<CR>")
-keymap("n", "K", "<cmd>Lspsaga hover_doc<CR>")
-keymap('n', 'gr', '<cmd>Lspsaga lsp_finder<CR>')
-keymap("n", "gd", "<cmd>Lspsaga peek_definition<CR>")
-keymap("n", "ga", "<cmd>Lspsaga code_action<CR>")
-keymap("n", "gn", "<cmd>Lspsaga rename<CR>")
-keymap("n", "ge", "<cmd>Lspsaga show_line_diagnostics<CR>")
-keymap("n", "[e", "<cmd>Lspsaga diagnostic_jump_next<CR>")
-keymap("n", "]e", "<cmd>Lspsaga diagnostic_jump_prev<CR>")
+keymap('n', '*', '*N') -- orverride *
+keymap('n', '<Leader>w', 'ZZ') -- save & close
+keymap('n', '<Leader>e', '<cmd>e ~/.config/nvim/init.lua<cr>') -- open init.lua
+keymap('n', '<Leader><Leader>', '<cmd>source  ~/.config/nvim/init.lua<cr> <cmd>lua print("Reloaded init.lua")<cr>') -- reload init.lua
+keymap('n', '<Leader>m', '<cmd>Mason<cr>') -- open Mason
+keymap('n', '<Leader>n', '<cmd>noh<cr>') -- nohighlight
+keymap('n', '<Leader>h', '<cmd>checkhealth<cr>') -- checkhelth
+keymap('n', '<Leader>s', '<cmd>PackerSync<cr>') -- PackerSync
+keymap('n', '<Leader>i', '<cmd>PackerInstall<cr>') -- PackerInstall
+keymap('n', 'ss', ':split<CR>enurn><C-w>w') -- split window under
+keymap('n', 'sv', ':vsplit<CR>eturn><C-w>w') -- split window left
+keymap('n', '<C-w>', '<C-w>w') -- window change focus
+keymap('', 'sh', '<C-w>h') -- change focus left
+keymap('', 'sk', '<C-w>k') -- change focus top
+keymap('', 'sj', '<C-w>j') -- change focus under
+keymap('', 'sl', '<C-w>l') -- change focus right
+keymap('n', '<C-e>', '<cmd>Fern . -reveal=% -drawer -toggle -width=33<cr>') -- Open or Close Fern
+keymap('n', '+', '<C-a>') -- increment
+keymap('n', '-', '<C-x>') -- decrement
+keymap('n', '<C-a>', 'gg<S-v>G') -- select all
+keymap('n', 'gl', ':LazyGit<CR>') -- Open LazyGit
+keymap('x', 'ga', '<Plug>(EasyAlign)') -- open EasyAlign
+keymap('n', '<C-p>', '<cmd>Telescope find_files hidden=true<CR>') -- grep file
+keymap('n', '<C-g>', '<cmd>Telescope live_grep<CR>') -- grep text
+keymap('n', '<C-l>', '<cmd>TodoTelescope<CR>') -- grep todo
+keymap('n', '<c-o>', '<cmd>Telescope oldfiles theme=get_dropdown hidden=true<CR>') -- grep history
+keymap('n', '<c-;>', '<cmd>Telescope commands hidden=true<CR>') -- grep command
+keymap('n', '<c-k>', '<cmd>Telescope keymaps hidden=true<CR>') -- grep keymaps
+keymap('n', '<c-u>', '<cmd>Octo issue list<CR>') -- grep github issue
+keymap('n', '<c-m>', '<cmd>Octo pr list<CR>') -- grep github pull request
+keymap("n", "gh", "<cmd>Lspsaga lsp_finder<CR>") -- lsp grep
+keymap("n", "K", "<cmd>Lspsaga hover_doc<CR>") -- lsp doc
+keymap("n", "gd", "<cmd>Lspsaga peek_definition<CR>") -- jump definition
+keymap("n", "ga", "<cmd>Lspsaga code_action<CR>") -- ?
+keymap("n", "gn", "<cmd>Lspsaga rename<CR>") -- rename
+keymap("n", "ge", "<cmd>Lspsaga show_line_diagnostics<CR>") -- show lsp error 
+keymap("n", "[e", "<cmd>Lspsaga diagnostic_jump_next<CR>") -- jump lsp error
+keymap("n", "]e", "<cmd>Lspsaga diagnostic_jump_prev<CR>") -- jump lsp error
