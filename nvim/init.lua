@@ -7,7 +7,7 @@ fn     = vim.fn
 api    = vim.api
 keymap = vim.keymap.set
 
-cmd.packadd 'packer.nvim'
+cmd.packadd('packer.nvim')
 vim.cmd [[
   highlight IndentBlanklineIndent1 guibg=#1f1f1f gui=nocombine
   highlight IndentBlanklineIndent2 guibg=#1a1a1a gui=nocombine
@@ -30,9 +30,7 @@ local on_attach = function(client, bufnr)
   local opts = { noremap = true, silent = true } -- Mappings.
 
   buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-  buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-  buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
   buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.format()<CR>", opts)
 end
 
@@ -48,9 +46,6 @@ for type, icon in pairs(signs) do
   local hl = "DiagnosticSign" .. type
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 end
-
--- luasnip setup
-local luasnip = require('luasnip')
 
 -- LSP Manager
 local mason_config = function()
@@ -78,44 +73,25 @@ end
 local nvim_cmp_config = function()
   local cmp = require 'cmp'
   cmp.setup {
+    documentation = {
+      border = 'solid',
+    },
     formatting = {
       format = require('lspkind').cmp_format({ with_text = true, maxwidth = 50 })
     },
-    snippet = {
-      expand = function(args)
-        luasnip.lsp_expand(args.body)
-      end,
+    window = {
+      completion = cmp.config.window.bordered(),
+      documentation = cmp.config.window.bordered(),
     },
+    preselect = cmp.PreselectMode.None,
     mapping = cmp.mapping.preset.insert({
-      ['<C-u>'] = cmp.mapping.scroll_docs(-4), -- Up
-      ['<C-d>'] = cmp.mapping.scroll_docs(4), -- Down
-      ['<C-Space>'] = cmp.mapping.complete(),
-      ['<CR>'] = cmp.mapping.confirm {
-        behavior = cmp.ConfirmBehavior.Replace,
-        select = true,
-      },
-      ['<Tab>'] = cmp.mapping(function(fallback)
-        if cmp.visible() then
-          cmp.select_next_item()
-        elseif luasnip.expand_or_jumpable() then
-          luasnip.expand_or_jump()
-        else
-          fallback()
-        end
-      end, { 'i', 's' }),
-      ['<S-Tab>'] = cmp.mapping(function(fallback)
-        if cmp.visible() then
-          cmp.select_prev_item()
-        elseif luasnip.jumpable(-1) then
-          luasnip.jump(-1)
-        else
-          fallback()
-        end
-      end, { 'i', 's' }),
+      ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+      ['<C-f>'] = cmp.mapping.scroll_docs(4),
+      ['<C-e>'] = cmp.mapping.abort(),
+      ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
     }),
     sources = {
       { name = 'nvim_lsp' },
-      { name = 'luasnip' },
       { name = 'vsnip' },
       { name = 'path' },
       { name = 'buffer', option = {
@@ -126,11 +102,31 @@ local nvim_cmp_config = function()
           end
           return vim.tbl_keys(bufs)
         end
-      }
-      },
+      } },
+    },
+    snippet = {
+      expand = function(args)
+        fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+        require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+      end
     },
   }
+
+  cmp.setup.cmdline('/', {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = {
+      { name = 'buffer' }
+    }
+  })
+
+  cmp.setup.cmdline(":", {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = {
+      { name = "path" },
+    },
+  })
 end
+
 
 -- server list
 -- Mason でインストールしたサーバーをここで配列に追加してください。
@@ -144,13 +140,12 @@ local servers = {
   'sumneko_lua',
   'phpactor'
 }
-
--- -- Set up completion using nvim_cmp with LSP source
+-- Set up lspconfig.
 local lspconfig = require('lspconfig')
--- local capabilities = require("cmp_nvim_lsp").default_capabilities() -- Add additional capabilities supported by nvim-cmp
+-- local capabilities = require('cmp_nvim_lsp').default_capabilities()
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
-    -- capabilities = capabilities,
+    capabilities = capabilities,
     on_attach = on_attach,
     flags = { debounce_text_changes = 150, },
   }
@@ -236,10 +231,8 @@ local indent_line_config = function()
 end
 
 -- lsp icons
-local status, lspkind = pcall(require, 'lspkind')
-if (not status) then return end
 require('lspkind').init({
-  mode = 'symbol_text',
+  mode = 'symbol_text', -- text, text_symbol, symbol
   preset = 'codicons',
   symbol_map = {
     Text          = '',
@@ -369,63 +362,9 @@ local silicon_config = function()
   keymap('x', '<Leader>o', '<Plug>(silicon-generate)')
 end
 
--- keymap
-g.mapleader = ' '
-keymap('n', '*', '*N')
-keymap('n', '<Leader>w', 'ZZ')
-keymap('n', '<Leader>e', '<cmd>e ~/.config/nvim/init.lua<cr>')
-keymap('n', '<Leader><Leader>', '<cmd>source  ~/.config/nvim/init.lua<cr> <cmd>lua print("Reloaded init.lua")<cr>')
-keymap('n', '<Leader>m', '<cmd>Mason<cr>')
-keymap('n', '<Leader>n', '<cmd>noh<cr>')
-keymap('n', '<Leader>h', '<cmd>checkhealth<cr>')
-keymap('n', '<Leader>p', '<cmd>PrevimOpen<cr>')
-keymap('n', '<Leader>s', '<cmd>PackerSync<cr>')
-keymap('n', '<Leader>u', '<cmd>PackerUpdate<cr>')
-keymap('n', '<Leader>i', '<cmd>PackerInstall<cr>')
-keymap('n', 'ss', ':split<CR>enurn><C-w>w')
-keymap('n', 'sv', ':vsplit<CR>eturn><C-w>w')
-keymap('n', '<C-w>', '<C-w>w')
-keymap('', 'sh', '<C-w>h')
-keymap('', 'sk', '<C-w>k')
-keymap('', 'sj', '<C-w>j')
-keymap('', 'sl', '<C-w>l')
-keymap('n', '<C-e>', '<cmd>Fern . -reveal=% -drawer -toggle -width=33<cr>')
-keymap('n', '+', '<C-a>')
-keymap('n', '-', '<C-x>')
-keymap('n', '<C-a>', 'gg<S-v>G')
-keymap('n', 'gl', ':LazyGit<CR>')
-keymap("n", "gh", "<cmd>Lspsaga lsp_finder<CR>")
-keymap("n", "gr", "<cmd>Lspsaga rename<CR>")
-keymap('x', 'ga', '<Plug>(EasyAlign)')
-keymap('n', '<C-p>', '<cmd>Telescope find_files hidden=true<CR>')
-keymap('n', '<C-g>', '<cmd>Telescope live_grep<CR>')
-keymap('n', '<C-l>', '<cmd>TodoTelescope<CR>')
-keymap('n', '<c-o>', '<cmd>Telescope oldfiles theme=get_dropdown hidden=true<CR>')
-keymap('n', '<c-;>', '<cmd>Telescope commands hidden=true<CR>')
-keymap('n', '<c-k>', '<cmd>Telescope keymaps hidden=true<CR>')
-keymap('n', '<c-n>', '<cmd>Octo issue list<CR>')
-keymap('n', '<c-m>', '<cmd>Octo pr list<CR>')
-
-opt.clipboard:append({ fn.has('mac') == 4 and 'unnamed' or 'unnamedplus' }) -- クリップボード共有
-opt.number        = true -- 行数表示
-opt.title         = true
-opt.shell         = 'fish'
-opt.icon          = true
-opt.expandtab     = true
-opt.tabstop       = 4 -- tag入力の変更
-opt.shiftwidth    = 2
-opt.cursorline    = true
-opt.helpheight    = 1000
-opt.swapfile      = false -- swapfileを作らない
-opt.wrap          = false -- 折返し無効
-opt.helplang      = 'ja' -- help 日本語化
-opt.splitright    = true -- split時に右側に表示する
-opt.splitbelow    = true -- split時に下側に表示する
-opt.autoread      = true -- vim以外での変更を自動読み込み
-opt.ignorecase    = true -- 検索時に大文字小文字を区別しない
-opt.list          = true -- 不可視文字可視化
-opt.termguicolors = true
-opt.listchars:append 'space:⋅' -- spaceを・に変更
+local fidget_config = function()
+  require "fidget".setup {}
+end
 
 require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
@@ -439,8 +378,6 @@ require('packer').startup(function(use)
   use 'onsails/lspkind.nvim'
   use 'cocopon/iceberg.vim'
   use 'EdenEast/nightfox.nvim'
-  use 'L3MON4D3/LuaSnip' -- Snippets plugin
-  use 'saadparwaiz1/cmp_luasnip'
   use { 'numToStr/Comment.nvim', config = comment_config }
   use { 'williamboman/mason-lspconfig.nvim', config = mason_lsp_config }
   use { 'lukas-reineke/indent-blankline.nvim', config = indent_line_config }
@@ -458,6 +395,7 @@ require('packer').startup(function(use)
   use { 'akinsho/bufferline.nvim', config = bufferline_config, tag = "v3.*", requires = 'nvim-tree/nvim-web-devicons' }
   use { 'vim-denops/denops.vim' }
   use { 'skanehira/denops-silicon.vim', config = silicon_config }
+  use { 'j-hui/fidget.nvim', config = fidget_config }
 
   use {
     'pwntester/octo.nvim',
@@ -490,6 +428,8 @@ require('packer').startup(function(use)
       { 'hrsh7th/cmp-vsnip', event = { 'InsertEnter' } },
       { 'hrsh7th/vim-vsnip', event = { 'InsertEnter' } },
       { 'hrsh7th/cmp-cmdline', event = { 'CmdlineEnter' } },
+      { 'L3MON4D3/LuaSnip' }, -- Snippets plugin
+      { 'saadparwaiz1/cmp_luasnip' },
     },
   }
 
@@ -531,3 +471,62 @@ require('packer').startup(function(use)
     end
   }
 end)
+
+opt.clipboard:append({ fn.has('mac') == 4 and 'unnamed' or 'unnamedplus' }) -- クリップボード共有
+opt.number        = true -- 行数表示
+opt.title         = true
+opt.shell         = 'fish'
+opt.icon          = true
+opt.expandtab     = true
+opt.tabstop       = 4 -- tag入力の変更
+opt.shiftwidth    = 2
+opt.cursorline    = true
+opt.helpheight    = 1000
+opt.swapfile      = false -- swapfileを作らない
+opt.wrap          = false -- 折返し無効
+opt.helplang      = 'ja' -- help 日本語化
+opt.splitright    = true -- split時に右側に表示する
+opt.splitbelow    = true -- split時に下側に表示する
+opt.autoread      = true -- vim以外での変更を自動読み込み
+opt.ignorecase    = true -- 検索時に大文字小文字を区別しない
+opt.list          = true -- 不可視文字可視化
+opt.termguicolors = true
+opt.listchars:append 'space:⋅' -- spaceを・に変更
+
+
+-- keymap
+g.mapleader = ' '
+keymap('n', '*', '*N')
+keymap('n', '<Leader>w', 'ZZ')
+keymap('n', '<Leader>e', '<cmd>e ~/.config/nvim/init.lua<cr>')
+keymap('n', '<Leader><Leader>', '<cmd>source  ~/.config/nvim/init.lua<cr> <cmd>lua print("Reloaded init.lua")<cr>')
+keymap('n', '<Leader>m', '<cmd>Mason<cr>')
+keymap('n', '<Leader>n', '<cmd>noh<cr>')
+keymap('n', '<Leader>h', '<cmd>checkhealth<cr>')
+keymap('n', '<Leader>p', '<cmd>PrevimOpen<cr>')
+keymap('n', '<Leader>s', '<cmd>PackerSync<cr>')
+keymap('n', '<Leader>u', '<cmd>PackerUpdate<cr>')
+keymap('n', '<Leader>i', '<cmd>PackerInstall<cr>')
+keymap('n', 'ss', ':split<CR>enurn><C-w>w')
+keymap('n', 'sv', ':vsplit<CR>eturn><C-w>w')
+keymap('n', '<C-w>', '<C-w>w')
+keymap('', 'sh', '<C-w>h')
+keymap('', 'sk', '<C-w>k')
+keymap('', 'sj', '<C-w>j')
+keymap('', 'sl', '<C-w>l')
+keymap('n', '<C-e>', '<cmd>Fern . -reveal=% -drawer -toggle -width=33<cr>')
+keymap('n', '+', '<C-a>')
+keymap('n', '-', '<C-x>')
+keymap('n', '<C-a>', 'gg<S-v>G')
+keymap('n', 'gl', ':LazyGit<CR>')
+keymap("n", "gh", "<cmd>Lspsaga lsp_finder<CR>")
+keymap("n", "gr", "<cmd>Lspsaga rename<CR>")
+keymap('x', 'ga', '<Plug>(EasyAlign)')
+keymap('n', '<C-p>', '<cmd>Telescope find_files hidden=true<CR>')
+keymap('n', '<C-g>', '<cmd>Telescope live_grep<CR>')
+keymap('n', '<C-l>', '<cmd>TodoTelescope<CR>')
+keymap('n', '<c-o>', '<cmd>Telescope oldfiles theme=get_dropdown hidden=true<CR>')
+keymap('n', '<c-;>', '<cmd>Telescope commands hidden=true<CR>')
+keymap('n', '<c-k>', '<cmd>Telescope keymaps hidden=true<CR>')
+keymap('n', '<c-n>', '<cmd>Octo issue list<CR>')
+keymap('n', '<c-m>', '<cmd>Octo pr list<CR>')
