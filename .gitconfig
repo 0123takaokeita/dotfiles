@@ -18,6 +18,7 @@
   brl = branch -a
   cp = cherry-pick
   ci = commit -m
+  ca = commit --ammend -m
 [core]
   pager = LESSCHARSET=utf-8 less
   quotepath = false
