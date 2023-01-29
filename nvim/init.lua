@@ -6,6 +6,7 @@ cmd    = vim.cmd
 fn     = vim.fn
 api    = vim.api
 keymap = vim.keymap.set
+diag   = vim.diagnostic
 
 cmd.packadd('packer.nvim')
 vim.cmd [[
@@ -23,20 +24,20 @@ vim.cmd [[
 
 -- LSPに追加する内容
 local on_attach = function(client, bufnr)
-  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-
-  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
-
-  local opts = { noremap = true, silent = true } -- Mappings.
-
-  buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.format()<CR>", opts)
+  -- local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+  --
+  -- local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+  --
+  -- local opts = { noremap = true, silent = true } -- Mappings.
+  --
+  -- buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  -- buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  -- buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.format()<CR>", opts)
 end
 
 -- Diagnostic symbols in the sign column (gutter)
 local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
-vim.diagnostic.config {
+diag.config {
   virtual_text = { prefix = '●' },
   update_in_insert = true,
   float = { source = "always", }, -- Or "if_many"
@@ -44,7 +45,7 @@ vim.diagnostic.config {
 
 for type, icon in pairs(signs) do
   local hl = "DiagnosticSign" .. type
-  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
+  fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 end
 
 -- LSP Manager
@@ -74,21 +75,23 @@ local nvim_cmp_config = function()
   local cmp = require 'cmp'
   cmp.setup {
     documentation = {
-      border = 'solid',
+      border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+      max_height = 24,
+      max_width = 106,
+      winhighlight = "FloatBorder:NormalFloat"
     },
     formatting = {
       format = require('lspkind').cmp_format({ with_text = true, maxwidth = 50 })
     },
     window = {
-      completion = cmp.config.window.bordered(),
-      documentation = cmp.config.window.bordered(),
+      documentation = cmp.config.window.bordered()
     },
     preselect = cmp.PreselectMode.None,
     mapping = cmp.mapping.preset.insert({
       ['<C-b>'] = cmp.mapping.scroll_docs(-4),
       ['<C-f>'] = cmp.mapping.scroll_docs(4),
       ['<C-e>'] = cmp.mapping.abort(),
-      ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+      ['<CR>'] = cmp.mapping.confirm({ select = true}),
     }),
     sources = {
       { name = 'nvim_lsp' },
@@ -107,7 +110,6 @@ local nvim_cmp_config = function()
     snippet = {
       expand = function(args)
         fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-        require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
       end
     },
   }
@@ -138,7 +140,15 @@ local servers = {
   'tsserver',
   'pyright',
   'sumneko_lua',
-  'phpactor'
+  'phpactor',
+  'cssls',
+  'denols',
+  'gopls',
+  'html',
+  'r_language_server',
+  'sqlls',
+  'tailwindcss',
+  'volar',
 }
 -- Set up lspconfig.
 local lspconfig = require('lspconfig')
@@ -386,7 +396,7 @@ require('packer').startup(function(use)
   use { 'machakann/vim-highlightedyank', config = highlightyank_config }
   use { 'lewis6991/gitsigns.nvim', config = gitsigns_config }
   use { 'vim-scripts/vim-auto-save', config = auto_save_config }
-  use { 'folke/which-key.nvim', config = which_key_config }
+  -- use { 'folke/which-key.nvim', config = which_key_config }
   use { 'nvim-lualine/lualine.nvim', config = lualine_config }
   use { 'kylechui/nvim-surround', config = surround_config, tag = "*" }
   use { 'kdheepak/lazygit.nvim', config = lazygit_config, requires = 'kyazdani42/nvim-web-devicons' }
@@ -428,7 +438,7 @@ require('packer').startup(function(use)
       { 'hrsh7th/cmp-vsnip', event = { 'InsertEnter' } },
       { 'hrsh7th/vim-vsnip', event = { 'InsertEnter' } },
       { 'hrsh7th/cmp-cmdline', event = { 'CmdlineEnter' } },
-      { 'L3MON4D3/LuaSnip' }, -- Snippets plugin
+      { 'L3MON4D3/LuaSnip' },
       { 'saadparwaiz1/cmp_luasnip' },
     },
   }
@@ -519,8 +529,6 @@ keymap('n', '+', '<C-a>')
 keymap('n', '-', '<C-x>')
 keymap('n', '<C-a>', 'gg<S-v>G')
 keymap('n', 'gl', ':LazyGit<CR>')
-keymap("n", "gh", "<cmd>Lspsaga lsp_finder<CR>")
-keymap("n", "gr", "<cmd>Lspsaga rename<CR>")
 keymap('x', 'ga', '<Plug>(EasyAlign)')
 keymap('n', '<C-p>', '<cmd>Telescope find_files hidden=true<CR>')
 keymap('n', '<C-g>', '<cmd>Telescope live_grep<CR>')
@@ -528,5 +536,14 @@ keymap('n', '<C-l>', '<cmd>TodoTelescope<CR>')
 keymap('n', '<c-o>', '<cmd>Telescope oldfiles theme=get_dropdown hidden=true<CR>')
 keymap('n', '<c-;>', '<cmd>Telescope commands hidden=true<CR>')
 keymap('n', '<c-k>', '<cmd>Telescope keymaps hidden=true<CR>')
-keymap('n', '<c-n>', '<cmd>Octo issue list<CR>')
+keymap('n', '<c-u>', '<cmd>Octo issue list<CR>')
 keymap('n', '<c-m>', '<cmd>Octo pr list<CR>')
+keymap("n", "gh", "<cmd>Lspsaga lsp_finder<CR>")
+keymap("n", "K", "<cmd>Lspsaga hover_doc<CR>")
+keymap('n', 'gr', '<cmd>Lspsaga lsp_finder<CR>')
+keymap("n", "gd", "<cmd>Lspsaga peek_definition<CR>")
+keymap("n", "ga", "<cmd>Lspsaga code_action<CR>")
+keymap("n", "gn", "<cmd>Lspsaga rename<CR>")
+keymap("n", "ge", "<cmd>Lspsaga show_line_diagnostics<CR>")
+keymap("n", "[e", "<cmd>Lspsaga diagnostic_jump_next<CR>")
+keymap("n", "]e", "<cmd>Lspsaga diagnostic_jump_prev<CR>")
