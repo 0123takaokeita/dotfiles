@@ -8,6 +8,12 @@ api    = vim.api
 keymap = vim.keymap.set
 diag   = vim.diagnostic
 
+local status, packer = pcall(require, "packer")
+if (not status) then
+  print("Packer is not installed")
+  return
+end
+
 cmd.packadd('packer.nvim')
 vim.cmd [[
   highlight IndentBlanklineIndent1 guibg=#1f1f1f gui=nocombine
