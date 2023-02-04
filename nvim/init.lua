@@ -32,15 +32,11 @@ vim.cmd [[
 
 -- LSPに追加する内容
 local on_attach = function(client, bufnr)
-  -- local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-  --
+  local function buf_set_keymap(...) api.nvim_buf_set_keymap(bufnr, ...) end
+
   -- local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
-  --
-  -- local opts = { noremap = true, silent = true } -- Mappings.
-  --
-  -- buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  -- buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  -- buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.format()<CR>", opts)
+  local opts = { noremap = true, silent = true } -- Mappings.
+  buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.format()<CR>", opts)
 end
 
 -- Diagnostic symbols in the sign column (gutter)
@@ -545,11 +541,12 @@ keymap('n', '<c-;>', '<cmd>Telescope commands hidden=true<CR>') -- grep command
 keymap('n', '<c-k>', '<cmd>Telescope keymaps hidden=true<CR>') -- grep keymaps
 keymap('n', '<c-u>', '<cmd>Octo issue list<CR>') -- grep github issue
 keymap('n', '<c-m>', '<cmd>Octo pr list<CR>') -- grep github pull request
-keymap("n", "gh", "<cmd>Lspsaga lsp_finder<CR>") -- lsp grep
-keymap("n", "K", "<cmd>Lspsaga hover_doc<CR>") -- lsp doc
-keymap("n", "gd", "<cmd>Lspsaga peek_definition<CR>") -- jump definition
-keymap("n", "ga", "<cmd>Lspsaga code_action<CR>") -- ?
-keymap("n", "gn", "<cmd>Lspsaga rename<CR>") -- rename
-keymap("n", "ge", "<cmd>Lspsaga show_line_diagnostics<CR>") -- show lsp error 
-keymap("n", "[e", "<cmd>Lspsaga diagnostic_jump_next<CR>") -- jump lsp error
-keymap("n", "]e", "<cmd>Lspsaga diagnostic_jump_prev<CR>") -- jump lsp error
+keymap('n', 'gh', '<cmd>Lspsaga lsp_finder<CR>') -- lsp grep
+keymap('n', 'K', '<cmd>Lspsaga hover_doc<CR>') -- lsp doc
+keymap('n', 'gk', '<cmd>Lspsaga peek_definition<CR>') -- jump definition
+keymap('n', 'gd', '<cmd>Lspsaga goto_definition<CR>') -- jump definition
+-- keymap('n', 'ga', '<cmd>Lspsaga code_action<CR>') -- ?
+keymap('n', 'gn', '<cmd>Lspsaga rename<CR>') -- rename
+keymap('n', 'ge', '<cmd>Lspsaga show_line_diagnostics<CR>') -- show lsp error
+keymap('n', '[d', '<cmd>Lspsaga diagnostic_jump_next<CR>') -- jump lsp error
+keymap('n', ']d', '<cmd>Lspsaga diagnostic_jump_prev<CR>') -- jump lsp error
