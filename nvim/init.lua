@@ -39,7 +39,7 @@ local on_attach = function(client, bufnr)
   buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.format()<CR>", opts)
 end
 
--- Diagnostic symbols in the sign column (gutter)
+-- Diagnostic symbols in the sign column
 local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
 diag.config {
   virtual_text = { prefix = '●' },
@@ -69,7 +69,7 @@ end
 -- server auto install
 local mason_lsp_config = function()
   require("mason-lspconfig").setup({
-    ensure_installed = { 'sumneko_lua', 'rust_analyzer', 'solargraph', 'csharp_ls', 'phpactor' },
+    ensure_installed = { 'sumneko_lua', 'rust_analyzer', 'solargraph', 'csharp_ls', 'sqlls' },
     automatic_installation = true,
   })
 end
@@ -95,12 +95,23 @@ local nvim_cmp_config = function()
       ['<C-b>'] = cmp.mapping.scroll_docs(-4),
       ['<C-f>'] = cmp.mapping.scroll_docs(4),
       ['<C-e>'] = cmp.mapping.abort(),
-      ['<CR>'] = cmp.mapping.confirm({ select = true}),
+      -- ['<CR>'] = cmp.mapping.confirm({ select = true }),
+      ["<CR>"] = cmp.mapping(function(callback)
+        if cmp.visible() then
+          cmp.confirm({ select = true })
+        elseif fn["skkeleton#mode"]() ~= "" then
+          fn["skkeleton#handle"]("handleKey", { key = "<CR>", ["function"] = "newline" })
+        else
+          callback()
+        end
+      end, { "i" }),
     }),
     sources = {
+      { name = 'skkeleton' },
       { name = 'nvim_lsp' },
-      { name = 'vsnip' },
+      -- { name = 'vsnip' },
       { name = 'path' },
+      { name = 'luasnip' }, -- For luasnip users.
       { name = 'buffer', option = {
         get_bufnrs = function()
           local bufs = {}
@@ -113,9 +124,13 @@ local nvim_cmp_config = function()
     },
     snippet = {
       expand = function(args)
-        fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+        -- fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+        require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
       end
     },
+    -- view = {
+    --   entries = 'native'
+    -- }
   }
 
   cmp.setup.cmdline('/', {
@@ -144,7 +159,7 @@ local servers = {
   'tsserver',
   'pyright',
   'sumneko_lua',
-  'phpactor',
+  'intelephense',
   'cssls',
   'denols',
   'gopls',
@@ -159,13 +174,19 @@ local lspconfig = require('lspconfig')
 -- local capabilities = require('cmp_nvim_lsp').default_capabilities()
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
-    capabilities = capabilities,
+    -- capabilities = capabilities,
     on_attach = on_attach,
     flags = { debounce_text_changes = 150, },
   }
 end
 
-local lspsage_config = function()
+-- TypeScript
+-- lspconfig.tsserver.setup {
+--   on_attach = on_attach,
+--   filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
+--   cmd = { "typescript-language-server", "--stdio" }
+-- }
+
   require('lspsaga').setup {
     ui = {
       winblend = 10,
@@ -190,14 +211,14 @@ local gitsigns_config = function()
       end
 
       -- Navigation
-      map('n', ']c', function()
-        if vim.wo.diff then return ']c' end
+      map('n', ']g', function()
+        if vim.wo.diff then return ']g' end
         vim.schedule(function() gs.next_hunk() end)
         return '<Ignore>'
       end, { expr = true })
 
-      map('n', '[c', function()
-        if vim.wo.diff then return '[c' end
+      map('n', '[g', function()
+        if vim.wo.diff then return '[g' end
         vim.schedule(function() gs.prev_hunk() end)
         return '<Ignore>'
       end, { expr = true })
@@ -349,9 +370,9 @@ local noice_config = function()
     },
     lsp = {
       override = {
-        ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-        ["vim.lsp.util.stylize_markdown"] = true,
-        ["cmp.entry.get_documentation"] = true,
+        ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
+        ['vim.lsp.util.stylize_markdown'] = true,
+        ['cmp.entry.get_documentation'] = true,
       },
     },
   }
