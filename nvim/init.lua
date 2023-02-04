@@ -431,6 +431,13 @@ local easy_align_config = function()
   g.easy_align_ignore_groups = { 'String' }
 end
 
+local live_server_config = function()
+  require('live-server').setup {
+    build = 'yarn global add live-server',
+    config = true,
+    args = { '--port=7777' }
+  }
+end
 require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
   use 'Shatur/neovim-ayu'
@@ -546,6 +553,12 @@ require('packer').startup(function(use)
       })
     end
   }
+  -- browser の textarea で neovim がつかえる。
+  -- 別途拡張機能も Install が必要
+  use { 'glacambre/firenvim', run = function() fn['firenvim#install'](0) end }
+
+  -- live server <Leader>v
+  use { 'barrett-ruth/live-server.nvim', config = live_server_config }
 
 end)
 
