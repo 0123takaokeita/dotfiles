@@ -16,8 +16,6 @@ end
 
 cmd.packadd('packer.nvim')
 vim.cmd [[
-  highlight IndentBlanklineIndent1 guibg=#1f1f1f gui=nocombine
-  highlight IndentBlanklineIndent2 guibg=#1a1a1a gui=nocombine
   colorscheme tokyonight-storm
   colorscheme nightfox
   colorscheme tokyonight-night
@@ -26,6 +24,10 @@ vim.cmd [[
   colorscheme duskfox
   colorscheme ayu-dark
   colorscheme ayu-mirage
+
+  " indent のカラーはカラースキーム読み込みのあとに上書きしないと反映しない
+  highlight IndentBlanklineIndent1 guibg=#3b3b3b gui=nocombine
+  highlight IndentBlanklineIndent2 guibg=#1f1f1f gui=nocombine
 ]]
 
 -- LSPに追加する内容
