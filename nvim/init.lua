@@ -187,6 +187,7 @@ end
 --   cmd = { "typescript-language-server", "--stdio" }
 -- }
 
+
 local lspsaga_config = function()
   require('lspsaga').setup {
     ui = {
@@ -438,6 +439,14 @@ local live_server_config = function()
     args = { '--port=7777' }
   }
 end
+
+local emmet_config = function()
+  g.user_emmet_leader_key = '<c-,>'
+  g.user_emmet_settings = {
+    variables = { lang = 'ja' }
+  }
+end
+
 require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
   use 'Shatur/neovim-ayu'
@@ -559,6 +568,9 @@ require('packer').startup(function(use)
 
   -- live server <Leader>v
   use { 'barrett-ruth/live-server.nvim', config = live_server_config }
+
+  -- emmet 記法対応プラグイン trigger <c-,>, ex: html:5 <c-,>,
+  use { 'mattn/emmet-vim', config = emmet_config }
 
 end)
 
