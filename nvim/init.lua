@@ -427,11 +427,14 @@ local skkelton_config = function()
   -- })
 end
 
+local easy_align_config = function()
+  g.easy_align_ignore_groups = { 'String' }
+end
+
 require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
   use 'Shatur/neovim-ayu'
   use 'monaqa/smooth-scroll.vim'
-  use 'junegunn/vim-easy-align'
   use 'vim-jp/vimdoc-ja'
   use 'folke/tokyonight.nvim'
   use 'RRethy/vim-illuminate'
@@ -439,6 +442,7 @@ require('packer').startup(function(use)
   use 'onsails/lspkind.nvim'
   use 'cocopon/iceberg.vim'
   use 'EdenEast/nightfox.nvim'
+  use { 'junegunn/vim-easy-align', confing = easy_align_config }
   use { 'numToStr/Comment.nvim', config = comment_config }
   use { 'williamboman/mason-lspconfig.nvim', config = mason_lsp_config }
   use { 'lukas-reineke/indent-blankline.nvim', config = indent_line_config }
