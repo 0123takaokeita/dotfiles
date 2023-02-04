@@ -187,6 +187,7 @@ end
 --   cmd = { "typescript-language-server", "--stdio" }
 -- }
 
+local lspsaga_config = function()
   require('lspsaga').setup {
     ui = {
       winblend = 10,
@@ -241,7 +242,12 @@ end
 
 -- ステータスライン
 local lualine_config = function()
-  require('lualine').setup({})
+  require('lualine').setup({
+    options = {
+      section_separators = { left = '', right = '' },
+      component_separators = { left = '', right = '' }
+    }
+  })
 end
 
 -- surround
@@ -403,6 +409,24 @@ local fidget_config = function()
   require "fidget".setup {}
 end
 
+local skkelton_config = function()
+  fn['skkeleton#config'] {
+    globalJisyo = '~/.skk/SKK-JISYO.L',
+    userJisyo = '~/.skk/SKK-JISYO.L',
+    markerHenkan = '<>',
+    markerHenkanSelect = '>>',
+    eggLikeNewline = true,
+    registerConvertResult = true,
+  }
+  -- fn['skkeleton#config']({
+  --   -- eggLikeNewline = true,
+  --   globalJisyo = '~/.skk/SKK-JISYO.L',
+  --   markerHenkan = '▹',
+  --   markerHenkanSelect = '▸',
+  --   -- dvorak = true,
+  -- })
+end
+
 require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
   use 'Shatur/neovim-ayu'
@@ -428,11 +452,22 @@ require('packer').startup(function(use)
   use { 'kylechui/nvim-surround', config = surround_config, tag = "*" }
   use { 'kdheepak/lazygit.nvim', config = lazygit_config, requires = 'kyazdani42/nvim-web-devicons' }
   use { 'folke/todo-comments.nvim', config = todo_comment_config, requires = 'nvim-lua/plenary.nvim' }
-  use { "glepnir/lspsaga.nvim", config = lspsage_config, branch = "main" }
+  use { "glepnir/lspsaga.nvim", config = lspsaga_config, branch = "main" }
   use { 'akinsho/bufferline.nvim', config = bufferline_config, tag = "v3.*", requires = 'nvim-tree/nvim-web-devicons' }
   use { 'vim-denops/denops.vim' }
   use { 'skanehira/denops-silicon.vim', config = silicon_config }
   use { 'j-hui/fidget.nvim', config = fidget_config }
+
+  use { 'vim-skk/skkeleton',
+    requires = { 'vim-denops/denops.vim', 'uga-rosa/cmp-skkeleton' },
+    config = skkelton_config,
+  }
+
+  use { 'delphinus/skkeleton_indicator.nvim',
+    config = function()
+      require 'skkeleton_indicator'.setup {}
+    end
+  }
 
   use {
     'pwntester/octo.nvim',
@@ -507,10 +542,13 @@ require('packer').startup(function(use)
       })
     end
   }
+
 end)
 
 opt.clipboard:append({ fn.has('mac') == 4 and 'unnamed' or 'unnamedplus' }) -- クリップボード共有
 opt.number        = true -- 行数表示
+opt.numberwidth   = 6
+-- opt.relativenumber = true -- 相対的行数表示
 opt.title         = true
 opt.shell         = 'fish'
 opt.icon          = true
@@ -533,6 +571,8 @@ opt.listchars:append 'space:⋅' -- spaceを・に変更
 -- keymap
 g.mapleader = ' '
 keymap('n', '*', '*N') -- orverride *
+keymap('n', '<S-e>', '$') -- orverride *
+keymap('n', '<S-b>', '0') -- orverride *
 keymap('n', '<Leader>w', 'ZZ') -- save & close
 keymap('n', '<Leader>e', '<cmd>e ~/.config/nvim/init.lua<cr>') -- open init.lua
 keymap('n', '<Leader><Leader>', '<cmd>source  ~/.config/nvim/init.lua<cr> <cmd>lua print("Reloaded init.lua")<cr>') -- reload init.lua
@@ -548,7 +588,6 @@ keymap('', 'sh', '<C-w>h') -- change focus left
 keymap('', 'sk', '<C-w>k') -- change focus top
 keymap('', 'sj', '<C-w>j') -- change focus under
 keymap('', 'sl', '<C-w>l') -- change focus right
-keymap('n', '<C-e>', '<cmd>Fern . -reveal=% -drawer -toggle -width=33<cr>') -- Open or Close Fern
 keymap('n', '+', '<C-a>') -- increment
 keymap('n', '-', '<C-x>') -- decrement
 keymap('n', '<C-a>', 'gg<S-v>G') -- select all
@@ -560,8 +599,11 @@ keymap('n', '<C-l>', '<cmd>TodoTelescope<CR>') -- grep todo
 keymap('n', '<c-o>', '<cmd>Telescope oldfiles theme=get_dropdown hidden=true<CR>') -- grep history
 keymap('n', '<c-;>', '<cmd>Telescope commands hidden=true<CR>') -- grep command
 keymap('n', '<c-k>', '<cmd>Telescope keymaps hidden=true<CR>') -- grep keymaps
-keymap('n', '<c-u>', '<cmd>Octo issue list<CR>') -- grep github issue
-keymap('n', '<c-m>', '<cmd>Octo pr list<CR>') -- grep github pull request
+-- keymap('n', '<c-i>', '<cmd>Octo issue list<CR>') -- grep github issue
+-- keymap('n', '<c-m>', '<cmd>Octo pr list<CR>') -- grep github pull request
+keymap('n', '<c-.>', '<cmd>Fern . -reveal=% -drawer -toggle -width=33<cr>') -- Open or Close Fern
+-- keymap('i', '<c-r>', '<Plug>(skkeleton-toggle)')
+
 keymap('n', 'gh', '<cmd>Lspsaga lsp_finder<CR>') -- lsp grep
 keymap('n', 'K', '<cmd>Lspsaga hover_doc<CR>') -- lsp doc
 keymap('n', 'gk', '<cmd>Lspsaga peek_definition<CR>') -- jump definition
