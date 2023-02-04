@@ -574,14 +574,21 @@ require('packer').startup(function(use)
       }
     },
   }
-  use {
-    "jackMort/ChatGPT.nvim",
-    config = function()
-      require("chatgpt").setup({
-        -- optional configuration
-      })
-    end
-  }
+
+  -- ChatGPT wrapper
+  -- use {
+  --   "jackMort/ChatGPT.nvim",
+  --   config = function()
+  --     require("chatgpt").setup({
+  --       -- optional configuration
+  --     })
+  --   end
+  -- }
+
+  -- autosave と組み合わせると毎回送信されてしまう。
+  -- use { 'skanehira/denops-openai.vim', config = openai_config }
+  use { 'mattn/vim-chatgpt' }
+
   -- browser の textarea で neovim がつかえる。
   -- 別途拡張機能も Install が必要
   use { 'glacambre/firenvim', run = function() fn['firenvim#install'](0) end }
