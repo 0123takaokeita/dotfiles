@@ -447,6 +447,26 @@ local emmet_config = function()
   }
 end
 
+local autotag_config = function()
+  require 'nvim-treesitter.configs'.setup {
+    autotag = {
+      enable = true,
+    }
+  }
+end
+
+local autopairs_config = function()
+  require 'nvim-autopairs'.setup {
+    disable_filetype = { 'TelescopePrompt', 'vim' }
+  }
+end
+
+local colorizer_config = function()
+  require 'colorizer'.setup({
+    '*';
+  })
+end
+
 require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
   use 'Shatur/neovim-ayu'
@@ -571,6 +591,13 @@ require('packer').startup(function(use)
 
   -- emmet 記法対応プラグイン trigger <c-,>, ex: html:5 <c-,>,
   use { 'mattn/emmet-vim', config = emmet_config }
+
+  -- TSをつかってタグを閉じる
+  use { 'windwp/nvim-ts-autotag', config = autotag_config }
+  use { 'windwp/nvim-autopairs', config = autopairs_config }
+
+  -- color code に色を表示
+  use { 'norcalli/nvim-colorizer.lua', config = colorizer_config }
 
 end)
 
