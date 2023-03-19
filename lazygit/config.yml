@@ -30,3 +30,13 @@ os:
   editCommand: 'nvim'
 git:
   branchLogCmd: "git log --graph --color=always --abbrev-commit --decorate --date=relative --pretty=medium --oneline {{branchName}} --"
+customCommands:
+  - key: "E"
+    prompts:
+      - type: "input"
+        title: "Epmty commit message"
+        initialValue: ""
+    command: "git commit --allow-empty -m {{index .PromptResponses 0 | quote}}"
+    context: "files"
+    description: 'create empty commit'
+    loadingText: "creating empty commit"
