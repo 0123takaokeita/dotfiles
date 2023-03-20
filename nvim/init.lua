@@ -664,7 +664,7 @@ keymap('n', '<c-;>', '<cmd>Telescope commands hidden=true<CR>') -- grep command
 keymap('n', '<c-k>', '<cmd>Telescope keymaps hidden=true<CR>') -- grep keymaps
 -- keymap('n', '<c-i>', '<cmd>Octo issue list<CR>') -- grep github issue
 -- keymap('n', '<c-m>', '<cmd>Octo pr list<CR>') -- grep github pull request
-keymap('n', '<c-.>', '<cmd>Fern . -reveal=% -drawer -toggle -width=33<cr>') -- Open or Close Fern
+keymap('n', '<c-e>', '<cmd>Fern . -reveal=% -drawer -toggle -width=33<cr>') -- Open or Close Fern
 -- keymap('i', '<c-r>', '<Plug>(skkeleton-toggle)')
 
 keymap('n', 'gh', '<cmd>Lspsaga lsp_finder<CR>') -- lsp grep
