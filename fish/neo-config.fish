@@ -47,7 +47,7 @@ alias osaka='curl wttr.in/Osaka'
 alias tenki='curl wttr.in/'
 
 # cd directory
-alias dot='cd ~/dotfiles; neo nvim/init.vim'
+alias dot='cd ~/dotfiles; neo nvim/init.lua'
 alias bys='cd ~/vm_share/byYourSide; neo'
 alias ...='cd ../..'
 alias ....='cd ../../..'
