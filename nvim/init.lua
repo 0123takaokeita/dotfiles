@@ -478,6 +478,8 @@ require('packer').startup(function(use)
   use 'onsails/lspkind.nvim'
   use 'cocopon/iceberg.vim'
   use 'EdenEast/nightfox.nvim'
+  use 'previm/previm'
+  use 'tyru/open-browser.vim'
   use { 'junegunn/vim-easy-align', confing = easy_align_config }
   use { 'numToStr/Comment.nvim', config = comment_config }
   use { 'williamboman/mason-lspconfig.nvim', config = mason_lsp_config }
@@ -644,6 +646,7 @@ keymap('n', '<Leader>n', '<cmd>noh<cr>') -- nohighlight
 keymap('n', '<Leader>h', '<cmd>checkhealth<cr>') -- checkhelth
 keymap('n', '<Leader>s', '<cmd>PackerSync<cr>') -- PackerSync
 keymap('n', '<Leader>i', '<cmd>PackerInstall<cr>') -- PackerInstall
+keymap('n', '<Leader>p', '<cmd>PrevimOpen<cr>') -- PrevimPreview
 keymap('n', 'ss', ':split<CR>enurn><C-w>w') -- split window under
 keymap('n', 'sv', ':vsplit<CR>eturn><C-w>w') -- split window left
 keymap('n', '<C-w>', '<C-w>w') -- window change focus
