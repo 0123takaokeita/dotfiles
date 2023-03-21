@@ -664,7 +664,8 @@ keymap('n', '-', '<C-x>') -- decrement
 keymap('n', '<C-a>', 'gg<S-v>G') -- select all
 keymap('n', 'gl', ':LazyGit<CR>') -- Open LazyGit
 keymap('x', 'ga', '<Plug>(EasyAlign)') -- open EasyAlign
-keymap('n', '<C-p>', '<cmd>Telescope find_files hidden=true<CR>') -- grep file
+-- keymap('n', '<C-p>', '<cmd>Telescope find_files hidden=true<CR>') -- grep file
+keymap('n', '<C-p>', '<cmd>Telescope find_files <CR>') -- grep file
 keymap('n', '<C-g>', '<cmd>Telescope live_grep<CR>') -- grep text
 keymap('n', '<C-l>', '<cmd>TodoTelescope<CR>') -- grep todo
 keymap('n', '<c-o>', '<cmd>Telescope oldfiles theme=get_dropdown hidden=true<CR>') -- grep history
