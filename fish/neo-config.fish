@@ -49,6 +49,7 @@ alias tenki='curl wttr.in/'
 # cd directory
 alias dot='cd ~/dotfiles; neo nvim/init.lua'
 alias bys='cd ~/vm_share/byYourSide; neo'
+alias rel='cd ~/vm_share/relief-map/; neo'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 
