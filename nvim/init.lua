@@ -480,6 +480,11 @@ require('packer').startup(function(use)
   use 'EdenEast/nightfox.nvim'
   use 'previm/previm'
   use 'tyru/open-browser.vim'
+  use { "johmsalas/text-case.nvim",
+    config = function()
+      require('textcase').setup {}
+    end
+  }
   use { 'junegunn/vim-easy-align', confing = easy_align_config }
   use { 'numToStr/Comment.nvim', config = comment_config }
   use { 'williamboman/mason-lspconfig.nvim', config = mason_lsp_config }
