@@ -38,7 +38,6 @@ alias env='env | sort'
 # 起動エイリアス
 alias lg='lazygit'
 alias ld='lazydocker'
-alias di='docui'
 alias neo='nvim'
 alias vim='nvim'
 alias vi='vim'
