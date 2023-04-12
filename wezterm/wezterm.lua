@@ -1,18 +1,20 @@
 local wezterm = require 'wezterm';
 
 return {
-  font = wezterm.font_with_fallback {
-    'UDEV Gothic 35NF',
-    'UDEV Gothic NF',
+  font = wezterm.font_with_fallback( {
+    'JetBrains Mono',
     'Cica',
+    'UDEV Gothic 35NF',
+    'HackGenNerd',
+    'Monaco',
+    'UDEV Gothic NF',
+    'HackGenNerd Console',
     'HackGen',
     'HackGen Console',
-    'HackGenNerd Console',
     'HackGen Console NF ',
-    'HackGenNerd',
-    'Ricty Diminished Discord',
-    'Monaco',
   },
+    {weight = 'Bold'}
+  ),
 
   color_scheme = 'nightfox',
   colors = {
@@ -47,8 +49,9 @@ return {
   tab_max_width = 16,
   window_padding = { left = 0, right = 0, top = 0, bottom = 0, },
   use_ime = true,
-  initial_rows = 40,
-  initial_cols = 90,
+  initial_cols = 120,
+  initial_rows = 80,
+  window_close_confirmation = "NeverPrompt",
   font_size = 21,
   adjust_window_size_when_changing_font_size = true,
   enable_tab_bar = true,
