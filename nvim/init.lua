@@ -69,7 +69,7 @@ end
 -- server auto install
 local mason_lsp_config = function()
   require("mason-lspconfig").setup({
-    ensure_installed = { 'sumneko_lua', 'rust_analyzer', 'solargraph', 'csharp_ls', 'sqlls' },
+    ensure_installed = { 'rust_analyzer', 'solargraph', 'csharp_ls', 'sqlls' },
     automatic_installation = true,
   })
 end
@@ -158,7 +158,6 @@ local servers = {
   'rust_analyzer',
   'tsserver',
   'pyright',
-  'sumneko_lua',
   'intelephense',
   'cssls',
   'denols',
@@ -480,6 +479,7 @@ require('packer').startup(function(use)
   use 'EdenEast/nightfox.nvim'
   use 'previm/previm'
   use 'tyru/open-browser.vim'
+  use 'github/copilot.vim'
   use { "johmsalas/text-case.nvim",
     config = function()
       require('textcase').setup {}
