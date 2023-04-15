@@ -1,5 +1,4 @@
 return {
-  -- colorscheme = "catppuccin",
   colorscheme = "tokyonight-storm",
 
   plugins = {
@@ -61,12 +60,6 @@ return {
         require('nvim-treesitter.configs').setup { endwise = { enable = true, }}
       end,
     },
-    -- {
-    --   'github/copilot.vim',
-    --   event = "BufRead",
-    --   config = function()
-    --   end,
-    -- },
     {
       "zbirenbaum/copilot.lua",
       cmd = "Copilot",
@@ -111,18 +104,6 @@ return {
       end,
     },
   },
-    -- options = {
-    --   g = {
-    --     copilot_no_tab_map = true,
-    --     copilot_assume_mapped = true,
-    --     copilot_tab_fallback = "",
-    --   },
-    -- },
-    -- maupings = {
-    --   i = {
-    --     ["<C-cr>"] = { "copilot#Accept(<Tab>)", silent = true, expr = true, script = true },
-    --   }
-    -- },
   lsp = {
     formatting = {
       format_on_save = false, -- enable or disable automatic formatting on save
