@@ -1,46 +1,47 @@
 {
-  "vim.vimrc.path" : "\/Users\/takaokeita\/.vimrc",
-  "files.eol" : "\n",
-  "editor.fontFamily" : "hackgennerd",
-  "diffEditor.ignoreTrimWhitespace" : false,
-  "[ruby]" : {
-    "editor.insertSpaces" : true,
-    "editor.tabSize" : 2
+  "vim.vimrc.path": "/Users/takaokeita/.vimrc",
+  "files.eol": "\n",
+  "editor.fontFamily": "hackgennerd",
+  "diffEditor.ignoreTrimWhitespace": false,
+  "[ruby]": {
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2
   },
-  "explorer.compactFolders" : false,
-  "ruby.format" : "rubocop",
-  "[markdown]" : {
-    "editor.defaultFormatter" : "yzhang.markdown-all-in-one"
+  "explorer.compactFolders": false,
+  "ruby.format": "rubocop",
+  "[markdown]": {
+    "editor.defaultFormatter": "yzhang.markdown-all-in-one"
   },
-  "editor.formatOnPaste" : true,
-  "files.trimTrailingWhitespace" : true,
-  "editor.renderWhitespace" : "boundary",
-  "editor.accessibilitySupport" : "off",
-  "workbench.tree.indent" : 18,
-  "git.enableSmartCommit" : true,
-  "files.autoGuessEncoding" : true,
-  "[python]" : {
-    "editor.insertSpaces" : true,
-    "editor.tabSize" : 4
+  "editor.formatOnPaste": true,
+  "files.trimTrailingWhitespace": true,
+  "editor.renderWhitespace": "boundary",
+  "editor.accessibilitySupport": "off",
+  "workbench.tree.indent": 18,
+  "git.enableSmartCommit": true,
+  "files.autoGuessEncoding": true,
+  "[python]": {
+    "editor.insertSpaces": true,
+    "editor.tabSize": 4
   },
-  "workbench.iconTheme" : "material-icon-theme",
-  "git.autofetch" : true,
-  "files.autoSave" : "onFocusChange",
-  "editor.minimap.enabled" : false,
-  "editor.bracketPairColorization.enabled" : true,
+  "workbench.iconTheme": "material-icon-theme",
+  "git.autofetch": true,
+  "files.autoSave": "onFocusChange",
+  "editor.minimap.enabled": false,
+  "editor.bracketPairColorization.enabled": true,
   "editor.formatOnSaveMode": "modificationsIfAvailable",
-  "[html]" : {
-    "editor.defaultFormatter" : "vscode.html-language-features"
+  "[html]": {
+    "editor.defaultFormatter": "vscode.html-language-features"
   },
-  "vim.vimrc.enable" : true,
-  "editor.fontSize" : 16,
-  "thunder-client.codeSnippetLanguage" : "js-fetch",
-  "workbench.colorTheme" : "Ayu Mirage Bordered",
-  "todohighlight.isEnable" : true,
-  "editor.formatOnSave" : true,
+  "vim.vimrc.enable": true,
+  "editor.fontSize": 16,
+  "thunder-client.codeSnippetLanguage": "js-fetch",
+  "workbench.colorTheme": "Ayu Mirage Bordered",
+  "todohighlight.isEnable": true,
+  "editor.formatOnSave": true,
   "sync.gist": "d8392ebc5da6d7642f858db415780ad3",
   "terminal.integrated.env.osx": {
     "FIG_NEW_SESSION": "1"
   },
-  "window.zoomLevel": 1
+  "window.zoomLevel": 1,
+  "editor.inlineSuggest.enabled": true
 }
