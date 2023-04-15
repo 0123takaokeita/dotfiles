@@ -1,24 +1,34 @@
+
 return {
   colorscheme = "tokyonight-storm",
-
   plugins = {
     {
       "goolord/alpha-nvim",
-      opts = function(_, opts) -- override the options using lazy.nvim
+      opts = function(_, opts)      -- override the options using lazy.nvim
         opts.section.header.val = { -- change the header section value
-      " ████████  █████  ██  ██  █████   ██████",
-      "    ██    ██   ██ ████   ██   ██ ██    ██",
-      "    ██    ███████ ██     ███████ ██    ██",
-      "    ██    ██   ██ ████   ██   ██ ██    ██",
-      "    ██    ██   ██ ██  ██ ██   ██  ██████",
-      " ",
-      "    ███    ██ ██    ██   ██   ███    ███",
-      "    ████   ██ ██    ██   ██   ████  ████",
-      "    ██ ██  ██ ██    ██   ██   ██ ████ ██",
-      "    ██  ██ ██  ██  ██    ██   ██  ██  ██",
-      "    ██   ████   ████     ██   ██      ██",
+          " ████████  █████  ██  ██  █████   ██████",
+          "    ██    ██   ██ ████   ██   ██ ██    ██",
+          "    ██    ███████ ██     ███████ ██    ██",
+          "    ██    ██   ██ ████   ██   ██ ██    ██",
+          "    ██    ██   ██ ██  ██ ██   ██  ██████",
+          " ",
+          "    ███    ██ ██    ██   ██   ███    ███",
+          "    ████   ██ ██    ██   ██   ████  ████",
+          "    ██ ██  ██ ██    ██   ██   ██ ████ ██",
+          "    ██  ██ ██  ██  ██    ██   ██  ██  ██",
+          "    ██   ████   ████     ██   ██      ██",
         }
       end,
+    },
+    {
+      'previm/previm',
+      as = 'previm',
+      event = "User AstroFile",
+    },
+    {
+      'tyru/open-browser.vim',
+      as = 'open-browser',
+      event = "User AstroFile",
     },
     {
       "catppuccin/nvim",
@@ -48,7 +58,7 @@ return {
       end,
     },
     {
-      'vim-scripts/vim-auto-save', 
+      'vim-scripts/vim-auto-save',
       event = "BufRead",
       config = function()
         vim.g.auto_save = true
@@ -57,7 +67,7 @@ return {
     {
       'RRethy/nvim-treesitter-endwise',
       config = function()
-        require('nvim-treesitter.configs').setup { endwise = { enable = true, }}
+        require('nvim-treesitter.configs').setup { endwise = { enable = true, } }
       end,
     },
     {
@@ -107,7 +117,27 @@ return {
   lsp = {
     formatting = {
       format_on_save = false, -- enable or disable automatic formatting on save
-      timeout_ms = 3200, -- adjust the timeout_ms variable for formatting
+      timeout_ms = 3200,      -- adjust the timeout_ms variable for formatting
     },
   },
+  mappings = {
+  -- first key is the mode
+  -- desc setting is stored by vim.keymap.set() as a part of opts table in vim lua module
+  n = {
+    ['<Leader>pp'] = { '<cmd>PrevimOpen<cr>', desc = "Previm Open" },
+    -- second key is the lefthand side of the map
+    -- Tab Mappings
+    ["<leader>Tn"] = { "<cmd>tabnew<cr>", desc = "New tab" },
+    ["<leader>Tc"] = { "<cmd>tabclose<cr>", desc = "Close tab" },
+    -- a table with the `name` key will register with which-key if it's available
+    -- this an easy way to add menu titles in which-key
+    ["<leader>T"] = { name = "Tab" },
+    -- quick save
+    ["<C-s>"] = { ":w!<cr>", desc = "Save File" },  -- change description but the same command
+  },
+  t = {
+    -- setting a mapping to false will disable it
+    ["<esc>"] = false,
+  },
+},
 }
