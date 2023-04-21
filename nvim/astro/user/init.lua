@@ -1,4 +1,3 @@
-
 return {
   colorscheme = "tokyonight-storm",
   plugins = {
@@ -46,10 +45,13 @@ return {
     },
     {
       'kylechui/nvim-surround',
-      event = "BufRead",
+      version = '*', -- Use for stability; omit to use `main` branch for the latest features
+      event = 'VeryLazy',
       config = function()
-        require("nvim-surround").setup {}
-      end,
+        require('nvim-surround').setup({
+          -- Configuration here, or leave empty to use defaults
+        })
+      end
     },
     {
       'junegunn/vim-easy-align',
@@ -121,23 +123,23 @@ return {
     },
   },
   mappings = {
-  -- first key is the mode
-  -- desc setting is stored by vim.keymap.set() as a part of opts table in vim lua module
-  n = {
-    ['<Leader>pp'] = { '<cmd>PrevimOpen<cr>', desc = "Previm Open" },
-    -- second key is the lefthand side of the map
-    -- Tab Mappings
-    ["<leader>Tn"] = { "<cmd>tabnew<cr>", desc = "New tab" },
-    ["<leader>Tc"] = { "<cmd>tabclose<cr>", desc = "Close tab" },
-    -- a table with the `name` key will register with which-key if it's available
-    -- this an easy way to add menu titles in which-key
-    ["<leader>T"] = { name = "Tab" },
-    -- quick save
-    ["<C-s>"] = { ":w!<cr>", desc = "Save File" },  -- change description but the same command
+    -- first key is the mode
+    -- desc setting is stored by vim.keymap.set() as a part of opts table in vim lua module
+    n = {
+      ['<Leader>pp'] = { '<cmd>PrevimOpen<cr>', desc = "Previm Open" },
+      -- second key is the lefthand side of the map
+      -- Tab Mappings
+      ["<leader>Tn"] = { "<cmd>tabnew<cr>", desc = "New tab" },
+      ["<leader>Tc"] = { "<cmd>tabclose<cr>", desc = "Close tab" },
+      -- a table with the `name` key will register with which-key if it's available
+      -- this an easy way to add menu titles in which-key
+      ["<leader>T"] = { name = "Tab" },
+      -- quick save
+      ["<C-s>"] = { ":w!<cr>", desc = "Save File" }, -- change description but the same command
+    },
+    t = {
+      -- setting a mapping to false will disable it
+      ["<esc>"] = false,
+    },
   },
-  t = {
-    -- setting a mapping to false will disable it
-    ["<esc>"] = false,
-  },
-},
 }
