@@ -7,6 +7,11 @@ set -x LC_ALL en_US.UTF-8
 set -x LESS -i -M -R -S -W -z-4 -x4 # less コマンドデフォルトオプション
 set -x GITHUB_UNAME 0123takaokeita
 set -x PYENV_ROOT $HOME/.pyenv
+set -x ANDROID_HOME $HOME/Library/Android/sdk
+
+# Android config
+fish_add_path $ANDROID_HOME/emulator
+fish_add_path $ANDROID_HOME/platform-tools
 
 # rbrenv config
 fish_add_path $HOME/.rbenv/shims
