@@ -37,6 +37,18 @@ return {
       end,
     },
     {
+      "folke/todo-comments.nvim",
+      requires = "nvim-lua/plenary.nvim",
+      event = 'VeryLazy',
+      config = function()
+        require("todo-comments").setup {
+          -- your configuration comes here
+          -- or leave it empty to use the default settings
+          -- refer to the configuration section below
+        }
+      end
+    },
+    {
       'folke/tokyonight.nvim',
       as = "tokyonight",
       config = function()
@@ -130,6 +142,7 @@ return {
     -- first key is the mode
     -- desc setting is stored by vim.keymap.set() as a part of opts table in vim lua module
     n = {
+      ['<Leader>fT'] = { '<cmd>TodoTelescope<cr>', desc = "Search Anotation" },
       ['<Leader>pp'] = { '<cmd>PrevimOpen<cr>', desc = "Previm Open" },
       -- second key is the lefthand side of the map
       -- Tab Mappings
