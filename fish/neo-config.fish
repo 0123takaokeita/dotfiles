@@ -60,19 +60,5 @@ alias ....='cd ../../..'
 # directory 追加のtouch
 alias dirch='sh $HOME/dotfiles/fish/mkdir_touch.sh'
 
-# git  alias
-alias g='git'
-alias ga='git add'
-alias gd='git diff'
-alias gs='git status'
-alias gp='git push'
-alias gb='git branch'
-alias gbl='git branch -a'
-alias gf='git fetch'
-alias gc='git commit -m'
-alias gst='git stash'
-alias gco='git checkout'
-alias gl='git log --oneline'
-alias glg="git log --graph --date=short --decorate=short --pretty=format:'%Cgreen%h %Creset%cd %Cblue%cn %Cred%d %Creset%s'"
 
 starship init fish | source
