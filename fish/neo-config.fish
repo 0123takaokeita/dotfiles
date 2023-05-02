@@ -51,7 +51,7 @@ alias osaka='curl wttr.in/Osaka'
 alias tenki='curl wttr.in/'
 
 # cd directory
-alias dot='cd ~/dotfiles; neo nvim/init.lua'
+alias dot='cd ~/dotfiles; neo'
 alias bys='cd ~/vm_share/byYourSide; neo'
 alias rel='cd ~/vm_share/relief-map/; neo'
 alias ...='cd ../..'
@@ -60,5 +60,6 @@ alias ....='cd ../../..'
 # directory 追加のtouch
 alias dirch='sh $HOME/dotfiles/fish/mkdir_touch.sh'
 
+alias repo='cd $(ghq root)/$(ghq list | peco)'
 
 starship init fish | source
