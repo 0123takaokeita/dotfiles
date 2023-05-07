@@ -1,37 +1,44 @@
 [init]
-	defaultBranch = master
+	defaultBranch = main ; git init時にmainブランチを作成する
 [filter "lfs"]
   clean = git-lfs clean -- %f
   smudge = git-lfs smudge -- %f
   process = git-lfs filter-process
-  required = true
+  required = true ; git-lfsがインストールされていない場合、エラーを出す
 [user]
-  name = TakaoKeita
+  name = KeitaTakao
   email = keita.takao.1112@gmail.com
 [core]
-  pager = LESSCHARSET=utf-8 less
-  quotepath = false
-  editor = nvim
+  pager = LESSCHARSET=utf-8 less ; git logなどで日本語が文字化けしないようにする
+  quotepath = false ; git statusなどで日本語が文字化けしないようにする
+  editor = nvim ; git commitなどでnvimを使用する
+[grep]
+  lineNumber = true ; grep時に行番号を表示する
+  extendedRegexp = true ; grep時に正規表現を使用する
 [commit]
-	verbose = true
+	verbose = true ; commit時にdiffを表示する
 [rebase]
-  autostash = true
-  autosquash = true
+  autostash = true ; rebase時にstashを自動で行う
+  autosquash = true ; rebase時にsquashを自動で行う
 [merge]
-	conflictStyle = diff3
+	conflictStyle = diff3 ; merge時にconflictをdiff3形式で表示する
+[fetch]
+	prune = true ; remoteブランチが削除されていた場合、ローカルブランチも削除する
+[pull]
+  ff = only ; pull時にfast-forwardのみを許可する
 [ghq]
-	root = ~/dev
+	root = ~/dev ; ghqでcloneするディレクトリを指定する
 [color]
-  ui = true
+  ui = true ; 色を有効にする
 [color "branch"]
-  current = yellow reverse
-  local = yellow
-  remote = green
+  current = yellow reverse ; 現在のブランチを黄色で表示する
+  local = yellow ; ローカルブランチを黄色で表示する
+  remote = green ; リモートブランチを緑で表示する
 [color "diff"]
-  meta = yellow bold
-  frag = magenta bold
-  old = red bold
-  new = green bold
+  meta = yellow bold ; diffのメタ情報を黄色で表示する
+  frag = magenta bold ; diffのヘッダーをマゼンタで表示する
+  old = red bold ; diffの古い方を赤で表示する
+  new = green bold ; diffの新しい方を緑で表示する
 [color "status"]
   added = green 
   changed = yellow
@@ -52,7 +59,3 @@
   ad = add
   d = diff
   p = push
-[fetch]
-	prune = true ; remoteブランチが削除されていた場合、ローカルブランチも削除する
-[pull]
-  ff = only ; pull時にfast-forwardのみを許可する
