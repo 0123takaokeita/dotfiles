@@ -1,3 +1,5 @@
+[init]
+	defaultBranch = master
 [filter "lfs"]
   clean = git-lfs clean -- %f
   smudge = git-lfs smudge -- %f
@@ -10,11 +12,13 @@
   pager = LESSCHARSET=utf-8 less
   quotepath = false
   editor = nvim
+[commit]
+	verbose = true
 [rebase]
   autostash = true
   autosquash = true
-[init]
-	defaultBranch = master
+[merge]
+	conflictStyle = diff3
 [ghq]
 	root = ~/dev
 [color]
@@ -48,3 +52,7 @@
   ad = add
   d = diff
   p = push
+[fetch]
+	prune = true ; remoteブランチが削除されていた場合、ローカルブランチも削除する
+[pull]
+  ff = only ; pull時にfast-forwardのみを許可する
