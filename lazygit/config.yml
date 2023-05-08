@@ -32,11 +32,11 @@ git:
   branchLogCmd: "git log --graph --color=always --abbrev-commit --decorate --date=relative --pretty=medium --oneline {{branchName}} --"
 customCommands:
   - key: "E"
+    context: "files"
+    description: 'Add empty commit'
+    loadingText: 'Committing empty commit...'
+    command: "git commit --allow-empty -m {{index .PromptResponses 0 | quote}}"
     prompts:
       - type: "input"
         title: "Epmty commit message"
         initialValue: ""
-    command: "git commit --allow-empty -m {{index .PromptResponses 0 | quote}}"
-    context: "files"
-    description: 'create empty commit'
-    loadingText: "creating empty commit"
