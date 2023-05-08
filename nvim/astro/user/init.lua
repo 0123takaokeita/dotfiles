@@ -20,6 +20,18 @@ return {
       end,
     },
     {
+      "folke/twilight.nvim",
+      as = 'twilight',
+      event = "User AstroFile",
+      config = function()
+        require("twilight").setup {
+          -- your configuration comes here
+          -- or leave it empty to use the default settings
+          -- refer to the configuration section below
+        }
+      end
+    },
+    {
       'previm/previm',
       as = 'previm',
       event = "User AstroFile",
@@ -38,7 +50,7 @@ return {
     },
     {
       "folke/todo-comments.nvim",
-      requires = "nvim-lua/plenary.nvim",
+      dependencies = "nvim-lua/plenary.nvim",
       event = 'VeryLazy',
       config = function()
         require("todo-comments").setup {
