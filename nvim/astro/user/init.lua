@@ -1,3 +1,5 @@
+local utils = require "astronvim.utils"
+
 return {
   colorscheme = "tokyonight-storm",
   plugins = {
@@ -16,6 +18,15 @@ return {
           "    ██ ██  ██ ██    ██   ██   ██ ████ ██",
           "    ██  ██ ██  ██  ██    ██   ██  ██  ██",
           "    ██   ████   ████     ██   ██      ██",
+        }
+      end,
+    },
+    {
+      'Wansmer/sibling-swap.nvim',
+      dependencies = { 'nvim-treesitter' },
+      config = function()
+        require('sibling-swap').setup {
+          -- your config comes here
         }
       end,
     },
@@ -154,6 +165,8 @@ return {
     -- first key is the mode
     -- desc setting is stored by vim.keymap.set() as a part of opts table in vim lua module
     n = {
+      ['B'] = { '0', desc = "move line head" },
+      ['E'] = { '$', desc = "move line tail" },
       ['<Leader>fT'] = { '<cmd>TodoTelescope<cr>', desc = "Search Anotation" },
       ['<Leader>pp'] = { '<cmd>PrevimOpen<cr>', desc = "Previm Open" },
       -- second key is the lefthand side of the map
@@ -165,6 +178,8 @@ return {
       ["<leader>T"] = { name = "Tab" },
       -- quick save
       ["<C-s>"] = { ":w!<cr>", desc = "Save File" }, -- change description but the same command
+      -- irb
+      ["<leader>tr"] = { function() utils.toggle_term_cmd "irb" end, desc = "ToggleTerm irb" },
     },
     t = {
       -- setting a mapping to false will disable it
