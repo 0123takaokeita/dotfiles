@@ -27,7 +27,7 @@ gui:
   commitLength:
     show: true
 os:
-  editCommand: 'nvim'
+  edit: 'nvim'
 git:
   branchLogCmd: "git log --graph --color=always --abbrev-commit --decorate --date=relative --pretty=medium --oneline {{branchName}} --"
 customCommands:
