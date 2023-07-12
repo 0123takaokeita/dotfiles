@@ -3,12 +3,13 @@ local wezterm = require 'wezterm';
 return {
   -- フォントの設定
   font = wezterm.font_with_fallback({
-      'JetBrains Mono',
-      'UDEV Gothic 35NF',
       'Cica',
+      'UDEV Gothic 35NF',
       'Monaco',
+      'JetBrains Mono',
       'UDEV Gothic NF',
-    },
+    }
+    ,
     -- 文字の太さ
     { weight = 'Bold' }
   ),
