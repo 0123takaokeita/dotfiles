@@ -1,12 +1,15 @@
 # カスタムフォーマットを利用します
 scan_timeout = 10
+
 format = """
-[┌───────▶ ](bold green)$ruby$nodejs$deno
-[│](bold green)$time
-[│](bold green)$git_branch
-[│](bold green)$directory
-[└─▶](bold green)
-"""
+[┌───────────────────>](bold green)
+[│](bold green)$directory$rust$package
+[└─>](bold green) """
+
+# [┌───────▶ ](bold green)$ruby$nodejs$deno
+# [│](bold green)$time
+# [│](bold green)$git_branch
+# [└─▶](bold green)
 # [│](bold green)$username $hostname
 
 [character]
