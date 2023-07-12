@@ -1,4 +1,8 @@
-local utils = require "astronvim.utils"
+local utils   = require "astronvim.utils"
+
+-- スペースを可視化する
+vim.opt.list = true
+vim.opt.listchars = "tab:▸-,trail:·,nbsp:·,space:·"
 
 return {
   colorscheme = "tokyonight-storm",
