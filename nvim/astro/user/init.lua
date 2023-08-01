@@ -182,8 +182,11 @@ return {
       ["<leader>T"] = { name = "Tab" },
       -- quick save
       ["<C-s>"] = { ":w!<cr>", desc = "Save File" }, -- change description but the same command
-      -- irb
+
       ["<leader>tr"] = { function() utils.toggle_term_cmd "irb" end, desc = "ToggleTerm irb" },
+      ["<leader>tg"] = { function() utils.toggle_term_cmd "gore" end, desc = "ToggleTerm gore" },
+      ["<leader>gg"] = { function() utils.toggle_term_cmd "lazygit" end, desc = "ToggleTerm lazygit" },
+      ["<leader>td"] = { function() utils.toggle_term_cmd "lazydocker" end, desc = "ToggleTerm lazydocker" },
     },
     t = {
       -- setting a mapping to false will disable it
