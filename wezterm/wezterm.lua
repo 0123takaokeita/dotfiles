@@ -16,11 +16,12 @@ return {
   --  テーマ設定
   color_scheme = 'nightfox',
   colors = {
+    split = '#FFA500', -- pain split line color
     tab_bar = {
       background = '#0b0022',
       inactive_tab_edge = '#575757',
       active_tab = {
-        bg_color = '#ffcc66',
+        bg_color = '#FFA500',
         fg_color = '#0f0f3d',
         intensity = 'Bold',    -- Half or Bold or Normal
         underline = 'Double',  -- None or Single or Double
