@@ -1,8 +1,10 @@
 local utils   = require "astronvim.utils"
+local keymap  = vim.keymap
+local opt     = vim.opt
 
 -- スペースを可視化する
-vim.opt.list = true
-vim.opt.listchars = "tab:▸-,trail:·,nbsp:·,space:·"
+opt.list      = true
+opt.listchars = "tab:▸-,trail:·,nbsp:·,space:·"
 
 return {
   colorscheme = "tokyonight-storm",
@@ -89,17 +91,41 @@ return {
     {
       'kylechui/nvim-surround',
       version = '*', -- Use for stability; omit to use `main` branch for the latest features
-      event = 'VeryLazy',
-      config = function()
+      event   = 'VeryLazy',
+      config  = function()
         require('nvim-surround').setup({
           -- Configuration here, or leave empty to use defaults
         })
       end
     },
     {
-      'junegunn/vim-easy-align',
-      event = "BufRead",
+      'Vonr/align.nvim',
+      event  = "BufRead",
       config = function()
+        local NS = { noremap = true, silent = true }
+
+        keymap.set('x', 'aa', function() require 'align'.align_to_char(1, true) end, NS)             -- Aligns to 1 character, looking left
+        keymap.set('x', 'as', function() require 'align'.align_to_char(2, true, true) end, NS)       -- Aligns to 2 characters, looking left and with previews
+        keymap.set('x', 'aw', function() require 'align'.align_to_string(false, true, true) end, NS) -- Aligns to a string, looking left and with previews
+        keymap.set('x', 'ar', function() require 'align'.align_to_string(true, true, true) end, NS)  -- Aligns to a Lua pattern, looking left and with previews
+
+        -- Example gawip to align a paragraph to a string, looking left and with previews
+        keymap.set('n', 'gaw',
+          function()
+            local a = require 'align'
+            a.operator(a.align_to_string, { is_pattern = false, reverse = true, preview = true })
+          end,
+          NS
+        )
+
+        -- Example gaaip to aling a paragraph to 1 character, looking left
+        keymap.set('n', 'gaa',
+          function()
+            local a = require 'align'
+            a.operator(a.align_to_char, { length = 1, reverse = true })
+          end,
+          NS
+        )
       end,
     },
     {
