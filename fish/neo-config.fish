@@ -54,6 +54,7 @@ alias vim='nvim'
 alias vi='vim'
 alias sfish='source ~/.config/fish/config.fish'
 alias osaka='curl wttr.in/Osaka'
+alias go='richgo'
 
 # cd directory
 alias dot='cd ~/dotfiles; vim fish/neo-config.fish'
