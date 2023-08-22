@@ -81,4 +81,4 @@ status --is-interactive; and source (rbenv init -|psub)
 
 starship init fish | source
 
-tea --magic=fish | source  #docs.tea.xyz/magic
+# tea --magic=fish | source  #docs.tea.xyz/magic
