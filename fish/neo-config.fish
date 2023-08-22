@@ -76,6 +76,9 @@ alias dev='cd $(ghq root)/$(ghq list | peco)'
 # pecoで選択したHostに接続
 alias sshl='grep -w Host ~/.ssh/config | peco | awk \'{print $2}\' | xargs -o -n 1 ssh'
 
+# rakel 引数指定なしだったらこれでOK
+alias rakel='rake -T | peco | awk \'{ print $2 }\' | xargs rake'
+
 # rbrenv config
 fish_add_path $HOME/.rbenv/shims
 status --is-interactive; and source (rbenv init -|psub)
