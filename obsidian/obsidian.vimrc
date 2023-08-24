@@ -14,21 +14,24 @@ set clipboard=unnamed
 " (make sure to remove default Obsidian shortcuts for these to work)
 exmap back obcommand app:go-back
 nmap <C-o> :back
+
 exmap forward obcommand app:go-forward
 nmap <C-i> :forward
 
 exmap surround_wiki surround [[ ]]
 exmap surround_double_quotes surround " "
 exmap surround_single_quotes surround ' '
+exmap surround_back_quotes surround ` `
 exmap surround_brackets surround ( )
 exmap surround_square_brackets surround [ ]
 exmap surround_curly_brackets surround { }
 
 " NOTE: must use 'map' and not 'nmap'
-map [[ :surround_wiki
 nunmap s
 vunmap s
+map [[ :surround_wiki
 map s" :surround_double_quotes
+map s` :surround_back_quotes
 map s' :surround_single_quotes
 map sb :surround_brackets
 map s( :surround_brackets
