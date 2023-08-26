@@ -13,6 +13,7 @@ set -x LESS -i -M -R -W -z-4 -x4 # less コマンドデフォルトオプショ�
 # set -x LESSOPEN "| src-hilite-lesspipe.sh %s"
 
 set GHQ_SELECTOR peco # C-g でghq list peco
+set GHQ_SELECTOR_OPTS --layout=bottom-up --prompt='GHQ >'
 set fish_plugins theme peco
 function fish_user_key_bindings
   bind \cr 'peco_select_history (commandline -b)' # C-r command history peco
