@@ -27,58 +27,58 @@ fish_add_path $ANDROID_HOME/platform-tools
 fish_add_path $HOME/go/bin # go 設定
 fish_add_path $HOME/.volta/bin # volta 設定
 
-# cmd alias
-alias lsis='gh issue list -a $GITHUB_UNAME'
-alias python='python3'
-alias rm='trash'
-alias ls='exa'
-alias la='exa -la'
-alias ll='exa -larbghHs name --icons --git'
-alias cat='bat'
-alias find='fd'
-alias ps='procs'
-alias du='dust'
-alias df='duf'
-alias top='btm'
-alias grep='rg'
+# cmd abbr
+abbr lsis 'gh issue list -a $GITHUB_UNAME'
+abbr python 'python3'
+abbr rm 'trash'
+abbr ls 'exa'
+abbr la 'exa -la'
+abbr ll 'exa -larbghHs name --icons --git'
+abbr cat 'bat'
+abbr find 'fd'
+abbr ps 'procs'
+abbr du 'dust'
+abbr df 'duf'
+abbr top 'btm'
+abbr grep 'rg'
 
 # 環境変数を改行区切りで表示
-alias pathls='echo $PATH | tr " " "\n" | nl'
-alias pathfish='echo $fish_user_paths | tr " " "\n" | nl'
-alias env='env | sort'
+abbr pathls 'echo $PATH | tr " " "\n" | nl'
+abbr pathfish 'echo $fish_user_paths | tr " " "\n" | nl'
+abbr env 'env | sort'
 
 # 起動エイリアス
-alias lg='lazygit'
-alias ld='lazydocker'
-alias neo='nvim'
-alias vim='nvim'
-alias vi='vim'
-alias sfish='source ~/.config/fish/config.fish'
-alias osaka='curl wttr.in/Osaka'
-alias go='richgo'
+abbr lg 'lazygit'
+abbr ld 'lazydocker'
+abbr neo 'nvim'
+abbr vim 'nvim'
+abbr vi 'vim'
+abbr sfish 'source ~/.config/fish/config.fish'
+abbr osaka 'curl wttr.in/Osaka'
+abbr go 'richgo'
 
 # cd directory
-alias dot='cd ~/dotfiles; vim fish/neo-config.fish'
-alias bys='cd ~/vm_share/byYourSide; vim'
-alias rel='cd ~/vm_share/relief-map/; vim'
-alias calc='cd ~/dev/github.com/lobin-z0x50/NeoCalc/CalcLibCore/Takao; neo'
+abbr dot 'cd ~/dotfiles; vim fish/neo-config.fish'
+abbr bys 'cd ~/vm_share/byYourSide; vim'
+abbr rel 'cd ~/vm_share/relief-map/; vim'
+abbr calc 'cd ~/dev/github.com/lobin-z0x50/NeoCalc/CalcLibCore/Takao; neo'
 
-alias .='cd'
-alias ..='cd ..'
-alias ...='cd ../..'
-alias ....='cd ../../..'
+abbr . 'cd'
+abbr .. 'cd ..'
+abbr ... 'cd ../..'
+abbr .... 'cd ../../..'
 
 # directory 追加のtouch
-alias dirch='sh $HOME/dotfiles/fish/mkdir_touch.sh'
+abbr dirch 'sh $HOME/dotfiles/fish/mkdir_touch.sh'
 
 # ghqで設定したRootにあるディレクトリをpecoで選択してcd
-alias dev='cd $(ghq root)/$(ghq list | peco)'
+abbr dev 'cd $(ghq root)/$(ghq list | peco)'
 
 # pecoで選択したHostに接続
-alias sshl='grep -w Host ~/.ssh/config | peco | awk \'{print $2}\' | xargs -o -n 1 ssh'
+abbr sshl 'grep -w Host ~/.ssh/config | peco | awk \'{print $2}\' | xargs -o -n 1 ssh'
 
 # rakel 引数指定なしだったらこれでOK
-alias rakel='rake -T | peco | awk \'{ print $2 }\' | xargs rake'
+abbr rakel 'rake -T | peco | awk \'{ print $2 }\' | xargs rake'
 
 # rbrenv config
 fish_add_path $HOME/.rbenv/shims
