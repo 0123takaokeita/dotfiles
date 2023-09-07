@@ -50,7 +50,6 @@ abbr env 'env | sort'
 # 起動エイリアス
 abbr lg 'lazygit'
 abbr ld 'lazydocker'
-abbr neo 'nvim'
 abbr vim 'nvim'
 abbr vi 'vim'
 abbr sfish 'source ~/.config/fish/config.fish'
@@ -58,10 +57,10 @@ abbr osaka 'curl wttr.in/Osaka'
 abbr go 'richgo'
 
 # cd directory
-abbr dot 'cd ~/dotfiles; vim fish/neo-config.fish'
-abbr bys 'cd ~/vm_share/byYourSide; vim'
-abbr rel 'cd ~/vm_share/relief-map/; vim'
-abbr calc 'cd ~/dev/github.com/lobin-z0x50/NeoCalc/CalcLibCore/Takao; neo'
+abbr dot 'cd ~/dotfiles; nvim fish/neo-config.fish'
+abbr bys 'cd ~/vm_share/byYourSide; nvim'
+abbr rel 'cd ~/vm_share/relief-map/; nvim'
+abbr calc 'cd ~/dev/github.com/lobin-z0x50/NeoCalc/CalcLibCore/Takao; nvim'
 
 abbr . 'cd'
 abbr .. 'cd ..'
