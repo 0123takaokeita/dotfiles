@@ -37,6 +37,14 @@ return {
       end,
     },
     {
+      "barrett-ruth/live-server.nvim",
+      cmd = "LiveServerStart",
+      build = "yarn global add live-server",
+      config = function()
+        require("live-server").setup()
+      end,
+    },
+    {
       "folke/twilight.nvim",
       as = 'twilight',
       event = "User AstroFile",
@@ -199,6 +207,9 @@ return {
       ['E'] = { '$', desc = "move line tail" },
       ['<Leader>fT'] = { '<cmd>TodoTelescope<cr>', desc = "Search Anotation" },
       ['<Leader>pp'] = { '<cmd>PrevimOpen<cr>', desc = "Previm Open" },
+      ['<Leader>pls'] = { '<cmd>LiveServerStart<cr>', desc = "Live Server Start" },
+      ['<Leader>pld'] = { '<cmd>LiveServerStop<cr>', desc = "Live Server Down" },
+
       -- second key is the lefthand side of the map
       -- Tab Mappings
       ["<leader>Tn"] = { "<cmd>tabnew<cr>", desc = "New tab" },
