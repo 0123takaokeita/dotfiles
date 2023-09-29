@@ -57,12 +57,14 @@ abbr osaka 'curl wttr.in/Osaka'
 abbr go 'richgo'
 abbr vms 'VBoxManage startvm CentOS --type headless'
 abbr vmd 'VBoxManage controlvm CentOS shutdown --force'
+abbr neorok 'ssh -R28083:192.168.56.2:8084 neorok'
 
 # cd directory
 abbr dot 'cd ~/dotfiles; nvim fish/neo-config.fish'
 abbr bys 'cd ~/vm_share/byYourSide; nvim'
 abbr rel 'cd ~/vm_share/relief-map/; nvim'
 abbr calc 'cd ~/dev/github.com/lobin-z0x50/NeoCalc/CalcLibCore/Takao; nvim'
+abbr lo 'cd ~/vm_share/L-Order/; nvim'
 
 abbr . 'cd'
 abbr .. 'cd ..'
