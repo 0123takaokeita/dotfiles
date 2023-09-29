@@ -1,0 +1,37 @@
+# .bashrc
+
+# User specific aliases and functions
+
+alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'
+
+## takao custom
+alias la='ls -la'
+alias bys='cd /repos/byYourSide'
+alias rel='cd /repos/relief-map'
+alias rels='cd /repos/relief-map; rake rails:bash'
+alias reld='cd /repos/relief-map; rake db:cui'
+alias las='cd /repos/relief-map; rake la:analyzer:bash'
+alias lo='cd /repos/L-Order'
+alias los='cd /repos/L-Order; rake rails:bash'
+
+alias vim='nvim'
+alias dot='nvim ~/.bashrc'
+alias di='docui'
+alias ld='lazydocker'
+alias sbash='source ~/.bash_profile'
+alias rakel="rake -T | peco | awk '{ print \$2 }' | xargs rake"
+alias ..='cd ..'
+alias ...='cd ../..'
+
+GOPATH=/usr/local/go
+PATH=$GOPATH/bin:$PATH:$HOME/bin
+
+export PATH
+export GOPATH
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+        . /etc/bashrc
+fi
