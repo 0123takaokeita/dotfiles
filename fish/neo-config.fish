@@ -10,7 +10,6 @@ set -x ANDROID_HOME $HOME/Library/Android/sdk
 set -x CalcSvcClass CalcSvcTakao
 
 set -x LESS -i -M -R -W -z-4 -x4 # less コマンドデフォルトオプション -S は折り返しを無効にする
-# set -x LESSOPEN "| src-hilite-lesspipe.sh %s"
 
 set GHQ_SELECTOR peco # C-g でghq list peco
 set GHQ_SELECTOR_OPTS --layout=bottom-up --prompt='GHQ >'
@@ -29,6 +28,7 @@ fish_add_path $HOME/.volta/bin # volta 設定
 
 # cmd abbr
 abbr lsis 'gh issue list -a $GITHUB_UNAME'
+abbr g 'git'
 abbr python 'python3'
 abbr rm 'trash'
 abbr ls 'lsd'
@@ -55,16 +55,16 @@ abbr vi 'vim'
 abbr sfish 'source ~/.config/fish/config.fish'
 abbr osaka 'curl wttr.in/Osaka'
 abbr go 'richgo'
-abbr vms 'VBoxManage startvm CentOS --type headless'
-abbr vmd 'VBoxManage controlvm CentOS shutdown --force'
-abbr neorok 'ssh -R28083:192.168.56.2:8084 neorok'
+abbr vmsc 'VBoxManage startvm CentOS --type headless'
+abbr vmsu 'VBoxManage startvm Ubuntu --type headless'
+abbr vmdc 'VBoxManage controlvm CentOS shutdown --force'
+abbr vmdu 'VBoxManage controlvm CentOS shutdown --force'
+abbr neorok 'ssh -R28083:192.168.56.2:8085 neorok'
 
 # cd directory
 abbr dot 'cd ~/dotfiles; nvim fish/neo-config.fish'
-abbr bys 'cd ~/vm_share/byYourSide; nvim'
-abbr rel 'cd ~/vm_share/relief-map/; nvim'
 abbr calc 'cd ~/dev/github.com/lobin-z0x50/NeoCalc/CalcLibCore/Takao; nvim'
-abbr lo 'cd ~/vm_share/L-Order/; nvim'
+abbr ssh_config 'nvim ~/.ssh/config'
 
 abbr . 'cd'
 abbr .. 'cd ..'
@@ -82,6 +82,9 @@ abbr sshl 'grep -w Host ~/.ssh/config | peco | awk \'{print $2}\' | xargs -o -n 
 
 # rakel 引数指定なしだったらこれでOK
 abbr rakel 'rake -T | peco | awk \'{ print $2 }\' | xargs rake'
+
+# branch 移動
+abbr col 'git br | peco | xargs  git co'
 
 # rbrenv config
 fish_add_path $HOME/.rbenv/shims
