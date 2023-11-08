@@ -1,7 +1,7 @@
 local keymap  = vim.keymap
 
 return {
-  colorscheme = "tokyonight-storm",
+  colorscheme = "tokyonight-night",
   plugins = {
     {
       "goolord/alpha-nvim",
@@ -185,12 +185,6 @@ return {
 
         return opts
       end,
-    },
-  },
-  lsp = {
-    formatting = {
-      format_on_save = false, -- enable or disable automatic formatting on save
-      timeout_ms = 3200,      -- adjust the timeout_ms variable for formatting
     },
   },
 }
