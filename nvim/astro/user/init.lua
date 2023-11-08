@@ -2,6 +2,11 @@ local keymap  = vim.keymap
 
 return {
   colorscheme = "tokyonight-night",
+  -- Diagnostics configuration (for vim.diagnostics.config({...})) when diagnostics are on
+  diagnostics = {
+    virtual_text = false,
+    underline = false,
+  },
   plugins = {
     {
       "goolord/alpha-nvim",
