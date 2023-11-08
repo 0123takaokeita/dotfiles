@@ -1,10 +1,4 @@
-local utils   = require "astronvim.utils"
 local keymap  = vim.keymap
-local opt     = vim.opt
-
--- スペースを可視化する
-opt.list      = true
-opt.listchars = "tab:▸-,trail:·,nbsp:·,space:·"
 
 return {
   colorscheme = "tokyonight-storm",
@@ -197,37 +191,6 @@ return {
     formatting = {
       format_on_save = false, -- enable or disable automatic formatting on save
       timeout_ms = 3200,      -- adjust the timeout_ms variable for formatting
-    },
-  },
-  mappings = {
-    -- first key is the mode
-    -- desc setting is stored by vim.keymap.set() as a part of opts table in vim lua module
-    n = {
-      ['B'] = { '0', desc = "move line head" },
-      ['E'] = { '$', desc = "move line tail" },
-      ['<Leader>fT'] = { '<cmd>TodoTelescope<cr>', desc = "Search Anotation" },
-      ['<Leader>pp'] = { '<cmd>PrevimOpen<cr>', desc = "Previm Open" },
-      ['<Leader>pls'] = { '<cmd>LiveServerStart<cr>', desc = "Live Server Start" },
-      ['<Leader>pld'] = { '<cmd>LiveServerStop<cr>', desc = "Live Server Down" },
-
-      -- second key is the lefthand side of the map
-      -- Tab Mappings
-      ["<leader>Tn"] = { "<cmd>tabnew<cr>", desc = "New tab" },
-      ["<leader>Tc"] = { "<cmd>tabclose<cr>", desc = "Close tab" },
-      -- a table with the `name` key will register with which-key if it's available
-      -- this an easy way to add menu titles in which-key
-      ["<leader>T"] = { name = "Tab" },
-      -- quick save
-      ["<C-s>"] = { ":w!<cr>", desc = "Save File" }, -- change description but the same command
-
-      ["<leader>tr"] = { function() utils.toggle_term_cmd "irb" end, desc = "ToggleTerm irb" },
-      ["<leader>tg"] = { function() utils.toggle_term_cmd "gore" end, desc = "ToggleTerm gore" },
-      ["<leader>gg"] = { function() utils.toggle_term_cmd "lazygit" end, desc = "ToggleTerm lazygit" },
-      ["<leader>td"] = { function() utils.toggle_term_cmd "lazydocker" end, desc = "ToggleTerm lazydocker" },
-    },
-    t = {
-      -- setting a mapping to false will disable it
-      ["<esc>"] = false,
     },
   },
 }
