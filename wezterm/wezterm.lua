@@ -4,18 +4,23 @@ local ac = wezterm.action
 return {
   -- フォントの設定
   font = wezterm.font_with_fallback({
-      'JetBrains Mono',
-      'Fira Mono for Powerline',
-      'Cica',
+      'HackGen35Nerd Console',
+      'HackGen35',
       'UDEV Gothic 35NF',
+      'JetBrains Mono',
+      'HackGen35Nerd Console',
+      'Cica',
+      'Fira Mono for Powerline',
       'Monaco',
       'UDEV Gothic NF',
-    },
-    -- 文字の太さ
-    { weight = 'Bold' }
+    }
+    -- ,
+    -- -- 文字の太さ
+    -- { weight = 'Bold' }
   ),
   --  テーマ設定
   color_scheme = 'nightfox',
+  color_scheme = 'nordfox',
   colors = {
     split = '#FFA500', -- pain split line color
     tab_bar = {
@@ -46,13 +51,13 @@ return {
     window:set_config_overrides(overrides)
   end),
 
-  tab_max_width = 20,
+  tab_max_width = 30,
   window_padding = { left = 5, right = 5, top = 5, bottom = 5, },
   use_ime = true,
   initial_cols = 120,
   initial_rows = 80,
   window_close_confirmation = "NeverPrompt",
-  font_size = 20,
+  font_size = 16,
   adjust_window_size_when_changing_font_size = true,
   enable_tab_bar = true,
   use_fancy_tab_bar = true,
