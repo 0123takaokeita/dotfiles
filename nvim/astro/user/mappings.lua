@@ -8,8 +8,8 @@ return {
     ['E'] = { '$', desc = "move line tail" },
     ['<Leader>fT'] = { '<cmd>TodoTelescope<cr>', desc = "Search Anotation" },
     ['<Leader>pp'] = { '<cmd>PrevimOpen<cr>', desc = "Previm Open" },
-    ['<Leader>pls'] = { '<cmd>LiveServerStart<cr>', desc = "Live Server Start" },
-    ['<Leader>pld'] = { '<cmd>LiveServerStop<cr>', desc = "Live Server Down" },
+    ['<Leader>pt'] = { '<cmd>LiveServerStart<cr>', desc = "Live Server Start" },
+    ['<Leader>pd'] = { '<cmd>LiveServerStop<cr>', desc = "Live Server Down" },
 
     -- second key is the lefthand side of the map
     -- Tab Mappings
