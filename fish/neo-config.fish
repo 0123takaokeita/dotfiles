@@ -63,6 +63,7 @@ abbr neorok 'ssh -R28083:192.168.56.2:8085 neorok'
 
 # cd directory
 abbr dot 'cd ~/dotfiles; nvim fish/neo-config.fish'
+abbr dic 'cd ~/google-dict; nvim'
 abbr calc 'cd ~/dev/github.com/lobin-z0x50/NeoCalc/CalcLibCore/Takao; nvim'
 abbr ssh_config 'nvim ~/.ssh/config'
 
@@ -85,6 +86,9 @@ abbr rakel 'rake -T | peco | awk \'{ print $2 }\' | xargs rake'
 
 # branch 移動
 abbr col 'git br | peco | xargs  git co'
+
+# font一覧を検索する
+abbr fonts 'lsd ~/Library/Fonts | peco'
 
 # rbrenv config
 fish_add_path $HOME/.rbenv/shims
