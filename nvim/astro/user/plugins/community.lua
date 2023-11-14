@@ -1,6 +1,5 @@
 return {
   'AstroNvim/astrocommunity',
-  { import = 'astrocommunity.pack.ruby' },
   { import = 'astrocommunity.pack.lua' },
   { import = 'astrocommunity.pack.markdown' },
   { import = 'astrocommunity.pack.go' },
