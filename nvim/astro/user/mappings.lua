@@ -4,12 +4,13 @@ return {
   -- first key is the mode
   -- desc setting is stored by vim.keymap.set() as a part of opts table in vim lua module
   n = {
-    ['B'] = { '0', desc = "move line head" },
-    ['E'] = { '$', desc = "move line tail" },
-    ['<Leader>fT'] = { '<cmd>TodoTelescope<cr>', desc = "Search Anotation" },
-    ['<Leader>pp'] = { '<cmd>PrevimOpen<cr>', desc = "Previm Open" },
+    ['B']          = { '0',                        desc = "move line head" },
+    ['E']          = { '$',                        desc = "move line tail" },
+    ['<Leader>fT'] = { '<cmd>TodoTelescope<cr>',   desc = "Search Anotation" },
+    ['<Leader>pp'] = { '<cmd>PrevimOpen<cr>',      desc = "Previm Open" },
     ['<Leader>pt'] = { '<cmd>LiveServerStart<cr>', desc = "Live Server Start" },
-    ['<Leader>pd'] = { '<cmd>LiveServerStop<cr>', desc = "Live Server Down" },
+    ['<Leader>pd'] = { '<cmd>LiveServerStop<cr>',  desc = "Live Server Down" },
+    ['ga']         = {'<Plug>(EasyAlign)',         desc = 'easy align'},
 
     -- second key is the lefthand side of the map
     -- Tab Mappings
@@ -21,10 +22,13 @@ return {
     -- quick save
     ["<C-s>"] = { ":w!<cr>", desc = "Save File" },   -- change description but the same command
 
-    ["<leader>tr"] = { function() utils.toggle_term_cmd "irb" end, desc = "ToggleTerm irb" },
-    ["<leader>tg"] = { function() utils.toggle_term_cmd "gore" end, desc = "ToggleTerm gore" },
-    ["<leader>gg"] = { function() utils.toggle_term_cmd "lazygit" end, desc = "ToggleTerm lazygit" },
+    ["<leader>tr"] = { function() utils.toggle_term_cmd "irb" end,        desc = "ToggleTerm irb" },
+    ["<leader>tg"] = { function() utils.toggle_term_cmd "gore" end,       desc = "ToggleTerm gore" },
+    ["<leader>gg"] = { function() utils.toggle_term_cmd "lazygit" end,    desc = "ToggleTerm lazygit" },
     ["<leader>td"] = { function() utils.toggle_term_cmd "lazydocker" end, desc = "ToggleTerm lazydocker" },
+  },
+  x = {
+    ['ga'] = {'<Plug>(EasyAlign)', desc = 'easy align'}
   },
   t = {
     -- setting a mapping to false will disable it

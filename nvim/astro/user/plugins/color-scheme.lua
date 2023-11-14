@@ -6,5 +6,9 @@ return {
   {
     "rebelot/kanagawa.nvim",
     event = "VimEnter",
-  }
+  },
+  {
+    'Mofiqul/vscode.nvim',
+    event = 'VimEnter',
+  },
 }
