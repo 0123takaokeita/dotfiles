@@ -4,6 +4,8 @@ return {
   -- "catppuccin",
   -- "astrotheme",
   -- "tokyonight"
-  "astrodark",
+  -- "astrodark",
   -- 'kanagawa',
+  'kanagawa-dragon',
+  -- "catppuccin-macchiato",
 }
