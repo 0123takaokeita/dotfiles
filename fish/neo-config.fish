@@ -34,7 +34,6 @@ fish_add_path $HOME/go/bin
 fish_add_path $HOME/.rbenv/shims
 status --is-interactive; and source (rbenv init -|psub)
 
-
 # cmd abbr
 abbr lsis 'gh issue list -a $GITHUB_UNAME'
 abbr g 'git'

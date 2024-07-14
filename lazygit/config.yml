@@ -38,5 +38,5 @@ customCommands:
     command: "git commit --allow-empty -m {{index .PromptResponses 0 | quote}}"
     prompts:
       - type: "input"
-        title: "Epmty commit message"
+        title: "Empty commit message"
         initialValue: ""
