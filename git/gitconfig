@@ -6,7 +6,7 @@
   process = git-lfs filter-process
   required = true ; git-lfsがインストールされていない場合、エラーを出す
 [user]
-  name = KeitaTakao
+  name = Keita Takao
   email = keita.takao@meill.co.jp
 [core]
   pager = LESSCHARSET=utf-8 less ; git logなどで日本語が文字化けしないようにする
