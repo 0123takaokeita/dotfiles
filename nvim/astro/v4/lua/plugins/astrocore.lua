@@ -72,9 +72,24 @@ return {
 					end,
 					desc = "Close buffer from tabline",
 				},
-
-				-- setting a mapping to false will disable it
-				-- ["<C-S>"] = false,
+				["<leader>tr"] = {
+					function()
+						require("astrocore").toggle_term_cmd("irb")
+					end,
+					desc = "ToggleTerm irb",
+				},
+				["<leader>tg"] = {
+					function()
+						require("astrocore").toggle_term_cmd("gore")
+					end,
+					desc = "ToggleTerm gore",
+				},
+				["<leader>td"] = {
+					function()
+						require("astrocore").toggle_term_cmd("lazydocker")
+					end,
+					desc = "ToggleTerm lazydocker",
+				},
 			},
 		},
 	},
