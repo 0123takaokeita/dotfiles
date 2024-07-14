@@ -8,6 +8,7 @@ set -x GITHUB_UNAME 0123takaokeita
 set -x PYENV_ROOT $HOME/.pyenv
 set -x ANDROID_HOME $HOME/Library/Android/sdk
 set -x CalcSvcClass CalcSvcTakao
+set -Ux VOLTA_HOME $HOME/.volta
 
 set -x LESS -i -M -R -W -z-4 -x4 # less コマンドデフォルトオプション -S は折り返しを無効にする
 
@@ -22,8 +23,8 @@ end
 fish_add_path $ANDROID_HOME/emulator
 fish_add_path $ANDROID_HOME/platform-tools
 
-fish_add_path $HOME/go/bin # go 設定
 fish_add_path $HOME/.volta/bin # volta 設定
+fish_add_path $HOME/go/bin # go 設定
 
 # cmd abbr
 abbr lsis 'gh issue list -a $GITHUB_UNAME'
