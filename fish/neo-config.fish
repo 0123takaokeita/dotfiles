@@ -8,23 +8,32 @@ set -x GITHUB_UNAME 0123takaokeita
 set -x PYENV_ROOT $HOME/.pyenv
 set -x ANDROID_HOME $HOME/Library/Android/sdk
 set -x CalcSvcClass CalcSvcTakao
+set -x FZF_DEFAULT_COMMAND 'fd --type f'
+set -x BITWARDENCLI_APPDATA_DIR $HOME/.bw
 set -Ux VOLTA_HOME $HOME/.volta
-
 set -x LESS -i -M -R -W -z-4 -x4 # less コマンドデフォルトオプション -S は折り返しを無効にする
-
-set GHQ_SELECTOR peco # C-g でghq list peco
+set GHQ_SELECTOR peco # C-g でghq list fzf
 set GHQ_SELECTOR_OPTS --layout=bottom-up --prompt='GHQ >'
-set fish_plugins theme peco
+
+# C-r command history peco
 function fish_user_key_bindings
-  bind \cr 'peco_select_history (commandline -b)' # C-r command history peco
+  bind \cr 'peco_select_history (commandline -b)'
 end
 
 # Android config
 fish_add_path $ANDROID_HOME/emulator
 fish_add_path $ANDROID_HOME/platform-tools
 
-fish_add_path $HOME/.volta/bin # volta 設定
-fish_add_path $HOME/go/bin # go 設定
+# volta 設定
+fish_add_path $HOME/.volta/bin
+
+# go 設定
+fish_add_path $HOME/go/bin
+
+# rbrenv config
+fish_add_path $HOME/.rbenv/shims
+status --is-interactive; and source (rbenv init -|psub)
+
 
 # cmd abbr
 abbr lsis 'gh issue list -a $GITHUB_UNAME'
@@ -41,7 +50,8 @@ abbr du 'dust' # rich du command
 abbr df 'duf' # rich df command
 abbr top 'btm'
 abbr grep 'rg'
-abbr curl 'rh' # rich curl command https://github.com/twigly/rust-http-cli
+abbr bw 'volta run --node 19 bw'
+# abbr curl 'rh' # rich curl command https://github.com/twigly/rust-http-cli
 
 # 環境変数を改行区切りで表示
 abbr pathls 'echo $PATH | tr " " "\n" | nl'
@@ -77,7 +87,7 @@ abbr .... 'cd ../../..'
 # directory 追加のtouch
 abbr dirch 'sh $HOME/dotfiles/fish/mkdir_touch.sh'
 
-# ghqで設定したRootにあるディレクトリをpecoで選択してcd
+# ghqで設定したRootにあるディレクトリをfzfで選択してcd
 abbr dev 'cd $(ghq root)/$(ghq list | fzf)'
 abbr devr 'cd $(ghq root)/$(ghq list | fzf --layout=reverse)'
 
@@ -93,10 +103,4 @@ abbr col 'git br | fzf | xargs  git co'
 # font一覧を検索する
 abbr fonts 'lsd ~/Library/Fonts | fzf '
 
-# rbrenv config
-fish_add_path $HOME/.rbenv/shims
-status --is-interactive; and source (rbenv init -|psub)
-
 starship init fish | source
-
-# tea --magic=fish | source  #docs.tea.xyz/magic
