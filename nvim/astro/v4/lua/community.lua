@@ -6,10 +6,20 @@
 
 ---@type LazySpec
 return {
-  "AstroNvim/astrocommunity",
-  { import = "astrocommunity.pack.lua" },
-  { import = "astrocommunity.completion.copilot-lua" },
-  { import = "astrocommunity.completion.copilot-lua-cmp" },
-  { import = "astrocommunity.completion.cmp-calc" },
-  -- import/override with your plugins folder
+	"AstroNvim/astrocommunity",
+	{ import = "astrocommunity.pack.lua" },
+	{ import = "astrocommunity.completion.copilot-lua" },
+	{ import = "astrocommunity.completion.copilot-lua-cmp" },
+	{ import = "astrocommunity.completion.cmp-calc" },
+	{ import = "astrocommunity.completion.cmp-spell" },
+	{ import = "astrocommunity.completion.cmp-nerdfont" },
+	{ import = "astrocommunity.completion.cmp-git" },
+	{ import = "astrocommunity.completion.cmp-emoji" },
+	{ import = "astrocommunity.pack.markdown" },
+	{ import = "astrocommunity.pack.go" },
+	{ import = "astrocommunity.editing-support.auto-save-nvim" },
+	{ import = "astrocommunity.workflow.bad-practices-nvim" },
+	{ import = "astrocommunity.syntax.vim-sandwich" },
+	{ import = "astrocommunity.color.headlines-nvim" },
+	-- import/override with your plugins folder
 }
