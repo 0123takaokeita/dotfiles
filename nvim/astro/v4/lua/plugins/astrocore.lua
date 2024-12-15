@@ -80,7 +80,7 @@ return {
 				},
 				["<leader>tg"] = {
 					function()
-						require("astrocore").toggle_term_cmd("gore")
+						require("astrocore").toggle_term_cmd("gore -autoimport")
 					end,
 					desc = "ToggleTerm gore",
 				},
