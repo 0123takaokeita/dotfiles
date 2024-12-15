@@ -21,5 +21,7 @@ return {
 	{ import = "astrocommunity.workflow.bad-practices-nvim" },
 	{ import = "astrocommunity.syntax.vim-sandwich" },
 	{ import = "astrocommunity.color.headlines-nvim" },
-	-- import/override with your plugins folder
+	{ import = "astrocommunity.editing-support.copilotchat-nvim" },
+	{ import = "astrocommunity.markdown-and-latex.markdown-preview-nvim" },
+	{ import = "astrocommunity.markdown-and-latex.render-markdown-nvim" },
 }
