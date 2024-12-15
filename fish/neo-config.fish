@@ -23,6 +23,8 @@ end
 # Android config
 fish_add_path $ANDROID_HOME/emulator
 fish_add_path $ANDROID_HOME/platform-tools
+fish_add_path $ANDROID_HOME/tools
+fish_add_path $ANDROID_HOME/tools/bin
 
 # volta 設定
 fish_add_path $HOME/.volta/bin
@@ -95,6 +97,8 @@ abbr sshl 'grep -w Host ~/.ssh/config | fzf --layout=reverse| awk \'{print $2}\'
 
 # rakel 引数指定なしだったらこれでOK
 abbr rakel 'rake -T | fzf | awk \'{ print $2 }\' | xargs rake'
+
+abbr taskl 'task -l | fzf | awk \'{ print $2 }\' | sed \'s/.$//\' | xargs task'
 
 # branch 移動
 abbr col 'git br | fzf | xargs  git co'
