@@ -90,7 +90,7 @@ return {
 					end,
 					desc = "ToggleTerm lazydocker",
 				},
-				["<Leader>pp"] = { "<cmd>PrevimOpen<cr>", desc = "Previm Open" },
+				-- ["<Leader>pp"] = { "<cmd>PrevimOpen<cr>", desc = "Previm Open" },
 				["<Leader>pt"] = { "<cmd>LiveServerStart<cr>", desc = "Live Server Start" },
 				["<Leader>pd"] = { "<cmd>LiveServerStop<cr>", desc = "Live Server Down" },
 			},
