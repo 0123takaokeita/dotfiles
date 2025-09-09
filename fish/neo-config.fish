@@ -14,6 +14,7 @@ set -Ux VOLTA_HOME $HOME/.volta
 set -x LESS -i -M -R -W -z-4 -x4 # less コマンドデフォルトオプション -S は折り返しを無効にする
 set GHQ_SELECTOR peco # C-g でghq list fzf
 set GHQ_SELECTOR_OPTS --layout=bottom-up --prompt='GHQ >'
+set -Ux GHQ_ROOT /Volumes/EXSSD/dev/
 
 # C-r command history peco
 function fish_user_key_bindings
