@@ -1,0 +1,21 @@
+---
+description: Laravel のコーディング規約に従う（UseCase / Form Request / Policy / Resource）
+globs: app/**/*.php
+alwaysApply: false
+---
+
+# Laravel コーディング規約
+
+Laravel のコードを書く・修正するときは、**必ず Laravel コーディング規約を参照すること**。**TDD を心がける**。新規・変更時はまずテストを追加・更新し、その後に実装する。
+
+- 規約の場所: `~/dotfiles/cursor/laravel-standards.md`（dotfiles で管理している場合）。同一の cursor 設定内に `laravel-standards.md` がある場合はそれを参照。
+
+## 要約（詳細は規約ファイルを読むこと）
+
+- **UseCase**: ビジネスロジックは `app/UseCases/{ドメイン}/` に 1 アクション 1 クラスで置く。`__invoke` で実行。Eloquent Model を UseCase 内で使ってよい。
+- **Controller**: 薄く保つ。Form Request → UseCase 呼び出し → ドメイン例外を HTTP 例外に変換 → Resource で返却、のオーケストレーションのみ。
+- **Form Request**: フォーマットバリデーションと認可。作成/更新で共通化しない。
+- **Policy**: 認可処理を切り出す場合に利用。
+- **API Resource**: レスポンス整形。`parent::toArray()` は使わず属性を列挙する。
+
+型チェック・Linter（PHPStan / Laravel Pint）と組み合わせて、規約違反を検出しやすくする。
