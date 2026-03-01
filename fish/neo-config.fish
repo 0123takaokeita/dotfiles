@@ -12,12 +12,24 @@ set -x FZF_DEFAULT_COMMAND 'fd --type f'
 set -x BITWARDENCLI_APPDATA_DIR $HOME/.bw
 set -Ux VOLTA_HOME $HOME/.volta
 set -x LESS -i -M -R -W -z-4 -x4 # less コマンドデフォルトオプション -S は折り返しを無効にする
+set -x GHQ_ROOT /Volumes/EXSSD/dev/
+set -x SSH_KEY_PATH $HOME/.ssh/id_rsa
 set GHQ_SELECTOR peco # C-g でghq list fzf
 set GHQ_SELECTOR_OPTS --layout=bottom-up --prompt='GHQ >'
+set -gx PATH /usr/local/opt/mysql@8.0/bin $PATH
+set -gx PATH /opt/homebrew/bin $PATH
 
 # C-r command history peco
 function fish_user_key_bindings
   bind \cr 'peco_select_history (commandline -b)'
+end
+
+function sail
+    if test -f ./sail
+        bash ./sail $argv
+    else
+        bash ./vendor/bin/sail $argv
+    end
 end
 
 # Android config
@@ -52,7 +64,7 @@ abbr df 'duf' # rich df command
 abbr top 'btm'
 abbr grep 'rg'
 abbr bw 'volta run --node 19 bw'
-# abbr curl 'rh' # rich curl command https://github.com/twigly/rust-http-cli
+abbr man 'tldr'
 
 # 環境変数を改行区切りで表示
 abbr pathls 'echo $PATH | tr " " "\n" | nl'
@@ -79,6 +91,7 @@ abbr config 'cd ~/dotfiles; nvim fish/neo-config.fish'
 abbr dic 'cd ~/google-dict; nvim'
 abbr calc 'cd ~/dev/github.com/lobin-z0x50/NeoCalc/CalcLibCore/Takao; nvim'
 abbr ssh_config 'nvim ~/.ssh/config'
+abbr aws_config 'nvim ~/.aws/credentials'
 
 abbr . 'cd'
 abbr .. 'cd ..'
@@ -93,7 +106,7 @@ abbr dev 'cd $(ghq root)/$(ghq list | fzf)'
 abbr devr 'cd $(ghq root)/$(ghq list | fzf --layout=reverse)'
 
 # pecoで選択したHostに接続
-abbr sshl 'grep -w Host ~/.ssh/config | fzf --layout=reverse| awk \'{print $2}\' | xargs -o -n 1 ssh'
+abbr sshl 'grep -w Host ~/.ssh/config | fzf --layout=reverse| awk \'{print $2}\' | xargs -o -n 1 ssh -A'
 
 # rakel 引数指定なしだったらこれでOK
 abbr rakel 'rake -T | fzf | awk \'{ print $2 }\' | xargs rake'
@@ -107,3 +120,9 @@ abbr col 'git br | fzf | xargs  git co'
 abbr fonts 'lsd ~/Library/Fonts | fzf '
 
 starship init fish | source
+
+# Added by OrbStack: command-line tools and integration
+# This won't be added again if you remove it.
+source ~/.orbstack/shell/init2.fish 2>/dev/null || :
+
+# ~/.local/bin/mise activate fish | source # added by https://mise.run/fish

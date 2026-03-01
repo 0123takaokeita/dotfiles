@@ -3,7 +3,8 @@ scan_timeout = 10
 
 format = """
 [┌───────────────────>](bold green)
-[│](bold green)$directory$rust$package
+[│](bold green)$git_branch
+[│](bold green)$directory
 [└─>](bold green) """
 
 # [┌───────▶ ](bold green)$ruby$nodejs$deno
@@ -39,11 +40,11 @@ format = "via [🦕 $version](green bold) "
 format = "via [🐋 $context](blue bold)"
 
 [git_branch]
-symbol = " "
+symbol = ""
 # truncation_length = 10
 truncation_symbol = ""
 # ignore_branches = ["master", "main"]
-format = "[$symbol $branch ](bold purple)"
+format = "[$symbol $branch](bold purple)"
 
 [lua]
 format = "via [🌕 $version](bold blue) "

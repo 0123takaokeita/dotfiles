@@ -1,3 +1,7 @@
+---
+created: 2026-03-01T19:21
+updated: 2026-03-01T19:21
+---
 # MEMO
 
 ## tree sitter について

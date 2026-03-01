@@ -5,12 +5,13 @@ return {
 	-- フォントの設定
 	font = wezterm.font_with_fallback({
 		"JetBrains Mono",
-		"HackGen35Nerd Console",
 		"UDEV Gothic 35NF",
-		"HackGen35",
-		"Cica",
-		"Fira Mono for Powerline",
 		"Monaco",
+		"Cica",
+		"HackGen35Nerd Console",
+		"Guguru Sans Code Console 35NF",
+		"HackGen35",
+		"Fira Mono for Powerline",
 	}),
 	--  テーマ設定
 	color_scheme = "nightfox",
