@@ -74,6 +74,7 @@ abbr env 'env | sort'
 # 起動エイリアス
 abbr lg 'lazygit'
 abbr ld 'lazydocker'
+abbr lq 'lazysql'
 abbr vim 'nvim'
 abbr vi 'vim'
 abbr sfish 'source ~/.config/fish/config.fish'
@@ -104,6 +105,8 @@ abbr dirch 'sh $HOME/dotfiles/fish/mkdir_touch.sh'
 # ghqで設定したRootにあるディレクトリをfzfで選択してcd
 abbr dev 'cd $(ghq root)/$(ghq list | fzf)'
 abbr devr 'cd $(ghq root)/$(ghq list | fzf --layout=reverse)'
+abbr cr 'coderabbit'
+alias cr coderabbit # claude用
 
 # pecoで選択したHostに接続
 abbr sshl 'grep -w Host ~/.ssh/config | fzf --layout=reverse| awk \'{print $2}\' | xargs -o -n 1 ssh -A'
@@ -112,6 +115,10 @@ abbr sshl 'grep -w Host ~/.ssh/config | fzf --layout=reverse| awk \'{print $2}\'
 abbr rakel 'rake -T | fzf | awk \'{ print $2 }\' | xargs rake'
 
 abbr taskl 'task -l | fzf | awk \'{ print $2 }\' | sed \'s/.$//\' | xargs task'
+
+abbr saill './vendor/bin/sail artisan list --raw | fzf | awk '\''{ print $1 }'\'' | xargs -r -I {} ./vendor/bin/sail artisan {}'
+
+abbr npml 'pnpm run | awk \'/^[[:space:]]+[a-zA-Z0-9:_-]+$/ {print $1}\' | fzf | xargs pnpm run'
 
 # branch 移動
 abbr col 'git br | fzf | xargs  git co'
@@ -126,3 +133,10 @@ starship init fish | source
 source ~/.orbstack/shell/init2.fish 2>/dev/null || :
 
 # ~/.local/bin/mise activate fish | source # added by https://mise.run/fish
+
+# pnpm
+set -gx PNPM_HOME "/Users/takaokeita/Library/pnpm"
+if not string match -q -- $PNPM_HOME $PATH
+  set -gx PATH "$PNPM_HOME" $PATH
+end
+# pnpm end
