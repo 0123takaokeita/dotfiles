@@ -40,9 +40,21 @@ def main():
     if name:
         parts.append("🏷️  " + color("1;35", name))  # bold magenta
 
-    # 🤖 モデル名（＋ ⚡ effort をすぐ横に）
+    # ✳️ モデル名（＋ ⚡ effort をすぐ横に）。✳️ は Anthropic のアスタリスク型ブランドマークに近い見た目
     model = (d.get("model") or {}).get("display_name") or (d.get("model") or {}).get("id") or "?"
-    model_part = "🤖 " + color("1;36", model)  # bold cyan
+    mkey = (model + " " + ((d.get("model") or {}).get("id") or "")).lower()
+    # モデル系統でアイコンを出し分け（Claude のマスコット絵文字は Unicode に無いため ✳️ で代用）
+    if "opus" in mkey:
+        micon = "👑"   # 最上位
+    elif "sonnet" in mkey:
+        micon = "🚀"   # 中位
+    elif "haiku" in mkey:
+        micon = "⚡️"   # 軽量
+    elif "fable" in mkey:
+        micon = "🧚"
+    else:
+        micon = "✳️"
+    model_part = micon + " " + color("1;36", model)  # bold cyan
     eff = get_effort(d)
     if eff:
         # effort で色変化: low グレー / medium シアン / high 黄 / xhigh・max 赤
@@ -69,7 +81,7 @@ def main():
                 capture_output=True, text=True, timeout=1,
             ).stdout.strip()
             mark = color("1;33", " ●") if dirty else color("1;32", " ✓")  # 黄●=変更あり / 緑✓=clean
-            parts.append(" " + color("35", branch) + mark)  # Nerd Font branch icon + magenta branch
+            parts.append(" " + color("35", branch) + mark)  # Nerd Font branch icon + magenta branch
     except Exception:
         pass
 
