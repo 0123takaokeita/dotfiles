@@ -1,25 +1,27 @@
 # カスタムフォーマットを利用します
-scan_timeout = 10
+# scan_timeout: 大きめのリポジトリでも git_status が間に合うよう既定値に戻す
+scan_timeout = 30
+command_timeout = 1000
 
 format = """
-[┌───────────────────>](bold green)
-[│](bold green)$git_branch
+[┌───────────────────>](bold green) $time
+[│](bold green)$git_branch$git_status
+[│](bold green)$nodejs$python$golang$ruby$deno$lua$package
 [│](bold green)$directory
-[└─>](bold green) """
-
-# [┌───────▶ ](bold green)$ruby$nodejs$deno
-# [│](bold green)$time
-# [│](bold green)$git_branch
-# [└─▶](bold green)
-# [│](bold green)$username $hostname
+[└─](bold green)$cmd_duration$character"""
 
 [character]
 success_symbol = "[➜](bold green) "
 error_symbol = "[✗](bold red) "
 vicmd_symbol = "[V](bold green) "
 
+[cmd_duration]
+# 2秒以上かかったコマンドの実行時間を表示
+min_time = 2000
+style = "bold yellow"
+format = "[took $duration ]($style)"
+
 [username]
-# disabled = ture
 style_user = "white bold"
 style_root = "black bold"
 format = "user: [$user]($style) "
@@ -27,14 +29,16 @@ show_always = true
 
 [directory]
 # disabled = true
-truncation_length = 100
+# 深い階層でも行が伸びすぎないよう末尾5階層に省略
+truncation_length = 5
+truncation_symbol = "…/"
 truncate_to_repo  = false
 home_symbol = "~"
 style = "bold blue"
 format = "[$path]($style)"
 
 [deno]
-format = "via [🦕 $version](green bold) "
+format = "[🦕 $version](green bold) "
 
 [docker_context]
 format = "via [🐋 $context](blue bold)"
@@ -46,8 +50,24 @@ truncation_symbol = ""
 # ignore_branches = ["master", "main"]
 format = "[$symbol $branch](bold purple)"
 
+[git_status]
+# 変更/staged/未追跡/stash/ahead-behind をブランチ名の右に表示
+style = "bold yellow"
+format = '([ \($all_status$ahead_behind\)]($style))'
+conflicted = "✖${count}"
+ahead = "⇡${count}"
+behind = "⇣${count}"
+diverged = "⇕⇡${ahead_count}⇣${behind_count}"
+untracked = "?${count}"
+stashed = "≡${count}"
+modified = "!${count}"
+staged = "+${count}"
+renamed = "»${count}"
+deleted = "✘${count}"
+
 [lua]
-format = "via [🌕 $version](bold blue) "
+symbol = ""
+format = "[$symbol $version](bold blue) "
 
 [ruby]
 # disabled = true
@@ -66,6 +86,14 @@ format = "[[](bg:#545B68 fg:#A6A6A6)$symbol$version[](bg:#A6A6A6 fg:#545B6
 symbol = ""
 format = "[$symbol $version](bold green) "
 
+[python]
+symbol = ""
+format = "[$symbol $version](bold yellow) "
+
+[golang]
+symbol = ""
+format = "[$symbol $version](bold cyan) "
+
 [[battery.display]]
 threshold = 100
 style = "bold blue"
@@ -74,5 +102,5 @@ style = "bold blue"
 disabled = false
 use_12hr = true
 style = "bold yellow"
-time_format = "%Y/%D/%T"
+time_format = "%I:%M %p"
 format = "[$time]($style)"
