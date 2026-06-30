@@ -7,11 +7,13 @@
   required = true ; git-lfsがインストールされていない場合、エラーを出す
 [user]
   name = Keita Takao
-  email = keita.takao@meill.co.jp
+  email = keita.takao@flyle.io
 [core]
   pager = LESSCHARSET=utf-8 less ; git logなどで日本語が文字化けしないようにする
   quotepath = false ; git statusなどで日本語が文字化けしないようにする
   editor = nvim ; git commitなどでnvimを使用する
+  fsmonitor = true ; ファイル監視でgit statusを高速化する
+  untrackedCache = true ; 未追跡ファイルのキャッシュで大きいリポジトリのgit statusを高速化する
 [grep]
   lineNumber = true ; grep時に行番号を表示する
   extendedRegexp = true ; grep時に正規表現を使用する
@@ -24,8 +26,14 @@
 	conflictStyle = diff3 ; merge時にconflictをdiff3形式で表示する
 [fetch]
 	prune = true ; remoteブランチが削除されていた場合、ローカルブランチも削除する
+[branch]
+  sort = -committerdate ; git branchを最終コミット日順（新しい順）で表示する
 [pull]
   ff = only ; pull時にfast-forwardのみを許可する
+[push]
+  autoSetupRemote = true ; 新規ブランチのpush時に -u を自動付与する
+[column]
+  ui = auto ; branch/status等を自動で複数列表示する
 [ghq]
 	root = ~/dev ; ghqでcloneするディレクトリを指定する
 [color]
@@ -49,7 +57,7 @@
   co = checkout
   cob = checkout -b
   cm = commit -m
-  cma = commit --ammend -m
+  cma = commit --amend -m
   st = status
   stc = status --column
   cp = cherry-pick
@@ -64,9 +72,13 @@
 [diff]
   tool = difftastic
   external = difft
+  algorithm = histogram ; より読みやすいdiffアルゴリズムを使用する
+  colorMoved = default ; 移動した行を別色で表示する
 [difftool]
   prompt = false
 [difftool "difftastic"]
   cmd = difft "$LOCAL" "$REMOTE"
 [pager]
   difftool = true
+[coderabbit]
+	machineId = cli/52f60b11bf94475aa9c219e99da8da2c
