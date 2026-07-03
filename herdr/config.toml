@@ -3,3 +3,20 @@ onboarding = false
 [theme]
 name = "tokyo-night"
 auto_switch = false
+
+[keys]
+# tmux (~/dotfiles/tmux/tmux.conf) とキーバインドを揃えるための設定。
+# prefix はデフォルトの ctrl+b のままで tmux 側 (未カスタマイズ = C-b) と一致するので指定不要。
+# focus_pane_left/down/up/right (prefix+h/j/k/l) もデフォルトのまま tmux の
+# `bind h/j/k/l select-pane` と一致するので指定不要。
+
+# tmux `bind - split-window -v` (上下分割) と一致させる。デフォルトのままだが明示しておく。
+split_horizontal = "prefix+minus"
+
+# tmux `bind \ split-window -h` (左右分割) に合わせる。herdr デフォルトは prefix+v。
+split_vertical = 'prefix+\'
+
+# tmux `bind -r C-h/C-l select-window` (ウィンドウ = tab 切り替え) に合わせる。
+# herdr デフォルトの prefix+p/prefix+n は上書きされ無効になる。
+previous_tab = "prefix+ctrl+h"
+next_tab = "prefix+ctrl+l"
