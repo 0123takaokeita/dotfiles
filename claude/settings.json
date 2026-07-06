@@ -1,9 +1,10 @@
 {
   "permissions": {
     "additionalDirectories": [
-      "/Volumes/EXSSD/dev/github.com/0123takaokeita/vault"
+      "/Users/takaokeita/vault"
     ]
   },
+  "model": "sonnet",
   "hooks": {
     "PermissionRequest": [
       {
@@ -59,8 +60,14 @@
       }
     ]
   },
+  "statusLine": {
+    "type": "command",
+    "command": "python3 ~/.claude/statusline.py",
+    "padding": 0
+  },
   "enabledPlugins": {
-    "obsidian@obsidian-skills": true
+    "obsidian@obsidian-skills": true,
+    "datadog@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
     "obsidian-skills": {
@@ -70,14 +77,9 @@
       }
     }
   },
-  "statusLine": {
-    "type": "command",
-    "command": "python3 ~/.claude/statusline.py",
-    "padding": 0
-  },
   "language": "ja",
-  "effortLevel": "high",
-  "tui": "default",
+  "effortLevel": "xhigh",
+  "tui": "fullscreen",
   "voice": {
     "enabled": true,
     "mode": "hold"

@@ -46,13 +46,13 @@ cat "$CLAUDE_TRANSCRIPT_FILE"
 - ファイル名形式: `<YYYY-MM-DDTHHMM>-<session_id_short>.md`
   - `session_id_short` は `CLAUDE_SESSION_ID` の先頭8文字
   - `CLAUDE_SESSION_ID` が unknown の場合は `<YYYY-MM-DDTHHMM>.md`
-- 保存先: `/Volumes/EXSSD/dev/github.com/0123takaokeita/vault/claude/task-diary/<project-name>/`
+- 保存先: `/Users/takaokeita/vault/claude/task-diary/<project-name>/`
 
 例: `flyle-nexus/2026-06-29T1530-095c214e.md`
 
 保存先ディレクトリが存在しない場合は作成する：
 ```bash
-mkdir -p /Volumes/EXSSD/dev/github.com/0123takaokeita/vault/claude/task-diary/<project-name>/
+mkdir -p /Users/takaokeita/vault/claude/task-diary/<project-name>/
 ```
 
 ### 3. Obsidian の Task Diary ファイルを新規作成する

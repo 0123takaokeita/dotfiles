@@ -7,7 +7,7 @@ from datetime import datetime
 
 SESSION_ID = os.environ.get("CLAUDE_CODE_SESSION_ID", "")
 PROJECTS_DIR = Path.home() / ".claude" / "projects"
-BACKUP_DIR = Path("/Volumes/EXSSD/dev/github.com/0123takaokeita/vault/claude/transcripts")
+BACKUP_DIR = Path("/Users/takaokeita/vault/claude/transcripts")
 MIN_SIZE = 2000
 
 

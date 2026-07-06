@@ -4,8 +4,8 @@
 
 ## 出力先・テンプレート（固定）
 
-- **テンプレート**: `/Volumes/EXSSD/dev/github.com/0123takaokeita/vault/templates/claude-detailed-design.md`
-- **出力先**: `/Volumes/EXSSD/dev/github.com/0123takaokeita/vault/claude/system-design/<slug>.md`
+- **テンプレート**: `/Users/takaokeita/vault/templates/claude-detailed-design.md`
+- **出力先**: `/Users/takaokeita/vault/claude/system-design/<slug>.md`
   - `<slug>` は機能名の英小文字ケバブ（例: `aggregate-value-filter`）。
   - 詳細設計（detailed design / 詳細設計 / システム設計）を書き出す依頼は、原則ここに出力する。
 
@@ -14,7 +14,7 @@
 ### 0. 事前情報を収集する（最初に必ず実行）
 
 ```bash
-date +"%Y-%m-%d" && ls /Volumes/EXSSD/dev/github.com/0123takaokeita/vault/claude/system-design/
+date +"%Y-%m-%d" && ls /Users/takaokeita/vault/claude/system-design/
 ```
 
 - 日付 → frontmatter の `date` に使用。

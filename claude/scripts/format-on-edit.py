@@ -6,7 +6,7 @@ import json
 import subprocess
 from pathlib import Path
 
-VAULT_PATH = "/Volumes/EXSSD/dev/github.com/0123takaokeita/vault"
+VAULT_PATH = "/Users/takaokeita/vault"
 
 PRETTIER_EXTS = {".js", ".ts", ".tsx", ".jsx", ".json", ".css", ".scss", ".yaml", ".yml"}
 PRETTIER_CONFIGS = {".prettierrc", ".prettierrc.json", ".prettierrc.js", ".prettierrc.cjs",

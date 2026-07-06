@@ -7,7 +7,7 @@ Task Diary に蓄積された学びを分析し、共通パターンを CLAUDE.m
 ### 1. Task Diary を読み込む
 
 現在のプロジェクトの当月 Task Diary を読み込む：
-`/Volumes/EXSSD/dev/github.com/0123takaokeita/vault/claude/task-diary/<project-name>-<YYYY-MM>.md`
+`/Users/takaokeita/vault/claude/task-diary/<project-name>-<YYYY-MM>.md`
 
 パターン分析のために過去月のファイル（同プロジェクトの `<project-name>-*.md`）も存在すれば合わせて読み込む。
 
