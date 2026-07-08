@@ -337,6 +337,12 @@ def main():
     # 🚀 fast モード（/fast が ON のときだけ表示）
     if d.get("fast_mode"):
         model_part += " " + color("1;33", "🚀FAST")
+    # 🪨 Bedrock 経由のときはバッジを表示。stdin JSON にプロバイダ情報が無いため
+    # CLAUDE_CODE_USE_BEDROCK 環境変数（statusline プロセスにも継承される）で判定する。
+    if os.environ.get("CLAUDE_CODE_USE_BEDROCK"):
+        region = os.environ.get("AWS_REGION") or os.environ.get("AWS_DEFAULT_REGION")
+        badge = "🪨 Bedrock" + (f" {region}" if region else "")
+        model_part += " " + color("33", badge)
     title_parts.append(model_part)
 
     # ⏱️ セッション経過時間（ウォールクロック）
