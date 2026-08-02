@@ -33,6 +33,10 @@ return {
 	-- You can disable default plugins as follows:
 	{ "max397574/better-escape.nvim", enabled = false },
 
+	-- nvim 0.12 で削除された iter_matches({all=false}) を v2.7.0 が使っておりクラッシュする。
+	-- 修正 (f93dcee) が未リリースのため master 追従にする。2.7.0 より新しいリリースが出たら削除してよい。
+	{ "stevearc/aerial.nvim", version = false },
+
 	-- You can also easily customize additional setup of plugins that is outside of the plugin's setup call
 	{
 		"L3MON4D3/LuaSnip",
@@ -41,6 +45,51 @@ return {
 			-- add more custom luasnip configuration such as filetype extend or custom snippets
 			local luasnip = require("luasnip")
 			luasnip.filetype_extend("javascript", { "javascriptreact" })
+		end,
+	},
+
+	-- nvim-treesitter の master ブランチは Neovim 0.12 と非互換(メンテナー確認済み、
+	-- https://github.com/nvim-treesitter/nvim-treesitter/issues/8618)。
+	-- 0.12 で `add_directive`/`add_predicate` の `all` オプションが削除され、
+	-- キャプチャが常に TSNode[] で渡されるようになったが、master 側の
+	-- query_predicates.lua は単一 TSNode を前提にしたままで、markdown の
+	-- フェンスコードブロック言語検出(set-lang-from-info-string!)が
+	-- `node:range()` で毎回クラッシュする。
+	-- AstroNvim 本体は main ブランチ移行(v6)で解決済みだが、それは v4 からの
+	-- メジャーアップグレードを要するため、該当ディレクティブだけ配列アンラップ
+	-- 対応版で force 再登録して被害を抑える。
+	{
+		"nvim-treesitter/nvim-treesitter",
+		config = function(plugin, opts)
+			require("astronvim.plugins.configs.nvim-treesitter")(plugin, opts)
+
+			local query = require("vim.treesitter.query")
+
+			-- query_predicates.lua の非公開テーブル/関数を複製(該当箇所のみ)
+			local non_filetype_match_injection_language_aliases = {
+				ex = "elixir",
+				pl = "perl",
+				sh = "bash",
+				uxn = "uxntal",
+				ts = "typescript",
+			}
+			local function get_parser_from_markdown_info_string(injection_alias)
+				local match = vim.filetype.match({ filename = "a." .. injection_alias })
+				return match or non_filetype_match_injection_language_aliases[injection_alias] or injection_alias
+			end
+
+			query.add_directive("set-lang-from-info-string!", function(match, _, bufnr, pred, metadata)
+				local capture_id = pred[2]
+				local node = match[capture_id]
+				if type(node) == "table" then
+					node = node[1] -- nvim 0.12: captures are always TSNode[]
+				end
+				if not node then
+					return
+				end
+				local injection_alias = vim.treesitter.get_node_text(node, bufnr):lower()
+				metadata["injection.language"] = get_parser_from_markdown_info_string(injection_alias)
+			end, { force = true })
 		end,
 	},
 
