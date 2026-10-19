@@ -12,7 +12,7 @@
   pager = LESSCHARSET=utf-8 less ; git logなどで日本語が文字化けしないようにする
   quotepath = false ; git statusなどで日本語が文字化けしないようにする
   editor = nvim ; git commitなどでnvimを使用する
-  fsmonitor = true ; ファイル監視でgit statusを高速化する
+  fsmonitor = false ; ファイル監視デーモンは無効化
   untrackedCache = true ; 未追跡ファイルのキャッシュで大きいリポジトリのgit statusを高速化する
 [grep]
   lineNumber = true ; grep時に行番号を表示する
