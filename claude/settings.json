@@ -1,10 +1,58 @@
 {
   "permissions": {
+    "allow": [
+      "Bash(ls:*)",
+      "Bash(cat:*)",
+      "Bash(head:*)",
+      "Bash(tail:*)",
+      "Bash(wc:*)",
+      "Bash(file:*)",
+      "Bash(stat:*)",
+      "Bash(tree:*)",
+      "Bash(grep:*)",
+      "Bash(rg:*)",
+      "Bash(fd:*)",
+      "Bash(find:*)",
+      "Bash(sort:*)",
+      "Bash(uniq:*)",
+      "Bash(cut:*)",
+      "Bash(diff:*)",
+      "Bash(jq:*)",
+      "Bash(awk:*)",
+      "Bash(echo:*)",
+      "Bash(printf:*)",
+      "Bash(pwd:*)",
+      "Bash(date:*)",
+      "Bash(which:*)",
+      "Bash(basename:*)",
+      "Bash(dirname:*)",
+      "Bash(ps:*)",
+      "Bash(lsof:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git show:*)",
+      "Bash(git branch:*)",
+      "Bash(git remote:*)",
+      "Bash(git blame:*)",
+      "Bash(git ls-files:*)",
+      "Bash(git stash list:*)",
+      "Bash(gh pr view:*)",
+      "Bash(gh pr list:*)",
+      "Bash(gh pr diff:*)",
+      "Bash(gh pr checks:*)",
+      "Bash(gh run list:*)",
+      "Bash(gh run view:*)",
+      "Bash(gh issue view:*)",
+      "Bash(gh issue list:*)",
+      "Bash(gh api:*)"
+    ],
+    "defaultMode": "auto",
     "additionalDirectories": [
       "/Users/takaokeita/vault"
     ]
   },
-  "model": "sonnet",
+  "model": "fable",
   "hooks": {
     "PermissionRequest": [
       {
@@ -13,16 +61,6 @@
           {
             "type": "command",
             "command": "~/.claude/hooks/permission-notify.sh"
-          }
-        ]
-      }
-    ],
-    "PreCompact": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "python3 ~/.claude/scripts/save-transcript.py"
           }
         ]
       }
@@ -38,12 +76,12 @@
         ]
       }
     ],
-    "Stop": [
+    "PreCompact": [
       {
         "hooks": [
           {
             "type": "command",
-            "command": "terminal-notifier -title 'Claude Code' -message '処理が終わったで' -activate 'com.github.wez.wezterm'"
+            "command": "python3 ~/.claude/scripts/save-transcript.py"
           }
         ]
       }
@@ -58,6 +96,18 @@
           }
         ]
       }
+    ],
+    "SessionStart": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash '/Users/takaokeita/.claude/hooks/herdr-agent-state.sh' session",
+            "timeout": 10
+          }
+        ]
+      }
     ]
   },
   "statusLine": {
@@ -66,8 +116,10 @@
     "padding": 0
   },
   "enabledPlugins": {
+    "datadog@claude-plugins-official": true,
+    "figma@claude-plugins-official": true,
     "obsidian@obsidian-skills": true,
-    "datadog@claude-plugins-official": true
+    "swift-lsp@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
     "obsidian-skills": {
@@ -79,6 +131,12 @@
   },
   "language": "ja",
   "effortLevel": "xhigh",
+  "modelSettings": {
+    "claude-fable-5-1": {
+      "effortLevel": "high"
+    }
+  },
+  "advisorModel": "fable",
   "tui": "fullscreen",
   "voice": {
     "enabled": true,
@@ -86,5 +144,6 @@
   },
   "skipWorkflowUsageWarning": true,
   "autoCompactEnabled": false,
+  "agentPushNotifEnabled": true,
   "voiceEnabled": true
 }
