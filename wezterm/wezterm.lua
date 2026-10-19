@@ -69,15 +69,9 @@ end)
 -- 1番目が見つからない/該当グリフが無い場合に日本語フォント等で補完する。
 config.font = wezterm.font_with_fallback({
 	"JetBrains Mono",
-	"UDEV Gothic 35NF",
-	"Monaco",
-	"Cica",
 	"HackGen35Nerd Console",
-	"Guguru Sans Code Console 35NF",
-	"HackGen35",
-	"Fira Mono for Powerline",
 })
-config.font_size = 16
+config.font_size = 14
 -- フォントサイズ変更時にウィンドウサイズも追従させる
 config.adjust_window_size_when_changing_font_size = true
 
