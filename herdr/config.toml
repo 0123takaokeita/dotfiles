@@ -10,13 +10,20 @@ auto_switch = false
 # focus_pane_left/down/up/right (prefix+h/j/k/l) もデフォルトのまま tmux の
 # `bind h/j/k/l select-pane` と一致するので指定不要。
 
-# tmux `bind - split-window -v` (上下分割) と一致させる。デフォルトのままだが明示しておく。
-split_horizontal = "prefix+minus"
+# tmux `bind ' split-window -v` (上下分割) に合わせる。herdr デフォルトは prefix+minus。
+split_horizontal = "prefix+'"
 
-# tmux `bind \ split-window -h` (左右分割) に合わせる。herdr デフォルトは prefix+v。
-split_vertical = 'prefix+\'
+# tmux `bind \" split-window -h` (左右分割) に合わせる。herdr デフォルトは prefix+v。
+split_vertical = 'prefix+"'
 
 # tmux `bind -r C-h/C-l select-window` (ウィンドウ = tab 切り替え) に合わせる。
 # herdr デフォルトの prefix+p/prefix+n は上書きされ無効になる。
 previous_tab = "prefix+ctrl+h"
 next_tab = "prefix+ctrl+l"
+
+# workspace 切り替え。herdr デフォルトでは未設定 (picker の prefix+w のみ)。
+# tmux 側に session 切り替えのカスタマイズはないので対応するバインドはなく、
+# tab 切り替え (prefix+ctrl+h/l) と対にするため vim 風の上下移動 j/k を割り当てる。
+# サイドバーは縦並びなので k = 上 = previous、j = 下 = next。
+previous_workspace = "prefix+ctrl+k"
+next_workspace = "prefix+ctrl+j"

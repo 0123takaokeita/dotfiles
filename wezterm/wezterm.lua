@@ -151,6 +151,8 @@ config.hyperlink_rules = wezterm.default_hyperlink_rules()
 -- =============================================================
 -- leader = { ... } を使えばプレフィックスキー方式も可能（今は未使用）。
 config.keys = {
+	-- tmux の prefix（C-b）を Cmd+b で送信。Ctrl 系ショートカット（C-a C-k 等）を潰さないための方式
+	{ key = "b", mods = "CMD", action = ac.SendKey({ key = "b", mods = "CTRL" }) },
 	-- pane 分割
 	{ key = "d", mods = "CMD", action = ac.SplitHorizontal({ domain = "CurrentPaneDomain" }) }, -- 左右分割
 	{ key = "d", mods = "CMD|SHIFT", action = ac.SplitVertical({ domain = "CurrentPaneDomain" }) }, -- 上下分割
