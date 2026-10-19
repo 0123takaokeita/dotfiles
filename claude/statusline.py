@@ -16,9 +16,33 @@ USAGE_CACHE = "/tmp/claude-statusline-usage.json"
 USAGE_CACHE_AGE = 180  # 秒
 USAGE_API = "https://api.anthropic.com/api/oauth/usage"
 
+# セッション名（他セッションが宛先に使う peer 名）のレジストリ。stdin JSON には含まれない。
+SESSIONS_DIR = os.path.expanduser("~/.claude/sessions")
+
 
 def color(code, s):
     return f"\033[{code}m{s}\033[0m"
+
+
+def get_session_name(session_id):
+    """peer 名（flyle-nexus-97 等）を sessions レジストリから引く。PID 名のファイルを sessionId で突き合わせる。"""
+    if not session_id:
+        return None
+    try:
+        entries = os.listdir(SESSIONS_DIR)
+    except Exception:
+        return None
+    for fn in entries:
+        if not fn.endswith(".json"):
+            continue
+        try:
+            with open(os.path.join(SESSIONS_DIR, fn)) as f:
+                o = json.load(f)
+        except Exception:
+            continue  # 書き込み途中の壊れた JSON は無視して次へ
+        if o.get("sessionId") == session_id:
+            return o.get("name")
+    return None
 
 
 def _read_token():
@@ -300,62 +324,31 @@ def main():
     except Exception:
         pass
 
-    # 3 行構成 = 3 カテゴリ: ① セッション基本情報（名前/モデル/経過時間）
-    # ② 今の状況（ディレクトリ/git/直近アクティビティ） ③ リソース（コンテキスト/プラン残量）
+    # 3 行構成 = 3 カテゴリ: ① どのセッションか（ディレクトリ/peer 名/タイトル）
+    # ② git ③ その他（モデル/経過時間/直近アクティビティ/リソース）
     # 端末幅で末尾（残量ゲージ）が切れないよう、各部品をコンパクトに保つ。
-    title_parts = []
-    parts = []
+    line1 = []
+    line2 = []
+    line3 = []
 
-    # ── 1 行目: セッション基本情報（名前 → モデル → 経過時間） ──────────
+    # ── 1 行目: どのセッションか（ディレクトリ → peer 名 → タイトル） ──────
+    # 📁 カレントディレクトリ（basename）
+    cur = (d.get("workspace") or {}).get("current_dir") or os.getcwd()
+    line1.append("📁 " + color("1;34", os.path.basename(cur.rstrip("/")) or "/"))  # bold blue
+
+    # 🆔 peer 名（他セッションが SendMessage の宛先に使う識別子）。session_name とは別物なので併記する
+    peer = get_session_name(d.get("session_id"))
+    if peer:
+        line1.append("🆔 " + color("1;32", peer))  # bold green
+
     # 🏷️ セッション名（環境変数で手動命名があれば優先、無ければ Claude Code 自動命名）
     name = os.environ.get("CLAUDE_SESSION_NAME") or d.get("session_name")
     if name:
         # if len(name) > 20:
         #     name = name[:19] + "…"  # 長い自動命名で行が溢れないよう切り詰め
-        title_parts.append("🏷️ " + color("1;35", name))  # bold magenta
+        line1.append("🏷️ " + color("1;35", name))  # bold magenta
 
-    # ✳️ モデル名（＋ ⚡ effort をすぐ横に）。✳️ は Anthropic のアスタリスク型ブランドマークに近い見た目
-    model = (d.get("model") or {}).get("display_name") or (d.get("model") or {}).get("id") or "?"
-    mkey = (model + " " + ((d.get("model") or {}).get("id") or "")).lower()
-    # モデル系統でアイコンを出し分け（Claude のマスコット絵文字は Unicode に無いため ✳️ で代用）
-    if "opus" in mkey:
-        micon = "👑"   # 最上位
-    elif "sonnet" in mkey:
-        micon = "🚀"   # 中位
-    elif "haiku" in mkey:
-        micon = "⚡️"   # 軽量
-    elif "fable" in mkey:
-        micon = "🧚"
-    else:
-        micon = "✳️"
-    model_part = micon + " " + color("1;36", model)  # bold cyan
-    eff = get_effort(d)
-    if eff:
-        # effort で色変化: low グレー / medium シアン / high 黄 / xhigh・max 赤
-        ec = {"low": "90", "medium": "36", "high": "33", "xhigh": "31", "max": "1;31"}.get(eff.lower(), "33")
-        model_part += " " + color(ec, "⚡" + eff)
-    # 🚀 fast モード（/fast が ON のときだけ表示）
-    if d.get("fast_mode"):
-        model_part += " " + color("1;33", "🚀FAST")
-    # 🪨 Bedrock 経由のときはバッジを表示。stdin JSON にプロバイダ情報が無いため
-    # CLAUDE_CODE_USE_BEDROCK 環境変数（statusline プロセスにも継承される）で判定する。
-    if os.environ.get("CLAUDE_CODE_USE_BEDROCK"):
-        region = os.environ.get("AWS_REGION") or os.environ.get("AWS_DEFAULT_REGION")
-        badge = "🪨 Bedrock" + (f" {region}" if region else "")
-        model_part += " " + color("33", badge)
-    title_parts.append(model_part)
-
-    # ⏱️ セッション経過時間（ウォールクロック）
-    duration_ms = (d.get("cost") or {}).get("total_duration_ms")
-    if duration_ms:
-        title_parts.append("⏱️ " + color("36", format_duration(duration_ms)))
-
-    # ── 2 行目: 今の状況（環境 → 直近アクティビティ） ──────────────────
-    # 📁 カレントディレクトリ（basename）
-    cur = (d.get("workspace") or {}).get("current_dir") or os.getcwd()
-    parts.append("📁 " + color("1;34", os.path.basename(cur.rstrip("/")) or "/"))  # bold blue
-
-    # 🌿 Git ブランチ + 変更有無
+    # ── 2 行目: git（ブランチ + 変更有無 → 追加/削除行数 → ahead/behind） ──
     try:
         branch = subprocess.run(
             ["git", "-C", cur, "rev-parse", "--abbrev-ref", "HEAD"],
@@ -396,38 +389,66 @@ def main():
         if ab_bits:
             branch_part += " " + " ".join(ab_bits)
 
-        parts.append(" " + branch_part + mark)  # Nerd Font branch icon + magenta branch
+        line2.append(" " + branch_part + mark)  # Nerd Font branch icon + magenta branch
+
+    # ── 3 行目: その他（モデル → 経過時間 → 直近アクティビティ → リソース） ──
+    # ✳️ モデル名（＋ ⚡ effort をすぐ横に）。✳️ は Anthropic のアスタリスク型ブランドマークに近い見た目
+    model = (d.get("model") or {}).get("display_name") or (d.get("model") or {}).get("id") or "?"
+    mkey = (model + " " + ((d.get("model") or {}).get("id") or "")).lower()
+    # モデル系統でアイコンを出し分け（Claude のマスコット絵文字は Unicode に無いため ✳️ で代用）
+    if "opus" in mkey:
+        micon = "👑"   # 最上位
+    elif "sonnet" in mkey:
+        micon = "🚀"   # 中位
+    elif "haiku" in mkey:
+        micon = "⚡️"   # 軽量
+    elif "fable" in mkey:
+        micon = "🧚"
+    else:
+        micon = "✳️"
+    model_part = micon + " " + color("1;36", model)  # bold cyan
+    eff = get_effort(d)
+    if eff:
+        # effort で色変化: low グレー / medium シアン / high 黄 / xhigh・max 赤
+        ec = {"low": "90", "medium": "36", "high": "33", "xhigh": "31", "max": "1;31"}.get(eff.lower(), "33")
+        model_part += " " + color(ec, "⚡" + eff)
+    # 🚀 fast モード（/fast が ON のときだけ表示）
+    if d.get("fast_mode"):
+        model_part += " " + color("1;33", "🚀FAST")
+    # 🪨 Bedrock 経由のときはバッジを表示。stdin JSON にプロバイダ情報が無いため
+    # CLAUDE_CODE_USE_BEDROCK 環境変数（statusline プロセスにも継承される）で判定する。
+    if os.environ.get("CLAUDE_CODE_USE_BEDROCK"):
+        region = os.environ.get("AWS_REGION") or os.environ.get("AWS_DEFAULT_REGION")
+        badge = "🪨 Bedrock" + (f" {region}" if region else "")
+        model_part += " " + color("33", badge)
+    line3.append(model_part)
+
+    # ⏱️ セッション経過時間（ウォールクロック）
+    duration_ms = (d.get("cost") or {}).get("total_duration_ms")
+    if duration_ms:
+        line3.append("⏱️ " + color("36", format_duration(duration_ms)))
 
     # 🔧 直近に呼ばれたツール + 🟩🟨🟥🟦 セッション状態（今 Claude が何をしているかの目安）
     last_tool, state = get_transcript_state(d.get("transcript_path"))
     if last_tool:
         ticon = TOOL_ICONS.get(last_tool, "🔧")
-        parts.append(ticon + " " + color("90", last_tool))
+        line3.append(ticon + " " + color("90", last_tool))
     if state and state in STATE_INFO:
         sicon, slabel = STATE_INFO[state]
-        parts.append(sicon + " " + slabel)
-
-    # ── 3 行目: リソース（コンテキスト → プラン残量） ──────────────────
-    parts3 = []
+        line3.append(sicon + " " + slabel)
 
     # コンテキスト使用率（Cyber Bar のみ）。ラベルは絵文字ではなくテキストで統一。
     cw = d.get("context_window") or {}
     pct = cw.get("used_percentage")
     if pct is not None:
         # 使用率で色変化: <60 緑 / <85 黄 / それ以上 赤
-        parts3.append(color("1;37", "context") + " " + cyber_bar(pct, lo=60, hi=85, high_color="31"))
+        line3.append(color("1;37", "context") + " " + cyber_bar(pct, lo=60, hi=85, high_color="31"))
 
     # 5h / 週 / モデル別週 / 月（追加クレジット）のプラン残量ゲージ
-    parts3.extend(usage_parts(d))
+    line3.extend(usage_parts(d))
 
     sep = color("90", " · ")  # 薄グレーの中点で連結
-    lines = []
-    if title_parts:
-        lines.append(sep.join(title_parts))
-    if parts:
-        lines.append(sep.join(parts))
-    if parts3:
-        lines.append(sep.join(parts3))
+    lines = [sep.join(parts) for parts in (line1, line2, line3) if parts]
     print("\n".join(lines))
 
 
